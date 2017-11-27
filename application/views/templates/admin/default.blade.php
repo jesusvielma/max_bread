@@ -48,7 +48,7 @@
                     <a><i class="fa fa-users"></i> <span class="nav-label">Clientes</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="<?=site_url('administrador/cliente')?>">Ver</a></li>
-                        <li><a href="">Ingresar</a></li>
+                        <li><a href="{{ site_url('administrador/cliente/crear') }}">Ingresar</a></li>
                     </ul>
                 </li>
                 <li>

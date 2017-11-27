@@ -38,6 +38,14 @@ class Cliente extends CI_Controller {
 
 		$usuario->save();
 
+		$correo = [
+			'correo' => $usuario->correo,
+			'clave'  => 'secreto',
+			'url'	 => site_url('administrador/login'),
+			'nombre' => $this->input->post('nombre'),
+		];
+
+		$this->correo_ingreso($correo);
 
 		$data = [
 			'rut' => $this->input->post('rut'),
@@ -84,6 +92,33 @@ class Cliente extends CI_Controller {
 		$cliente->save();
 
 		redirect('administrador/cliente','refresh');
+	}
+
+	public function correo_ingreso($_data)
+	{
+		$this->load->library('email');
+
+		$config = array(
+		  'protocol' => 'smtp',
+		  'smtp_host' => '52.5.224.12',
+		  'smtp_port' => 2525,
+		  'smtp_user' => 'b925f466454dfe',
+		  'smtp_pass' => '2959353274233b',
+		  'crlf' => "\r\n",
+		  'newline' => "\r\n",
+		  'mailtype' => 'html'
+		);
+
+		$this->email->initialize($config);
+
+		$this->email->from('ventas@max-bread.cl', 'Ventas Max bread');
+		$this->email->to($_data['correo']);
+
+		$this->email->subject('Usuario creado');
+		$msg = $this->slice->view('admin.email.crear_usuario',$_data,true);
+		$this->email->message($msg);
+
+		$this->email->send();
 	}
 
 }

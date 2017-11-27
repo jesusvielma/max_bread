@@ -77,9 +77,9 @@
                     <div class="ibox-title">
                         <h2>Ingresar nuevo cliente</h2>
                         <div class="ibox-content">
-                            {!! form_open('administrador/cliente/guardar',array('id'=>'form')) !!}
+                            {{ form_open('administrador/cliente/guardar',array('id'=>'form')) }}
                                 @include('admin/cliente/form')
-                            {!! form_close() !!}
+                            {{ form_close() }}
                         </div>
                     </div>
                 </div>
