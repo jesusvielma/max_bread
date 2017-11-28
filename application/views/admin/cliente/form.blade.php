@@ -6,10 +6,10 @@
     <label for="">Tipo de cliente</label>
     <br>
     <div class="radio-inline i-checks">
-        <label > <input type="radio" value="natural" name="tipo" required id="natural" {{ isset($cliente->tipo) && $cliente->tipo == 'natural' ? 'checked':''}}> <i></i> Persona Natural</label>
+        <label > <input type="radio" value="natural" name="tipo" required id="natural" {{ isset($cliente->tipo) && $cliente->tipo == 'natural' ? 'checked': set_radio('tipo','natural')}}> <i></i> Persona Natural</label>
     </div>
     <div class="radio-inline i-checks">
-        <label > <input type="radio" value="empresa" name="tipo" id="empresa" required {{ isset($cliente->tipo) && $cliente->tipo == 'empresa' ? 'checked':''}}> <i></i> Empresa </label>
+        <label > <input type="radio" value="empresa" name="tipo" id="empresa" required {{ isset($cliente->tipo) && $cliente->tipo == 'empresa' ? 'checked': set_radio('tipo','empresa')}}> <i></i> Empresa </label>
     </div>
 </div>
 <div class="form-group">
@@ -31,7 +31,7 @@
 <div id="form_hide" style="display:none">
     <div class="form-group">
         <label for="">Nombre fantasia</label>
-        <input type="text" name="fantasia" class="form-control" id="fantasia" disabled value="{{ set_value('nombre_fantasia')!='' ? set_value('nombre_fantasia') : (isset($cliente) && $cliente->tipo == 'empresa' ? $cliente->nombre_fantasia : '') }}">
+        <input type="text" name="fantasia" class="form-control" id="fantasia" disabled value="{{ set_value('fantasia')!='' ? set_value('fantasia') : (isset($cliente) && $cliente->tipo == 'empresa' ? $cliente->nombre_fantasia : '') }}">
     </div>
     <div class="form-group">
         <label for="">Persona Responsable</label>

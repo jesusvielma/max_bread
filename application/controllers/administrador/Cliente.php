@@ -31,39 +31,49 @@ class Cliente extends CI_Controller {
 	 */
 	public function guardar()
 	{
-		$usuario = new Usuario;
 
-		$usuario->correo = $this->input->post('correo');
-		$usuario->clave = md5('secreto');
+		$this->form_validation->set_rules('correo', 'Correo', 'required|valid_email|is_unique[cliente.correo]|is_unique[usuario.correo]');
+		$this->form_validation->set_rules('rut','RUT','required|callback_check_rut');
 
-		$usuario->save();
+		if($this->form_validation->run()=== FALSE){
+			$this->crear();
+		}
+		else
+		{
+			$usuario = new Usuario;
 
-		$correo = [
-			'correo' => $usuario->correo,
-			'clave'  => 'secreto',
-			'url'	 => site_url('administrador/login'),
-			'nombre' => $this->input->post('nombre'),
-		];
+			$usuario->correo = $this->input->post('correo');
+			$usuario->clave = md5('secreto');
 
-		$this->correo_ingreso($correo);
+			$usuario->save();
 
-		$data = [
-			'rut' => $this->input->post('rut'),
-			'nombre' => $this->input->post('nombre'),
-			'tipo' => $this->input->post('tipo'),
-			'direccion' => $this->input->post('direccion'),
-			'telefono' => $this->input->post('telefono'),
-			'correo' => $this->input->post('correo'),
-			'nombre_fantasia' => $this->input->post('nombre_fantasia'),
-			'responsable' => $this->input->post('responsable'),
-			'avatar' => NULL,
-			'id_usuario' => $usuario->id_usuario
-		];
+			$correo = [
+				'correo' => $usuario->correo,
+				'clave'  => 'secreto',
+				'url'	 => site_url('administrador/login'),
+				'nombre' => $this->input->post('nombre'),
+			];
+
+			//$this->correo_ingreso($correo);
+
+			$data = [
+				'rut' => $this->formatoRUTbd($this->input->post('rut')),
+				'nombre' => $this->input->post('nombre'),
+				'tipo' => $this->input->post('tipo'),
+				'direccion' => $this->input->post('direccion'),
+				'telefono' => $this->input->post('telefono'),
+				'correo' => $this->input->post('correo'),
+				'nombre_fantasia' => $this->input->post('fantasia'),
+				'responsable' => $this->input->post('responsable'),
+				'avatar' => NULL,
+				'id_usuario' => $usuario->id_usuario
+			];
 
 
-		Clientes::create($data);
+			Clientes::create($data);
 
-		redirect('administrador/cliente','refresh');
+			redirect('administrador/cliente','refresh');
+		}
 
 	}
 
@@ -94,31 +104,49 @@ class Cliente extends CI_Controller {
 		redirect('administrador/cliente','refresh');
 	}
 
-	public function correo_ingreso($_data)
+	// public function correo_ingreso($_data)
+	// {
+	// 	$this->load->library('email');
+	//
+	// 	$config = array(
+	// 	  'protocol' => 'smtp',
+	// 	  'smtp_host' => '52.5.224.12',
+	// 	  'smtp_port' => 2525,
+	// 	  'smtp_user' => 'b925f466454dfe',
+	// 	  'smtp_pass' => '2959353274233b',
+	// 	  'crlf' => "\r\n",
+	// 	  'newline' => "\r\n",
+	// 	  'mailtype' => 'html'
+	// 	);
+	//
+	// 	$this->email->initialize($config);
+	//
+	// 	$this->email->from('ventas@max-bread.cl', 'Ventas Max bread');
+	// 	$this->email->to($_data['correo']);
+	//
+	// 	$this->email->subject('Usuario creado');
+	// 	$msg = $this->slice->view('admin.email.crear_usuario',$_data,true);
+	// 	$this->email->message($msg);
+	//
+	// 	$this->email->send();
+	// }
+
+	private function formatoRUTbd($rut)
 	{
-		$this->load->library('email');
+		return strtoupper(str_replace(['.','-'],'',$rut));
+	}
 
-		$config = array(
-		  'protocol' => 'smtp',
-		  'smtp_host' => '52.5.224.12',
-		  'smtp_port' => 2525,
-		  'smtp_user' => 'b925f466454dfe',
-		  'smtp_pass' => '2959353274233b',
-		  'crlf' => "\r\n",
-		  'newline' => "\r\n",
-		  'mailtype' => 'html'
-		);
+	public function check_rut($rut)
+	{
+		$rut = $this->formatoRUTbd($rut);
 
-		$this->email->initialize($config);
-
-		$this->email->from('ventas@max-bread.cl', 'Ventas Max bread');
-		$this->email->to($_data['correo']);
-
-		$this->email->subject('Usuario creado');
-		$msg = $this->slice->view('admin.email.crear_usuario',$_data,true);
-		$this->email->message($msg);
-
-		$this->email->send();
+		if (Clientes::find($rut)) {
+			 $this->form_validation->set_message('check_rut', 'El campo {field} ya existe en la base de datos.');
+			 return FALSE;
+		}
+		else{
+			return true;
+		}
 	}
 
 }

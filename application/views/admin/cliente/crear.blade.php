@@ -77,6 +77,7 @@
                     <div class="ibox-title">
                         <h2>Ingresar nuevo cliente</h2>
                         <div class="ibox-content">
+                            {{ validation_errors() }}
                             {{ form_open('administrador/cliente/guardar',array('id'=>'form')) }}
                                 @include('admin/cliente/form')
                             {{ form_close() }}
