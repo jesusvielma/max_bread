@@ -51,6 +51,9 @@
                         <li><a href="{{ site_url('administrador/cliente/crear') }}">Ingresar</a></li>
                     </ul>
                 </li>
+                <li class="{{ $this->uri->segment(2) == 'empresa' ? 'active' : '' }}">
+                    <a href="{{ site_url('administrador/empresa') }}"><i class="fa fa-diamond"></i> <span class="nav-label">Empresa</span></a>
+                </li>
                 <li>
                     <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
                 </li>

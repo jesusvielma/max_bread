@@ -219,11 +219,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-heading">About us</h3>
+                    <h3 class="section-heading">Sobre Nosotros</h3>
                 </div>
                 <div class="col-md-7 overflow-hidden wow fadeInLeft">
                     <h4>Best furniture ever!</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    @foreach ($abouts as $about)
+                        <p>
+                            {{ $about->descripcion }}
+                        </p>
+                    @endforeach
                 </div>
                 <div class="col-md-4 col-md-push-1 wow fadeInRight">
                     <h4>Our mission</h4>
@@ -353,9 +357,16 @@
                 <div class="col-md-3">
                     <div class="contact-data">
                         <ul>
-                            <li><span class="ti-mobile icon"></span>+ 49 123 456 789</li>
-                            <li><span class="ti-email icon"></span><a href="http://thymetheme.pl/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a7cac6cecbe7c2dfc6cacbc289c4c8ca">[email&#160;protected]</a></li>
-                            <li><span class="ti-skype icon"></span>@interio</li>
+                            @foreach ($telefs as $telef)
+                                @php
+                                    $telefb = json_decode($telef->descripcion);
+                                @endphp
+                                <li><span class="ti-mobile icon"></span>{{ $telefb->{'tipo_telef'}.' '.$telefb->{'telefono'} }}</li>
+                            @endforeach
+                            @foreach ($mails as $mail)
+                                <li><span class="ti-email icon"></span>{{ $mail->descripcion }}</li>
+                            @endforeach
+                            {{-- <li><span class="ti-skype icon"></span>@interio</li> --}}
                         </ul>
                     </div>
                 </div>
