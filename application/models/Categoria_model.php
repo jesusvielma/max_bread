@@ -11,4 +11,9 @@ class Categoria_model extends Eloquent {
 
     public $timestamps = FALSE;
 
+    public function productos()
+    {
+        return $this->hasMany('Producto_model','categoria','id_categoria');
+    }
+
 }

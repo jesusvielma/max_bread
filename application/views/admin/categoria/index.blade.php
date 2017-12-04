@@ -53,7 +53,8 @@
                                 <table class="table table-striped table-bordered table-hover dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th style="width:60%">Nombre</th>
+                                            <th style="width:55%">Nombre</th>
+                                            <th>Cantidad de Productos</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -61,6 +62,7 @@
                                         <?php foreach ($cats as $cat): ?>
                                             <tr>
                                                 <td >{{ $cat->nombre }}</td>
+                                                <td> {{ $cat->productos->count() }}</td>
                                                 <td>
                                                     <div class="tooltip-demo btn-group">
                                                         <a href="{{ site_url('administrador/categoria/editar/'.$cat->id_categoria) }}" class="btn btn-primary btn-sm"><i class="fa fa-pencil" data-toggle="tooltip" data-placament="top" title="Editar la información de {{ $cat->nombre }}"></i></a>

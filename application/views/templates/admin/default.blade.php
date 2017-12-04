@@ -54,10 +54,10 @@
                 <li class="{{ $this->uri->segment(2) == 'empresa' ? 'active' : '' }}">
                     <a href="{{ site_url('administrador/empresa') }}"><i class="fa fa-diamond"></i> <span class="nav-label">Empresa</span></a>
                 </li>
-                <li class="{{ $this->uri->segment(2) == 'categoria' || $this->uri->segment(2) == 'prodcuto'  ? 'active' : '' }}">
+                <li class="{{ $this->uri->segment(2) == 'categoria' || $this->uri->segment(2) == 'producto'  ? 'active' : '' }}">
                     <a ><i class="fa fa-shopping-cart"></i> <span class="nav-label">Productos</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="">Productos</a></li>
+                        <li><a href="{{ site_url('administrador/producto') }}">Productos</a></li>
                         <li><a href="{{ site_url('administrador/categoria') }}">Categorias</a></li>
                     </ul>
                 </li>
