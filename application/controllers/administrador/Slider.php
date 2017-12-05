@@ -54,18 +54,21 @@ class Slider extends CI_Controller {
 
 	public function editar($cat)
 	{
-		$data['cat'] = Categoria_model::find($cat);
-		$this->slice->view('admin.categoria.editar',$data);
+		$data['slider'] = Slider_model::find($cat);
+		$this->slice->view('admin.slider.editar',$data);
 	}
 
-	public function post_editar($cat)
+	public function post_editar($slider)
 	{
-		$cat = Categoria_model::find($cat);
+		$slider = Slider_model::find($slider);
 
-		$cat->nombre = $this->input->post('nombre');
-		$cat->save();
+		$slider->url = $this->input->post('imagen');
+		$slider->texto_imagen = $this->input->post('texto_imagen');
+		$slider->texto_boton = $this->input->post('texto_boton');
 
-		redirect('administrador/categoria','refresh');
+		$slider->save();
+
+		redirect('administrador/slider','refresh');
 	}
 
 

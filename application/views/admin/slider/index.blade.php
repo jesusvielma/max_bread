@@ -54,7 +54,7 @@
             <div class="col-lg-6">
                 <div class="ibox collapsed">
                     <div class="ibox-title">
-                        <h5>Descatado 1 {{ $slider1 ? '' : 'nada'}}</h5>
+                        <h5>Descatado 1 {{ $slider1 ? '' : '<small>Sin configurar</small>'}}</h5>
                         <div class="ibox-tools">
                             @if (!$slider1)
                                 <a href="{{ site_url('administrador/slider/crear/1') }}"><i class="fa fa-plus"></i></a>
@@ -62,6 +62,7 @@
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
+                                <a href="{{ site_url('administrador/slider/editar/'.$slider1->id_imagen) }}"><i class="fa fa-pencil"></i></a>
                             @endif
                         </div>
                     </div>
@@ -77,7 +78,7 @@
             <div class="col-lg-6">
                 <div class="ibox collapsed">
                     <div class="ibox-title">
-                        <h5>Descatado 2 {{ $slider2 ? '' : 'nada'}}</h5>
+                        <h5>Descatado 2 {{ $slider2 ? '' : '<small>Sin configurar</small>'}}</h5>
                         <div class="ibox-tools">
                             @if (!$slider2)
                                 <a href="{{ site_url('administrador/slider/crear/2') }}"><i class="fa fa-plus"></i></a>
@@ -85,6 +86,7 @@
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
+                                <a href="{{ site_url('administrador/slider/editar/'.$slider2->id_imagen) }}"><i class="fa fa-pencil"></i></a>
                             @endif
                         </div>
                     </div>
@@ -102,7 +104,7 @@
             <div class="col-lg-6">
                 <div class="ibox collapsed">
                     <div class="ibox-title">
-                        <h5>Descatado 3 {{ $slider3 ? '' : 'nada'}}</h5>
+                        <h5>Descatado 3 {{ $slider3 ? '' : '<small>Sin configurar</small>'}}</h5>
                         <div class="ibox-tools">
                             @if (!$slider3)
                                 <a href="{{ site_url('administrador/slider/crear/3') }}"><i class="fa fa-plus"></i></a>
@@ -110,6 +112,7 @@
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
+                                <a href="{{ site_url('administrador/slider/editar/'.$slider3->id_imagen) }}"><i class="fa fa-pencil"></i></a>
                             @endif
                         </div>
                     </div>
@@ -127,7 +130,7 @@
             <div class="col-lg-6">
                 <div class="ibox collapsed">
                     <div class="ibox-title">
-                        <h5>Descatado 4 {{ $slider4 ? '' : 'nada'}}</h5>
+                        <h5>Descatado 4 {{ $slider4 ? '' : '<small>Sin configurar</small>'}}</h5>
                         <div class="ibox-tools">
                             @if (!$slider4)
                                 <a href="{{ site_url('administrador/slider/crear/4') }}"><i class="fa fa-plus"></i></a>
@@ -135,6 +138,7 @@
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
+                                <a href="{{ site_url('administrador/slider/editar/'.$slider4->id_imagen) }}"><i class="fa fa-pencil"></i></a>
                             @endif
                         </div>
                     </div>
