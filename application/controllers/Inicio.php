@@ -8,6 +8,7 @@ class Inicio extends CI_Controller {
 		$data['abouts'] = Empresa_model::where('tipo','sobre')->get();
 		$data['telefs'] = Empresa_model::where('tipo','telefono')->get();
 		$data['mails'] = Empresa_model::where('tipo','correo')->get();
+		$data['productos'] = Categoria_model::with('productos')->get();
 		$this->slice->view('front.index',$data);
 	}
 }
