@@ -1,29 +1,24 @@
 @extends('templates.front.default')
 @section('content')
-    <section class="home section image-slider" id="home">
-        <div class="home-slider text-center">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" style="background: url(assets/frontend/img/slider/slide1.jpg);">
-                    <!-- <img src="assets/frontend/img/logo-white.png" alt="store logo"> -->
-                    <h2 class="home-slider-title-main">with working cart & pay pal</h2>
-                    <div class="home-buttons text-center"> <a href="#products" class="btn btn-lg  btn-primary">our products</a> </div>
-                    <a class="arrow bounce text-center" href="#about"> <span class="ti-mouse"></span> <span class="ti-angle-double-down"></span> </a>
+    @if ($slider->count())
+        <section class="home section image-slider" id="home">
+            <div class="home-slider text-center">
+                <div class="swiper-wrapper">
+                    @foreach ($slider as $slide)
+                        <div class="swiper-slide" style="background: url({{ base_url('assets/common/uploads/'.$slide->url) }});">
+                            <!-- <img src="assets/frontend/img/logo-white.png" alt="store logo"> -->
+                            <h2 class="home-slider-title-main">{{ $slide->texto_imagen }}</h2>
+                            <div class="home-buttons text-center"> <a href="#products" class="btn btn-lg  btn-primary">{{ $slide->texto_boton }}</a> </div>
+                            <a class="arrow bounce text-center" href="#about"> <span class="ti-mouse"></span> <span class="ti-angle-double-down"></span> </a>
+                        </div>
+                    @endforeach
                 </div>
-
-                <div class="swiper-slide" style="background: url(assets/frontend/img/slider/slide2.jpg);">
-                    <!-- <img src="assets/frontend/img/logo-white.png" alt="store logo"> -->
-                    <h2 class="home-slider-title-main">with working cart & pay pal</h2>
-                    <div class="home-buttons text-center"> <a href="#products" class="btn btn-lg  btn-primary">our products</a> </div>
-                    <a class="arrow bounce text-center" href="#about"> <span class="ti-mouse"></span> <span class="ti-angle-double-down"></span> </a>
-                </div>
-                ndo
-
+                <div class="home-pagination"></div>
+                <div class="home-slider-next right-arrow-negative"> <span class="ti-arrow-right"></span> </div>
+                <div class="home-slider-prev left-arrow-negative"> <span class="ti-arrow-left"></span> </div>
             </div>
-            <div class="home-pagination"></div>
-            <div class="home-slider-next right-arrow-negative"> <span class="ti-arrow-right"></span> </div>
-            <div class="home-slider-prev left-arrow-negative"> <span class="ti-arrow-left"></span> </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     <span id="items-counter" class="h3 cart-items-counter" style="display: none">0</span>
     <div class="cart-widget-container">
@@ -31,34 +26,18 @@
     <a class="close" id="cart-widget-close">
     <span class="ti-close"></span>
     </a>
-    <img class="cart-logo" src="img/logo-black.png" width="200" alt="store logo">
-    <h3 class="section-heading">Your cart</h3>
-    <div id="cart-empty" class="cart-empty"><h4>is empty <span class="ti-face-sad icon"></span> </h4></div>
+    <img class="cart-logo" src="{{ base_url('assets/frontend/img/max_bread2.png') }}" width="200" alt="store logo">
+    <h3 class="section-heading">Su pedido</h3>
+    <div id="cart-empty" class="cart-empty"><h4>esta vacio. <span class="ti-face-sad icon"></span> </h4></div>
     <!-- container for js inject cart items content -->
     <div class="items-container" id="items"></div>
     <!-- container for js inject cart items content -->
 
     <div class="cart-delivery" id="cart-delivery">
-    <h4 class="section-heading">Delivery option</h4>
-        <div class="custom-radio">
-            <input id="radio1" type="radio" name="delivery" value="10.00" checked>
-            <label for="radio1">domestic delivery ($10)</label>
-        </div>
-
-        <div class="custom-radio">
-            <input id="radio2" type="radio" name="delivery" value="15.00">
-            <label for="radio2">express domestic delivery ($15) </label>
-        </div>
-
-        <div class="custom-radio">
-            <input id="radio3" type="radio" name="delivery" value="20.00">
-            <label for="radio3">worldwide delivery ($20)</label>
-        </div>
-    </div>
     <div class="cart-summary" id="cart-summary">
-    <h4 class="section-heading">summary</h4>
-        <div class="cart-summary-row" id="cart-total">Total products <span class="cart-value">$<span id="cost_value">0.00</span></span></div>
-        <div class="cart-summary-row">Shipping <span class="cart-value">$<span id="cost_delivery"></span></span></div>
+    <h4 class="section-heading">Resumen</h4>
+        <div class="cart-summary-row" id="cart-total">Total productos <span class="cart-value">$<span id="cost_value">0.00</span></span>CLP</div>
+        <div class="cart-summary-row">Shipping <span class="cart-value">$<span id="cost_delivery">0</span></span></div>
         <div class="cart-summary-row cart-summary-row-total">Total <span class="cart-value">$<span id="total-total"></span></span></div>
     </div>
 
@@ -187,7 +166,7 @@
                                                 <div class="col-md-8 col-md-push-2 product-description">
                                                     {{-- <h4 class="section-heading">Ut enim ad minim veniam</h4> --}}
                                                     {{ $producto->descripcion }}
-                                                    <!--<div class="row">
+                                                    <!--a<div class="row">
                                                         <div class="col-md-6"> <img src="assets/frontend/img/product.png" class="img-responsive" alt="product image"> </div>
                                                         <div class="col-md-6">
                                                             <h4 class="section-heading">Ut enim ad minim veniam</h4>
