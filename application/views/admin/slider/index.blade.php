@@ -35,17 +35,12 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2>Categorias</h2>
+            <h2>Destacados</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <strong>Categorias</strong>
+                    <strong>Destacados</strong>
                 </li>
             </ol>
-        </div>
-        <div class="col-sm-8">
-            <div class="title-action">
-                <a href="{{ site_url('administrador/categoria/crear') }}" class="btn btn-primary">Nueva</a>
-            </div>
         </div>
     </div>
 

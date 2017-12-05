@@ -73,11 +73,11 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2>Clientes</h2>
+            <h2>Destacados</h2>
             <ol class="breadcrumb">
                 <li><a href="{{ site_url('administrador/cliente') }}">Destacados</a></li>
                 <li class="active">
-                    <strong>Destacados</strong>
+                    <strong>Nuevo</strong>
                 </li>
             </ol>
         </div>

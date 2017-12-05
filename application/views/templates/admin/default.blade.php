@@ -61,6 +61,9 @@
                         <li><a href="{{ site_url('administrador/categoria') }}">Categorias</a></li>
                     </ul>
                 </li>
+                <li class="{{ $this->uri->segment(2) == 'slider' ? 'active' : '' }}">
+                    <a href="{{ site_url('administrador/slider') }}"><i class="fa fa-photo"></i> <span class="nav-label">Destacados</span></a>
+                </li>
                 <li>
                     <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
                 </li>

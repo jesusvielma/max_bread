@@ -1,6 +1,6 @@
 @extends('templates/admin/default')
 @section('title')
-    Editar al cliente {{ $cliente->nombre }}
+    Editar Slide {{ $this->uri->segment(4) }}
 @endsection
 @section('css')
     <link href="<?=base_url('assets/common/js/fancybox/dist/jquery.fancybox.css')?>" type="text/css" rel="stylesheet">
@@ -73,11 +73,11 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2>Clientes</h2>
+            <h2>Destacados</h2>
             <ol class="breadcrumb">
-                <li><a href="{{ site_url('administrador/cliente') }}">Clientes</a></li>
+                <li><a href="{{ site_url('administrador/slider') }}">Destacados</a></li>
                 <li class="active">
-                    <strong>Clientes</strong>
+                    <strong>Editar</strong>
                 </li>
             </ol>
         </div>
