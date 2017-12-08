@@ -7,7 +7,7 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<meta content="width=device-width" name="viewport">
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
-	<link href="<?=base_url('assets/frontend/img/favicon.png')?>" rel="icon" type="image/png">
+	<link rel="shortcut icon" href="{{ base_url('assets/common/img/favicon.ico') }}">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 	<link href="<?=base_url('assets/frontend/css/bootstrap-light.css')?>" rel="stylesheet">
 	<link id="pagestyle" href="<?=base_url('assets/frontend/css/theme-light.css')?>" rel="stylesheet">

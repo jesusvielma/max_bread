@@ -74,7 +74,7 @@
             <label>Primaria</label>
             <img src="{{ $p }}" alt="" id="foto_primaria" class="img-responsive img-thumbnail">
             <br>
-            <a data-src="{{ base_url('assets/common/js/filemanager-alone/dialog.php?type=1&field_id=primaria&fldr=productos/:PRODUCTO&lang=es&relative_url=1') }}" class="btn btn-primary btn-outline {{ $p == '' ? 'disabled' : ''}}" data-fancybox href="javascript:;"><i class="fa fa-upload"></i> Subir</a>
+            <a data-src="{{ base_url('assets/common/js/filemanager-alone/dialog.php?type=1&field_id=primaria&fldr=productos/:PRODUCTO&lang=es&relative_url=1') }}" class="btn btn-primary btn-outline {{ $p == '' ? 'disabled' : ''}}" data-fancybox data-type="iframe" href="javascript:;"><i class="fa fa-upload"></i> Subir</a>
             <input type="hidden" name="primaria" id="primaria" value="{{ $valueP }}">
         </div>
         <div class="col-lg-3">
