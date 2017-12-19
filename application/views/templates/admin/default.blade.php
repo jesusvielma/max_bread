@@ -42,7 +42,7 @@
                         </ul>
                     </div>
                     <div class="logo-element">
-                        MB-A
+                        MB A
                     </div>
                 </li>
                 <li class="{{ $this->uri->segment(2) == 'cliente' ? 'active' : ''}}">

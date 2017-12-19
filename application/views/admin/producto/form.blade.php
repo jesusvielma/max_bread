@@ -74,28 +74,28 @@
             <label>Primaria</label>
             <img src="{{ $p }}" alt="" id="foto_primaria" class="img-responsive img-thumbnail">
             <br>
-            <a data-src="{{ base_url('assets/common/js/filemanager-alone/dialog.php?type=1&field_id=primaria&fldr=productos/:PRODUCTO&lang=es&relative_url=1') }}" class="btn btn-primary btn-outline {{ $p == '' ? 'disabled' : ''}}" data-fancybox data-type="iframe" href="javascript:;"><i class="fa fa-upload"></i> Subir</a>
+            <a data-src="{{ site_url('upload/dir?campo=primaria&dir=productos/:PRODUCTO') }}" class="btn btn-primary btn-outline {{ $p == '' ? 'disabled' : ''}}" data-fancybox data-type="iframe" href="javascript:;"><i class="fa fa-upload"></i> Subir</a>
             <input type="hidden" name="primaria" id="primaria" value="{{ $valueP }}">
         </div>
         <div class="col-lg-3">
             <label>Secundaria</label>
             <img src="{{ $s }}" alt="" id="foto_secundaria" class="img-responsive img-thumbnail">
             <br>
-            <a data-src="{{ base_url('assets/common/js/filemanager-alone/dialog.php?type=1&field_id=secundaria&fldr=productos/:PRODUCTO&lang=es&relative_url=1') }}" class="btn btn-success btn-outline {{ $s == '' ? 'disabled' : ''}}" data-fancybox href="javascript:;"><i class="fa fa-upload"></i> Subir</a>
+            <a data-src="{{ site_url('upload/dir?dir=productos/:PRODUCTO&campo=secundaria') }}" class="btn btn-success btn-outline {{ $s == '' ? 'disabled' : ''}}" data-fancybox href="javascript:;"><i class="fa fa-upload"></i> Subir</a>
             <input type="hidden" name="secundaria" id="secundaria" value="{{ $valueS }}">
         </div>
         <div class="col-lg-3">
             <label>Tercera</label>
             <img src="{{ $t }}" alt="" id="foto_tres" class="img-responsive img-thumbnail">
             <br>
-            <a data-src="{{ base_url('assets/common/js/filemanager-alone/dialog.php?type=1&field_id=tres&fldr=productos/:PRODUCTO&lang=es&relative_url=1') }}" class="btn btn-default btn-outline {{ $t == '' ? 'disabled' : ''}}" data-fancybox href="javascript:;"><i class="fa fa-upload"></i> Subir</a>
+            <a data-src="{{ site_url('upload/dir?dir=productos/:PRODUCTO&campo=tres') }}" class="btn btn-default btn-outline {{ $t == '' ? 'disabled' : ''}}" data-fancybox href="javascript:;"><i class="fa fa-upload"></i> Subir</a>
             <input type="hidden" name="tres" id="tres" value="{{ $valueT }}">
         </div>
         <div class="col-lg-3">
             <label>Cuarta</label>
             <img src="{{ $c }}" alt="" id="foto_cuatro" class="img-responsive img-thumbnail">
             <br>
-            <a data-src="{{ base_url('assets/common/js/filemanager-alone/dialog.php?type=1&field_id=cuatro&fldr=productos/:PRODUCTO&lang=es&relative_url=1') }}" class="btn btn-default btn-outline {{ $c == '' ? 'disabled' : ''}}" data-fancybox href="javascript:;"><i class="fa fa-upload"></i> Subir</a>
+            <a data-src="{{ site_url('upload/dir?dir=productos/:PRODUCTO&campo=cuatro') }}" class="btn btn-default btn-outline {{ $c == '' ? 'disabled' : ''}}" data-fancybox href="javascript:;"><i class="fa fa-upload"></i> Subir</a>
             <input type="hidden" name="cuatro" id="cuatro" value="{{ $valueC }}">
         </div>
     </div>
