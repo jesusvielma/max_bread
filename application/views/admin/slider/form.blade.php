@@ -1,5 +1,5 @@
 <div class="form-group">
-    <a data-src="{{ base_url('assets/common/js/filemanager-alone/dialog.php?type=1&field_id=imagen&fldr=slider&lang=es&relative_url=1') }}" class="btn btn-primary btn-outline" data-fancybox href="javascript:;"><i class="fa fa-upload"></i> Selecionar o subir imagen</a>
+    <a data-src="{{ site_url('upload/dir?campo=imagen&dir=slider') }}" class="btn btn-primary btn-outline" data-fancybox href="javascript:;"><i class="fa fa-upload"></i> Selecionar o subir imagen</a>
     <input type="hidden" name="imagen" id="imagen" value="{{ isset($slider) ? $slider->url : '' }}">
 </div>
 <div class="form-group">

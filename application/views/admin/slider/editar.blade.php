@@ -59,12 +59,11 @@
             $.fancybox.close('all');
         }
 
-        function responsive_filemanager_callback(field_id){
-            var url=$('#'+field_id).val();
-            //$('#'+field_id).attr('src','<?=base_url('assets/common/thumbs/')?>'+url);
-            url = '<?=base_url('assets/common/uploads/')?>'+url;
+        function setImage(imagen,campo,dir) {
+            var url = dir+'/'+imagen;
+            $('#'+campo).val(url);
+            var url = '{{base_url('assets/common/uploads/')}}'+url;
             $('.swiper-slide').css('background',"url("+url+")")
-
             close_window();
         }
 
