@@ -106,11 +106,10 @@
             $.fancybox.close('all');
         }
 
-        function responsive_filemanager_callback(field_id){
-            var url=$('#'+field_id).val();
-            $('#foto_'+field_id).attr('src','<?=base_url('assets/common/thumbs/')?>'+url);
-
+        function setImage(imagen,campo,dir) {
             close_window();
+            $('#'+campo).val(dir+'/'+imagen);
+            $('#foto_'+campo).attr('src','{{base_url('assets/common/uploads/')}}'+dir+'/'+imagen);
         }
     </script>
 @endsection

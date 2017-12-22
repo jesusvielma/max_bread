@@ -99,7 +99,7 @@
 
         function setImage(imagen,campo,dir) {
             close_window();
-            $('#'+campo).val(imagen);
+            $('#'+campo).val(dir+'/'+imagen);
             $('#foto_'+campo).attr('src','{{base_url('assets/common/uploads/')}}'+dir+'/'+imagen);
         }
 

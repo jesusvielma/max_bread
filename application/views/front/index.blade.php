@@ -58,149 +58,126 @@
     </div>
     <div class="cart-widget-close-overlay"></div>
     </div>
-
-    <section class="section-min section product white-bg" id="products">
-        <div class="container overflow-hidden">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="section-heading">Products</h3>
+    @if ($productos->count()>0)
+        <section class="section-min section product white-bg" id="products">
+            <div class="container overflow-hidden">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="section-heading">Productos</h3>
+                    </div>
                 </div>
                 @foreach ($productos as $cat)
-                    <div class="col-md-12">
-                        <h4 class="section-heading">{{ $cat->nombre }}</h4>
-                    </div>
-                    @if ($cat->productos->count())
+                    <div class="row">
                         <div class="col-md-12">
-                            <div class="product-list-slider">
-                                <ul class="swiper-wrapper product-list product-list-vertical">
-                                    @foreach ($cat->productos as $producto)
-                                        <li class="swiper-slide wow fadeInUp text-center" data-wow-delay=".2s">
-                                            <span class="product-list-left pull-left">
-                                                @foreach ($producto->imagen as $imagen)
-                                                    @if ($imagen->puesto == 1)
-                                                        @php
-                                                        $img_prin = $imagen->url;
-                                                        @endphp
-                                                    @elseif ($imagen->puesto == 2)
-                                                        @php
-                                                        $img_seg = $imagen->url;
-                                                        @endphp
-                                                    @endif
-                                                @endforeach
+                            <h4 class="section-heading">{{ $cat->nombre }}</h4>
+                        </div>
+                        @if ($cat->productos->count() > 0 )
+                            <div class="col-md-12">
+                                <div class="product-list-slider">
+                                    <ul class="swiper-wrapper product-list product-list-vertical">
+                                        @foreach ($cat->productos as $producto)
+                                            <li class="swiper-slide wow fadeInUp text-center" data-wow-delay=".2s">
+                                                <span class="product-list-left pull-left">
+                                                    @foreach ($producto->imagen as $imagen)
+                                                        @if ($imagen->puesto == 1)
+                                                            @php
+                                                            $img_prin = $imagen->url;
+                                                            @endphp
+                                                        @elseif ($imagen->puesto == 2)
+                                                            @php
+                                                            $img_seg = $imagen->url;
+                                                            @endphp
+                                                        @endif
+                                                    @endforeach
+                                                    <a href="#" data-target="#product-{{ $producto->id_producto }}" data-toggle="modal">
+                                                        <img alt="" class="product-list-primary-img" src="{{ base_url('assets/common/uploads/'.$img_prin) }}">
+                                                        <img alt="" class="product-list-secondary-img" src="{{ base_url('assets/common/uploads/'.$img_seg) }}">
+                                                    </a>
+
+                                                </span>
+
                                                 <a href="#" data-target="#product-{{ $producto->id_producto }}" data-toggle="modal">
-                                                    <img alt="" class="product-list-primary-img" src="{{ base_url('assets/common/uploads/'.$img_prin) }}">
-                                                    <img alt="" class="product-list-secondary-img" src="{{ base_url('assets/common/uploads/'.$img_seg) }}">
+                                                    <span class="product-list-right pull-left">
+                                                        <span class="product-list-name h4 black-color">{{ $producto->nombre }}</span>
+                                                        <span class="product-list-price">${{ $producto->precio_por_menor }}CLP</span>
+                                                    </span>
                                                 </a>
 
-                                            </span>
+                                                <button class="btn btn-default add-item" type="button" data-image="{{ base_url('assets/common/uploads/'.$img_prin) }}" data-name="{{ $producto->nombre }}" data-cost="{{ $producto->precio_por_menor }}" data-id="1" >
+                                                    <span class="ti-shopping-cart"></span>Pedir
+                                                </button>
 
-                                            <a href="#" data-target="#product-{{ $producto->id_producto }}" data-toggle="modal">
-                                                <span class="product-list-right pull-left">
-                                                    <span class="product-list-name h4 black-color">{{ $producto->nombre }}</span>
-                                                    <span class="product-list-price">${{ $producto->precio_por_menor }}CLP</span>
-                                                </span>
-                                            </a>
-
-                                            <button class="btn btn-default add-item" type="button" data-image="{{ base_url('assets/common/uploads/'.$img_prin) }}" data-name="{{ $producto->nombre }}" data-cost="{{ $producto->precio_por_menor }}" data-id="1" >
-                                                <span class="ti-shopping-cart"></span>Pedir
-                                            </button>
-
-                                        </li>
-                                    @endforeach
-
-                                </ul>
-                                <!-- Add Pagination -->
-                                <div class="product-list-pagination text-center"> </div>
-                                <div class="product-list-slider-next right-arrow-negative"> <span class="ti-arrow-right"></span> </div>
-                                <div class="product-list-slider-prev left-arrow-negative"> <span class="ti-arrow-left"></span> </div>
-                            </div>
-                        </div>
-                    @endif
-                    <!-- PRODUCT MODAL -->
-                    <div class="modal fade product-modal" id="product-{{ $producto->id_producto }}" role="dialog" tabindex="-1">
-                        <div class="modal-dialog">
-                            <!-- Modal content-->
-                            <div class="modal-content shadow">
-                                <a class="close" data-dismiss="modal"> <span class="ti-close"></span></a>
-                                <div class="modal-body">
-                                    <!-- Wrapper for slides -->
-                                    <div class="carousel slide product-slide" id="product-carousel-{{ $producto->id_producto }}">
-                                        <div class="carousel-inner cont-slider">
-                                            @foreach ($producto->imagen as $imagen1)
-                                                <div class="item {{ $imagen1->puesto == 1 ? 'active' : '' }}"> <img alt="" src="{{ base_url('assets/common/uploads/'.$imagen1->url) }}" title=""> </div>
-                                            @endforeach
-                                            <!--<div class="item"> <img alt="" src="assets/frontend/img/product2.png" title=""> </div>
-                                            <div class="item"> <img alt="" src="assets/frontend/img/product3.png" title=""> </div>
-                                            <div class="item"> <img alt="" src="assets/frontend/img/product4.png" title=""> </div>-->
-                                        </div>
-                                        <!-- Indicators -->
-                                        <ol class="carousel-indicators">
-                                            @foreach ($producto->imagen as $imagen2)
-                                                <li class="{{ $imagen2->puesto == 1 ? 'active' : '' }}" data-slide-to="{{ $imagen2->puesto -1  }}" data-target="#product-carousel-{{ $producto->id_producto }}"> <img alt="" src="{{ base_url('assets/common/uploads/'.$imagen2->url) }}"> </li>
-                                            @endforeach
-                                            <!--<li class="" data-slide-to="1" data-target="#product-carousel"> <img alt="" src="assets/frontend/img/product2.png"> </li>
-                                            <li class="" data-slide-to="2" data-target="#product-carousel"> <img alt="" src="assets/frontend/img/product3.png"> </li>
-                                            <li class="" data-slide-to="3" data-target="#product-carousel"> <img alt="" src="assets/frontend/img/product4.png"> </li>-->
-                                        </ol>
-                                    </div>
-                                    <!-- Wrapper for slides -->
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-8 col-md-push-2">
-                                                <div class="row">
-                                                    <div class="col-md-8">
-                                                        <h3 class="pull-left section-heading">{{ $producto->nombre }}</h3>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <span class="product-right-section">
-                                                            <span>${{ $producto->precio_por_menor }}CLP</span>
-                                                            <button class="btn btn-default add-item" type="button" data-image="{{ base_url('assets/common/uploads/'.$img_prin) }}" data-name="{{ $producto->nombre }}" data-cost="{{ $producto->precio_por_menor }}" data-id="8">
-                                                                <span class="ti-shopping-cart"></span>Pedir </button>
-                                                            </span>
-                                                            @php
-                                                                $img_prin='';
-                                                            @endphp
+                                            </li>
+                                            <!-- PRODUCT MODAL -->
+                                            <div class="modal fade product-modal" id="product-{{ $producto->id_producto }}" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content shadow">
+                                                        <a class="close" data-dismiss="modal"> <span class="ti-close"></span></a>
+                                                        <div class="modal-body">
+                                                            <!-- Wrapper for slides -->
+                                                            <div class="carousel slide product-slide" id="product-carousel-{{ $producto->id_producto }}">
+                                                                <div class="carousel-inner cont-slider">
+                                                                    @foreach ($producto->imagen as $imagen1)
+                                                                        <div class="item {{ $imagen1->puesto == 1 ? 'active' : '' }}"> <img alt="" src="{{ base_url('assets/common/uploads/'.$imagen1->url) }}" title=""> </div>
+                                                                    @endforeach
+                                                                </div>
+                                                                <!-- Indicators -->
+                                                                <ol class="carousel-indicators">
+                                                                    @foreach ($producto->imagen as $imagen2)
+                                                                        <li class="{{ $imagen2->puesto == 1 ? 'active' : '' }}" data-slide-to="{{ $imagen2->puesto -1  }}" data-target="#product-carousel-{{ $producto->id_producto }}"> <img alt="" src="{{ base_url('assets/common/uploads/'.$imagen2->url) }}"> </li>
+                                                                    @endforeach
+                                                                </ol>
+                                                            </div>
+                                                            <!-- Wrapper for slides -->
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col-md-8 col-md-push-2">
+                                                                        <div class="row">
+                                                                            <div class="col-md-8">
+                                                                                <h3 class="pull-left section-heading">{{ $producto->nombre }}</h3>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <span class="product-right-section">
+                                                                                    <span>${{ $producto->precio_por_menor }}CLP</span>
+                                                                                    <button class="btn btn-default add-item" type="button" data-image="{{ base_url('assets/common/uploads/'.$img_prin) }}" data-name="{{ $producto->nombre }}" data-cost="{{ $producto->precio_por_menor }}" data-id="8">
+                                                                                        <span class="ti-shopping-cart"></span>Pedir </button>
+                                                                                    </span>
+                                                                                    @php
+                                                                                        $img_prin='';
+                                                                                    @endphp
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-8 col-md-push-2 product-description">
+                                                                            {{ $producto->descripcion }}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-8 col-md-push-2 product-description">
-                                                    {{-- <h4 class="section-heading">Ut enim ad minim veniam</h4> --}}
-                                                    {{ $producto->descripcion }}
-                                                    <!--a<div class="row">
-                                                        <div class="col-md-6"> <img src="assets/frontend/img/product.png" class="img-responsive" alt="product image"> </div>
-                                                        <div class="col-md-6">
-                                                            <h4 class="section-heading">Ut enim ad minim veniam</h4>
-                                                            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-tabs">
-                                                        <ul class="nav nav-tabs">
-                                                            <li class="active"><a data-toggle="tab" href="#tab1">Detalles</a></li>
-                                                            <li><a data-toggle="tab" href="#tab2">Otra infomración</a></li>
-                                                        </ul>
-                                                        <div class="tab-content">
-                                                            <div id="tab1" class="tab-pane fade in active">
-                                                                <h4 class="section-heading">details</h4>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                                            </div>
-                                                            <div id="tab2" class="tab-pane fade">
-                                                                <h4 class="section-heading">Info tab</h4>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
-                                                </div>
-                                            </div>
-                                        </div>
+                                                <!-- / PRODUCT MODAL -->
+                                            @endforeach
+                                        </ul>
+                                        <!-- Add Pagination -->
+                                        <div class="product-list-pagination text-center"> </div>
+                                        <div class="product-list-slider-next right-arrow-negative"> <span class="ti-arrow-right"></span> </div>
+                                        <div class="product-list-slider-prev left-arrow-negative"> <span class="ti-arrow-left"></span> </div>
                                     </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="col-md-12">
+                                    <h6>Lo sentimos pero aún no hay productos en esta categoria</h6>
+                                </div>
+                            @endif
                         </div>
-                        <!-- / PRODUCT MODAL -->
-                @endforeach
+                    @endforeach
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     <section class="about white-color" id="about">
         <div class="container">
