@@ -185,17 +185,15 @@
                 <div class="col-md-12">
                     <h3 class="section-heading">Sobre Nosotros</h3>
                 </div>
-                <div class="col-md-7 overflow-hidden wow fadeInLeft">
+                <div class="col-md-7 overflow-hidden wow fadeInLeft" id="about1">
                     <h4>Best furniture ever!</h4>
                     @foreach ($abouts as $about)
-                        <p>
-                            {{ $about->descripcion }}
-                        </p>
+                        {{ $about->descripcion }}
                     @endforeach
                 </div>
                 <div class="col-md-4 col-md-push-1 wow fadeInRight">
                     <h4>Our mission</h4>
-                    <ul class="styled-list">
+                    <ul class="">
                         <li>1. Duis aute irure dolor </li>
                         <li>2. Excepteur sint occaecat</li>
                         <li>3. Deserunt mollit anim</li>

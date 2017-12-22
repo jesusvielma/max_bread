@@ -87,6 +87,12 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_6m6Glf1-P7jvVdHZ00e3Ue_EoUNe39g"></script>
 	<script src="<?=base_url('assets/frontend/js/tt-cart.js')?>"></script>
 	<script src="<?=base_url('assets/frontend/js/main.js')?>"></script>
+
+	<script>
+		$(document).ready(function () {
+			$('#about').find('ul').addClass('styled-list');
+		});
+	</script>
 </body>
 
 </html>

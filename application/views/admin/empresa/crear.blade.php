@@ -42,11 +42,11 @@
                 	language: 'es',
                     height: 200,
                 	toolbar1: 'undo redo | preview | styleselect | bold italic forecolor backcolor ',
-                    toolbar2: 'alignleft aligncenter alignright alignjustify | bullist numlist | table | responsivefilemanager link image ',
+                    toolbar2: 'alignleft aligncenter alignright alignjustify | bullist numlist | table | link image ',
                 	plugins: [
                       'advlist autolink link lists charmap preview hr anchor pagebreak',
                       'wordcount visualblocks visualchars insertdatetime media nonbreaking',
-                      'save table paste image responsivefilemanager table contextmenu imgmap',
+                      'save table paste table contextmenu',
                       'colorpicker textcolor'
                     ],
                 	image_class_list: [
@@ -61,10 +61,10 @@
                 	menubar: false,
                   	relative_urls :false,
                   	//allow_script_urls: true,
-                  	external_filemanager_path:"<?=base_url('assets/common/js/filemanager/')?>",
-                  	filemanager_title:"Manejador de archivos" ,
-                  	external_plugins: { "filemanager" : "<?=base_url('assets/common/js/filemanager/plugin.min.js')?>"},
-                  	//extended_valid_elements : "img[usemap|class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],map[id|name],area[shape|alt|coords|href|target]",
+                  	// external_filemanager_path:"<?=base_url('assets/common/js/filemanager/')?>",
+                  	// filemanager_title:"Manejador de archivos" ,
+                  	// external_plugins: { "filemanager" : "<?=base_url('assets/common/js/filemanager/plugin.min.js')?>"},
+                  	// //extended_valid_elements : "img[usemap|class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],map[id|name],area[shape|alt|coords|href|target]",
             	});
                 $('#sobre_camp').fadeIn();
 			});
