@@ -22,41 +22,28 @@
 
     <span id="items-counter" class="h3 cart-items-counter" style="display: none">0</span>
     <div class="cart-widget-container">
-    <div class="cart-widget text-center">
-    <a class="close" id="cart-widget-close">
-    <span class="ti-close"></span>
-    </a>
-    <img class="cart-logo" src="{{ base_url('assets/frontend/img/max_bread2.png') }}" width="200" alt="store logo">
-    <h3 class="section-heading">Su pedido</h3>
-    <div id="cart-empty" class="cart-empty"><h4>esta vacio. <span class="ti-face-sad icon"></span> </h4></div>
-    <!-- container for js inject cart items content -->
-    <div class="items-container" id="items"></div>
-    <!-- container for js inject cart items content -->
+        <div class="cart-widget text-center">
+            <a class="close" id="cart-widget-close">
+                <span class="ti-close"></span>
+            </a>
+            <img class="cart-logo" src="{{ base_url('assets/frontend/img/max_bread2.png') }}" width="200" alt="store logo">
+            <h3 class="section-heading">Su pedido</h3>
+            <div id="cart-empty" class="cart-empty"><h4>esta vacio. <span class="ti-face-sad icon"></span> </h4></div>
+            <!-- container for js inject cart items content -->
+            <div class="items-container" id="items"></div>
+            <!-- container for js inject cart items content -->
 
-    <div class="cart-delivery" id="cart-delivery">
-    <div class="cart-summary" id="cart-summary">
-    <h4 class="section-heading">Resumen</h4>
-        <div class="cart-summary-row" id="cart-total">Total productos <span class="cart-value">$<span id="cost_value">0.00</span></span>CLP</div>
-        <div class="cart-summary-row">Shipping <span class="cart-value">$<span id="cost_delivery">0</span></span></div>
-        <div class="cart-summary-row cart-summary-row-total">Total <span class="cart-value">$<span id="total-total"></span></span></div>
-    </div>
-
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" class="cart-form" id="cart-form">
-        <!-- Identify your business so that you can collect the payments. -->
-        <input type="hidden" name="business" value="yourpaypal@email.com">
-        <!-- Specify a Buy Now button. -->
-        <input type="hidden" name="cmd" value="_xclick">
-        <!-- Specify details about the item that buyers will purchase. -->
-        <input type="hidden" name="item_name" value="Interio store - checkout">
-        <input type="hidden" name="amount" id="amount" value="">
-        <input type="hidden" name="currency_code" value="USD">
-        <!-- Display the payment button. -->
-        <button type="submit" name="submit" class="btn btn-default btn-lg">
-        pay pal checkout <span class="ti-arrow-right"></span>
-        </button>
-    </form>
-    </div>
-    <div class="cart-widget-close-overlay"></div>
+            <div class="cart-delivery" id="cart-delivery">
+                <div class="cart-summary" id="cart-summary">
+                    <h4 class="section-heading">Resumen</h4>
+                    <div class="cart-summary-row" id="cart-total">Total productos <span class="cart-value">$<span id="cost_value">0.00</span></span>CLP
+                    </div>
+                    <div class="cart-summary-row">Shipping <span class="cart-value">$<span id="cost_delivery">0</span></span></div>
+                    <div class="cart-summary-row cart-summary-row-total">Total <span class="cart-value">$<span id="total-total"></span></span></div>
+                </div>
+            </div>
+            <div class="cart-widget-close-overlay"></div>
+        </div>
     </div>
     @if ($productos->count()>0)
         <section class="section-min section product white-bg" id="products">
@@ -108,57 +95,7 @@
                                                 </button>
 
                                             </li>
-                                            <!-- PRODUCT MODAL -->
-                                            <div class="modal fade product-modal" id="product-{{ $producto->id_producto }}" role="dialog" tabindex="-1">
-                                                <div class="modal-dialog">
-                                                    <!-- Modal content-->
-                                                    <div class="modal-content shadow">
-                                                        <a class="close" data-dismiss="modal"> <span class="ti-close"></span></a>
-                                                        <div class="modal-body">
-                                                            <!-- Wrapper for slides -->
-                                                            <div class="carousel slide product-slide" id="product-carousel-{{ $producto->id_producto }}">
-                                                                <div class="carousel-inner cont-slider">
-                                                                    @foreach ($producto->imagen as $imagen1)
-                                                                        <div class="item {{ $imagen1->puesto == 1 ? 'active' : '' }}"> <img alt="" src="{{ base_url('assets/common/uploads/'.$imagen1->url) }}" title=""> </div>
-                                                                    @endforeach
-                                                                </div>
-                                                                <!-- Indicators -->
-                                                                <ol class="carousel-indicators">
-                                                                    @foreach ($producto->imagen as $imagen2)
-                                                                        <li class="{{ $imagen2->puesto == 1 ? 'active' : '' }}" data-slide-to="{{ $imagen2->puesto -1  }}" data-target="#product-carousel-{{ $producto->id_producto }}"> <img alt="" src="{{ base_url('assets/common/uploads/'.$imagen2->url) }}"> </li>
-                                                                    @endforeach
-                                                                </ol>
-                                                            </div>
-                                                            <!-- Wrapper for slides -->
-                                                            <div class="container">
-                                                                <div class="row">
-                                                                    <div class="col-md-8 col-md-push-2">
-                                                                        <div class="row">
-                                                                            <div class="col-md-8">
-                                                                                <h3 class="pull-left section-heading">{{ $producto->nombre }}</h3>
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <span class="product-right-section">
-                                                                                    <span>${{ $producto->precio_por_menor }}CLP</span>
-                                                                                    <button class="btn btn-default add-item" type="button" data-image="{{ base_url('assets/common/uploads/'.$img_prin) }}" data-name="{{ $producto->nombre }}" data-cost="{{ $producto->precio_por_menor }}" data-id="8">
-                                                                                        <span class="ti-shopping-cart"></span>Pedir </button>
-                                                                                    </span>
-                                                                                    @php
-                                                                                        $img_prin='';
-                                                                                    @endphp
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-8 col-md-push-2 product-description">
-                                                                            {{ $producto->descripcion }}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- / PRODUCT MODAL -->
+
                                             @endforeach
                                         </ul>
                                         <!-- Add Pagination -->
@@ -175,7 +112,62 @@
                         </div>
                     @endforeach
                 </div>
-            </div>
+            @foreach ($productos as $cat)
+                @foreach ($cat->productos as $producto)
+                    <!-- PRODUCT MODAL -->
+                    <div class="modal fade product-modal" id="product-{{ $producto->id_producto }}" role="dialog" tabindex="-1">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content shadow">
+                                <a class="close" data-dismiss="modal"> <span class="ti-close"></span></a>
+                                <div class="modal-body">
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel slide product-slide" id="product-carousel-{{ $producto->id_producto }}">
+                                        <div class="carousel-inner cont-slider">
+                                            @foreach ($producto->imagen as $imagen1)
+                                                <div class="item {{ $imagen1->puesto == 1 ? 'active' : '' }}"> <img alt="" src="{{ base_url('assets/common/uploads/'.$imagen1->url) }}" title=""> </div>
+                                            @endforeach
+                                        </div>
+                                        <!-- Indicators -->
+                                        <ol class="carousel-indicators">
+                                            @foreach ($producto->imagen as $imagen2)
+                                                <li class="{{ $imagen2->puesto == 1 ? 'active' : '' }}" data-slide-to="{{ $imagen2->puesto -1  }}" data-target="#product-carousel-{{ $producto->id_producto }}"> <img alt="" src="{{ base_url('assets/common/uploads/'.$imagen2->url) }}"> </li>
+                                            @endforeach
+                                        </ol>
+                                    </div>
+                                    <!-- Wrapper for slides -->
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-8 col-md-push-2">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <h3 class="pull-left section-heading">{{ $producto->nombre }}</h3>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <span class="product-right-section">
+                                                            <span>${{ $producto->precio_por_menor }}CLP</span>
+                                                            <button class="btn btn-default add-item" type="button" data-image="{{ base_url('assets/common/uploads/'.$img_prin) }}" data-name="{{ $producto->nombre }}" data-cost="{{ $producto->precio_por_menor }}" data-id="8">
+                                                                <span class="ti-shopping-cart"></span>Pedir </button>
+                                                            </span>
+                                                            @php
+                                                                $img_prin='';
+                                                            @endphp
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 col-md-push-2 product-description">
+                                                    {{ $producto->descripcion }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- / PRODUCT MODAL -->
+                @endforeach
+
+            @endforeach
         </section>
     @endif
 

@@ -4192,11 +4192,11 @@ button.close, .close {
       color: white; }
   @media (max-width: 479px) {
     .navbar-fixed-top {
-      position: absolute;
+      position: fixed;
       max-height: auto; } }
   @media (min-width: 480px) and (max-width: 1199px) {
     .navbar-fixed-top {
-      position: absolute;
+      position: fixed;
       max-height: auto; } }
 
 .nav > li > a:hover, .nav > li > a:focus {
@@ -4558,6 +4558,18 @@ button.close, .close {
   .product-modal .modal-body {
     float: left;
     width: 100%; }
+    .login-modal .modal-dialog {
+      /* margin: 0; */
+      width: 70%;
+      padding: 0 }
+    .login-modal .modal-content {
+      margin: 0;
+      padding: 0;
+      min-height: 80vh;
+      width: 100%; }
+    .login-modal .modal-body {
+      float: left;
+      width: 100%; }
   .product-right-section {
     margin-top: 32px;
     display: block;
