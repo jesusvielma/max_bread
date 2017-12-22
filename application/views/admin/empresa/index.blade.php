@@ -121,7 +121,7 @@
                                         <li>{{ $correo->descripcion }}
                                             <span class="pull-right tooltip-demo">
                                                 <a href="{{ site_url('administrador/empresa/editar_item/'.$correo->id_item) }}" title="Editar" data-toggle="tooltip" data-placement="top"><i class="fa fa-pencil"></i> </a>
-                                                <a class="borrar_item text-danger" href="{{ site_url('administrador/empresa/borrar/'.$telef->id_item) }}" title="Borrar" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash"></i></a>
+                                                <a class="borrar_item text-danger" href="{{ site_url('administrador/empresa/borrar/'.$correo->id_item) }}" title="Borrar" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash"></i></a>
                                             </span>
                                         </li>
                                     @endforeach
