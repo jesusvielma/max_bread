@@ -1,11 +1,3 @@
-
-@section('css')
-    <link href="{{ base_url('assets/backend/css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
-    <!-- Sweet Alert -->
-    <link href="{{ base_url('assets/backend/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
-@endsection
-
-
 <div class="modal fade login-modal" id="entrar" role="dialog" tabindex="-1" >
     <div class="modal-dialog">
         <div class="modal-content shadow">
@@ -232,7 +224,7 @@
 						if(data.error){
 							swal({
 								title: "Parece que los datos no son validos",
-								text:  data.error,
+								text:  '<ul class="styled-list">'+data.error+'</ul>',
 								type: "error",
 								confirmButtonText: "Revisar",
 								html: true

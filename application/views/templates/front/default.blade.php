@@ -11,15 +11,19 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 	<link href="<?=base_url('assets/frontend/css/bootstrap-light.css')?>" rel="stylesheet">
 	<link id="pagestyle" href="<?=base_url('assets/frontend/css/theme-light.css')?>" rel="stylesheet">
-	
-	<style>
-		.registro{
-			display: none;
-		}
-		.registroClave{
-			display: none;
-		}
-	</style>
+
+	<link href="{{ base_url('assets/backend/css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="{{ base_url('assets/backend/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
+    <style>
+        .registro{
+            display: none;
+        }
+        .registroClave{
+            display: none;
+        }
+    </style>
+
 </head>
 
 <body data-offset="50" data-spy="scroll" data-target=".navbar" class="dark-theme">
@@ -36,6 +40,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
+
 					<li><a href="#home">inicio</a></li>
 					<li><a href="#products">productos</a></li>
 					<li><a href="#about">Nosotros</a></li>
@@ -51,7 +56,6 @@
 			</div>
 		</div>
 	</nav>
-
     @yield('content')
 	@if (!$this->session->userdata('front'))
 		@include('front.loginRegistro')
@@ -99,7 +103,7 @@
 	<script src="<?=base_url('assets/frontend/js/vendor/jquery.countTo.js')?>"></script>
 	<script src="<?=base_url('assets/frontend/js/vendor/jquery.inview.js')?>"></script>
 	<script src="<?=base_url('assets/frontend/js/vendor/jquery.countdown.js')?>"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_6m6Glf1-P7jvVdHZ00e3Ue_EoUNe39g"></script>
+	{{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_6m6Glf1-P7jvVdHZ00e3Ue_EoUNe39g"></script> --}}
 	<script src="<?=base_url('assets/frontend/js/tt-cart.js')?>"></script>
 	<script src="<?=base_url('assets/frontend/js/main.js')?>"></script>
 	@yield('js')

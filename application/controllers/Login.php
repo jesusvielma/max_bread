@@ -32,7 +32,7 @@ class Login extends CI_Controller {
 
 		if ($this->form_validation->run()=== FALSE) {
 			$error = [
-				'error'=>validation_errors(),
+				'error'=>validation_errors('<li>','</li>'),
 				'csrf' => [
 					'name' => $this->security->get_csrf_token_name(),
 					'hash' => $this->security->get_csrf_hash()
