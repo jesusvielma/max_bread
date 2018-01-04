@@ -56,7 +56,7 @@ $(function() {
         $("body").toggleClass("cart-widget-open");
     });
 
-        $(".cart-widget-close-overlay").click(function() {
+    $(".cart-widget-close-overlay").click(function() {
         $("body").toggleClass("cart-widget-open");
     });
 

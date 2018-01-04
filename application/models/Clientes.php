@@ -26,7 +26,7 @@ class Clientes extends Eloquent {
 
     public function usuario()
     {
-        return $this->hasOne('Usuario','id_usuario','id_usuario');
+        return $this->belongsTo('Usuario','id_usuario','id_usuario');
     }
 
 }

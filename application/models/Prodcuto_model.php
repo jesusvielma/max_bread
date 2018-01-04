@@ -29,4 +29,9 @@ class Producto_model extends Eloquent {
         return $this->hasMany('Imagen_Producto_model','id_producto','id_producto');
     }
 
+    public function pedido()
+    {
+        return $this->belongsToMany('Pedido_model','pedido_tiene_producto','id_producto','id_pedido')->withPivot('cantidad');
+    }
+
 }

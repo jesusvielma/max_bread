@@ -29,21 +29,34 @@
             <img class="cart-logo" src="{{ base_url('assets/frontend/img/max_bread2.png') }}" width="200" alt="store logo">
             <h3 class="section-heading">Su pedido</h3>
             <div id="cart-empty" class="cart-empty"><h4>esta vacio. <span class="ti-face-sad icon"></span> </h4></div>
-            <!-- container for js inject cart items content -->
-            <div class="items-container" id="items"></div>
-            <!-- container for js inject cart items content -->
-
-            <div class="cart-delivery" id="cart-delivery">
-                <div class="cart-summary" id="cart-summary">
-                    <h4 class="section-heading">Resumen</h4>
-                    <div class="cart-summary-row" id="cart-total">Total productos <span class="cart-value">$<span id="cost_value">0.00</span></span>CLP
-                    </div>
-                    <div class="cart-summary-row">Shipping <span class="cart-value">$<span id="cost_delivery">0</span></span></div>
-                    <div class="cart-summary-row cart-summary-row-total">Total <span class="cart-value">$<span id="total-total"></span></span></div>
+            {{ form_open('pedido/ingresar',['id'=>'pedido']) }}
+                <!-- container for js inject cart items content -->
+                <div class="items-container" id="items"></div>
+                <!-- container for js inject cart items content -->
+            {{ form_close() }}
+            <div>
+        		<button class="btn btn-primary" id="clear-cart" type="button">Borrar pedido</button>
+        	</div>
+            <div class="cart-summary" id="cart-summary">
+                <h4 class="section-heading">Resumen</h4>
+                <!--<div class="cart-summary-row" id="cart-total">Total productos <span class="cart-value">$<span id="cost_value">0.00</span></span>CLP
                 </div>
+                <div class="cart-summary-row">Shipping <span class="cart-value">$<span id="cost_delivery">0</span></span></div-->
+                <div class="cart-summary-row cart-summary-row-total">Total <span class="cart-value">$<span id="total-total"></span>CLP</span></div>
             </div>
-            <div class="cart-widget-close-overlay"></div>
+            @if (!$this->session->userdata('front'))
+                <div>
+                    <h4 class="section-heading">No haz iniciado sesion</h4>
+                    <p>Aun no haz inicado tu sesión, ingresa con tu correo y contraseña para que puedas realizar tu pedido</p>
+            		<button class="btn btn-primary" id="entrarBotonCart" data-target="#entrar" data-toggle="modal" type="button">Entrar</button>
+            	</div>
+            @else
+                <div>
+                    <button class="btn btn-primary" id="pedir" type="button">Relizar pedido</button>
+                </div>
+            @endif
         </div>
+        <div class="cart-widget-close-overlay"></div>
     </div>
     @if ($productos->count()>0)
         <section class="section-min section product white-bg" id="products">
@@ -90,7 +103,7 @@
                                                     </span>
                                                 </a>
 
-                                                <button class="btn btn-default add-item" type="button" data-image="{{ base_url('assets/common/uploads/'.$img_prin) }}" data-name="{{ $producto->nombre }}" data-cost="{{ $producto->precio_por_menor }}" data-id="1" >
+                                                <button class="btn btn-default add-item" type="button" data-image="{{ base_url('assets/common/uploads/'.$img_prin) }}" data-name="{{ $producto->nombre }}" data-cost="{{ $producto->precio_por_menor }}" data-id="{{ $producto->id_producto }}" >
                                                     <span class="ti-shopping-cart"></span>Pedir
                                                 </button>
 

@@ -4651,6 +4651,16 @@ button.close, .close {
     right: 10px;
     top: 20px;
     cursor: pointer; }
+    .cart-item-plus, .cart-item-minus {
+      position: absolute;
+      top: 75px;
+      border: 1px #efb920 solid;
+      padding: 5px 5px 0 5px;
+      cursor: pointer; }
+    .cart-item-plus {
+      right: 80px;}
+     .cart-item-minus {
+       right: 50px;}
 .cart-logo {
   text-align: center; }
 .cart-widget {

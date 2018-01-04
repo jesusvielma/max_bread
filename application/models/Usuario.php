@@ -10,4 +10,7 @@ class Usuario extends Eloquent {
     public $timestamps = FALSE;
 
 
+    public function cliente(){
+        return $this->hasOne('Clientes','id_usuario','id_usuario');
+    }
 }
