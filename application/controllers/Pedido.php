@@ -22,8 +22,10 @@ class Pedido extends CI_Controller {
         $dataF = substr($date,0,1);
         $dataL = substr($date,-1,1);
 
+        $codigo= strtoupper($dataF).strtoupper($dataL).date('ymd').strtoupper(random_string('alpha',2)).date('His');
+
         $data = [
-            'codigo_pedido' => strtoupper($dataF).strtoupper($dataL).date('ymd').strtoupper(random_string('alpha',2)).date('His'),
+            'codigo_pedido' => $codigo,
             'fecha'    => \Carbon\Carbon::now(),
             'cliente_rut' => $usuario->cliente->rut,
             'estado' => 'pedido'
@@ -31,10 +33,25 @@ class Pedido extends CI_Controller {
 
         $pedido = Pedido_model::create($data);
 
+        $itemsCant = 0;
+
         foreach($items as $item ){
             $pedido->productos()->attach([$item => ['cantidad'=> $cantItems[$item]]]);
+            $itemsCant+= $cantItems[$item];
         }
 
+        $contenido = [
+            'text' => "El cliente <strong>".$usuario->cliente->nombre."</strong> ha realizado un <strong>pedido</strong> con <strong>".$itemsCant."</strong> articulos.",
+            'fecha' => $data['fecha']->toDateTimeString()
+        ];
+
+        $notif = [
+            'fecha' => \Carbon\Carbon::now(),
+            'contenido' => json_encode($contenido),
+            'estado' => 0
+        ];
+
+        Notificacion_model::create($notif);
         $this->session->set_flashdata('pedido','1');
 
         redirect('/','refresh');

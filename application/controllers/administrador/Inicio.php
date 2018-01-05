@@ -48,5 +48,13 @@ class Inicio extends CI_Controller {
 		$this->email->send();
 	}
 
+	public function obtener_notificaciones(){
+
+		$notifis = Notificacion_model::all();
+
+		$this->output->set_content_type('application/json')
+					 ->set_output(json_encode(['notifs'=>$notifis]));
+	}
+
 
 }

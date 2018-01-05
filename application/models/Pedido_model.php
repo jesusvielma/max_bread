@@ -25,4 +25,8 @@ class Pedido_model extends Eloquent {
         return $this->belongsToMany('Producto_model','pedido_tiene_producto','id_pedido','id_producto')->withPivot('cantidad');
     }
 
+    public function cliente(){
+        return $this->belongsTo('Clientes','cliente_rut','rut');
+    }
+
 }

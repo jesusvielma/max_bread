@@ -1,6 +1,6 @@
 @extends('templates.admin.default')
 @section('title')
-    Clientes
+    Pedidos
 @endsection
 @section('css')
     <!-- FooTable -->

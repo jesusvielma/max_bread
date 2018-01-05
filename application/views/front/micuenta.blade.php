@@ -248,10 +248,6 @@
                 });
             }, 5000);
             @endif
-
-            if ($('input[name=clave]').val() != '') {
-
-            }
         });
     </script>
 @endsection
