@@ -4795,3 +4795,34 @@ button.close, .close {
   width: 9px; }
 
 /*# sourceMappingURL=theme-light.css.map */
+
+.registro{
+    display: none;
+}
+.registroClave{
+    display: none;
+}
+.perfil-form {
+    width: 100%;
+}
+.perfil-form .form-control{
+    color: #FFF;
+    font-weight: 800;
+}
+.perfil-form .form-control::-moz-placeholder {
+    color: #FFF;
+    opacity: 1
+    font-weight: 800;
+}
+.perfil-form .form-control:-ms-input-placeholder {
+    color: #FFF;
+    font-weight: 800;
+}
+.perfil-form .form-control::-webkit-input-placeholder {
+    color: #FFF;
+    font-weight: 800;
+}
+.perfil-form .form-control[disabled], .perfil-form .form-control[readonly], .perfil-form fieldset[disabled] .form-control{
+    background: none;
+    color: #ff9800;
+}

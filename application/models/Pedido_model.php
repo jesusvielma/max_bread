@@ -8,6 +8,7 @@ class Pedido_model extends Eloquent {
 	protected $primaryKey = "id_pedido";
 
     protected $fillable = [
+        'codigo_pedido',
         'fecha',
         'cliente_rut',
         'estado'

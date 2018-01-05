@@ -10,20 +10,14 @@
 	<link rel="shortcut icon" href="{{ base_url('assets/common/img/favicon.ico') }}">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 	<link href="<?=base_url('assets/frontend/css/bootstrap-light.css')?>" rel="stylesheet">
+	<link href="<?=base_url('assets/backend/font-awesome/css/font-awesome.css')?>" rel="stylesheet">
 	<link id="pagestyle" href="<?=base_url('assets/frontend/css/theme-light.css')?>" rel="stylesheet">
 
 	<link href="{{ base_url('assets/backend/css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
     <!-- Sweet Alert -->
     <link href="{{ base_url('assets/backend/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
-    <style>
-        .registro{
-            display: none;
-        }
-        .registroClave{
-            display: none;
-        }
-    </style>
 
+	@yield('css')
 </head>
 
 <body data-offset="50" data-spy="scroll" data-target=".navbar" class="dark-theme">
@@ -40,17 +34,25 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-
-					<li><a href="#home">inicio</a></li>
-					<li><a href="#products">productos</a></li>
-					<li><a href="#about">Nosotros</a></li>
-					<li><a href="#special">especial</a></li>
-					<li><a href="#testimonials">testimonios</a></li>
-					<li><a href="#contact">contacto</a></li>
-					@if ($this->session->userdata('front'))
-						<li><a href="{{ site_url('login/salir') }}" >Salir</a></li>
+					@if ($this->uri->uri_string() == '')
+						<li><a href="#home">inicio</a></li>
+						<li><a href="#products">productos</a></li>
+						<li><a href="#about">Nosotros</a></li>
+						<li><a href="#special">especial</a></li>
+						<li><a href="#testimonials">testimonios</a></li>
+						<li><a href="#contact">contacto</a></li>
+						@if ($this->session->userdata('front'))
+							<li><a href="{{ site_url('mi_cuenta') }}">Mi Cuenta</a></li>
+							<li><a href="{{ site_url('login/salir') }}" >Salir</a></li>
+						@else
+							<li><a href="" data-target="#entrar" data-toggle="modal">Entrar</a></li>
+						@endif
 					@else
-						<li><a href="" data-target="#entrar" data-toggle="modal">Entrar</a></li>
+						<li><a href="{{ site_url() }}">inicio</a></li>
+						<li><a href="#perfil">Perfil</a></li>
+						<li><a href="#pedido">pedido</a></li>
+						<li><a href="#testimonials">mis testimonios</a></li>
+						<li><a href="{{ site_url('login/salir') }}" >Salir</a></li>
 					@endif
 				</ul>
 			</div>

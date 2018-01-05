@@ -7,6 +7,7 @@ class Pedido extends CI_Controller {
         parent::__construct();
         logueado_front();
         date_default_timezone_set('America/Santiago');
+        setlocale(LC_ALL, 'es_ES.UTF-8');
     }
 
     public function ingresar() {
@@ -17,7 +18,12 @@ class Pedido extends CI_Controller {
 
         $usuario = Usuario::where('correo',$usuario)->first();
 
+        $date = strftime('%A');
+        $dataF = substr($date,0,1);
+        $dataL = substr($date,-1,1);
+
         $data = [
+            'codigo_pedido' => strtoupper($dataF).strtoupper($dataL).date('ymd').strtoupper(random_string('alpha',2)).date('His'),
             'fecha'    => \Carbon\Carbon::now(),
             'cliente_rut' => $usuario->cliente->rut,
             'estado' => 'pedido'
