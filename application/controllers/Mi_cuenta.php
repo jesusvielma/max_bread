@@ -103,6 +103,25 @@ class Mi_cuenta extends CI_Controller {
 
 		Testimonio_model::create($data);
 
+		if($usuario->cliente->tipo == 'natural'){
+			$text = "El cliente <strong>".$usuario->cliente->nombre.'</strong> ha dejado un nuevo comentario que dice <em>"'.$data['comentario'].'"</em>.';
+		}
+		else{
+			$text = "<strong>".$usuario->cliente->responsable."</strong> responsable de la empresa <strong>". $usuario->cliente->nombre ."</strong>ha dejado un nuevo comentario que dice <em>'".$data['comentario']."'</em>.";
+		}
+		$contenido = [
+            'text' => $text ,
+            'avatar' => base_url('assets/common/uploads/profile/'.$usuario->cliente->rut.'/'.$usuario->avatar),
+        ];
+
+        $notif = [
+            'fecha' => \Carbon\Carbon::now(),
+            'contenido' => json_encode($contenido),
+            'estado' => 0
+        ];
+
+        Notificacion_model::create($notif);
+
 		if($this->input->post('_referrer') == 'mi_cuenta')
 			redirect('mi_cuenta','refresh');
 		else
