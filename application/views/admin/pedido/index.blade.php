@@ -65,7 +65,6 @@
                                             <th style="width:15%">RUT cliente</th>
                                             <th>Nombre</th>
                                             <th style="width:20%">Fecha</th>
-                                            <th style="width:40%">Productos</th>
                                             <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -77,22 +76,14 @@
                                                 <td class="rut" data-rut="{{ $pedido->cliente_rut }}">{{ $pedido->cliente_rut }}</td>
                                                 <td><?=$pedido->cliente->nombre?></td>
                                                 <td><?=$pedido->fecha->formatLocalized('%d de %B de %Y a las %H:%M:%S')?></td>
-                                                <td>
-                                                    <ul>
-                                                        @foreach ($pedido->productos as $producto)
-                                                            <li>{{ $producto->nombre }} - Cantidad {{ $producto->pivot->cantidad }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </td>
                                                 <td>{{ ucfirst($pedido->estado) }}</td>
                                                 <td>
                                                     <div class="tooltip-demo btn-group">
+                                                        <a href="{{ site_url('administrador/pedido/detalle/'.$pedido->id_pedido) }}" class="btn btn-info btn-sm" data-toggle="tooltip" data-placament="top" title="Ver completo" ><i class="fa fa-search"></i></a>
                                                         @if ($pedido->estado == 'pedido')
-                                                            <a href="{{ site_url('administrador/pedido/estado/ruta/'.$pedido->id_pedido) }}" class="btn btn-success btn-sm"><i class="fa fa-truck" data-toggle="tooltip" data-placament="top" title="En ruta"></i></a>
-                                                        @elseif($pedido->estado == 'pedido')
-                                                            <a href="{{ site_url('administrador/pedido/estado/listo/'.$pedido->id_pedido) }}" class="btn btn-success btn-sm"><i class="fa fa-check" data-toggle="tooltip" data-placament="top" title="En ruta"></i></a>
-                                                        @else
-                                                            <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-check" data-toggle="tooltip" data-placament="top" title="Marcar como entregado"></i></a>
+                                                            <a href="{{ site_url('administrador/pedido/estado/ruta/'.$pedido->id_pedido) }}" class="btn btn-success btn-sm" data-toggle="tooltip" data-placament="top" title="Enviar al destino" ><i class="fa fa-truck" ></i></a>
+                                                        @elseif($pedido->estado == 'ruta')
+                                                            <a href="{{ site_url('administrador/pedido/estado/entregado/'.$pedido->id_pedido) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placament="top" title="Mas como entregado"><i class="fa fa-check"></i></a>
                                                         @endif
                                                     </div>
                                                 </td>

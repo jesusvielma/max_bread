@@ -126,7 +126,7 @@
                     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="empty_page.html#">
                         <i class="fa fa-shopping-cart"></i>  <span class="label label-success" id="cantiNotif"></span>
                     </a>
-                    <ul class="dropdown-menu dropdown-messages" id="notifs">
+                    <ul class="dropdown-menu dropdown-messages" >
                         <!-- <li>
                             <div class="dropdown-messages-box">
                                 <a href="profile.html" class="pull-left">
@@ -147,6 +147,9 @@
                                 </a>
                             </div>
                         </li>-->
+                        <div id="notifs" >
+
+                        </div>
                     </ul>
                 </li>
                 <li>
@@ -186,6 +189,14 @@
 
         <script type="text/javascript">
             $(document).ready(function () {
+                get_notifications();
+                $('#notifs').slimScroll({
+                    height: '250px',
+                    railOpacity: 0.7,
+                });
+            });
+
+            function get_notifications(){
                 $.get('{{ base_url('administrador/inicio/obtener_notificaciones') }}', function (data) {
                     if (data) {
                         var output = '';
@@ -196,6 +207,11 @@
                             contenido = JSON.parse(contenido);
                             output+= "<li>";
                             output+= "<div class='dropdown-messages-box'>";
+                            if (contenido.avatar) {
+                                output+= "<a href='#' class='pull-left'>";
+                                output+= "<img alt='Avatar de cliente' class='img-circle' src='"+ contenido.avatar +"'>";
+                                output+= "</a>";
+                            }
                             output+= "<div class='media-body'>"
                             output+= "<small class='pull-right'>"+ $.timeago(data.notifs[i]['fecha']) +"</small>"
                             output+= contenido.text+"<br>"
@@ -212,13 +228,13 @@
                             if (data.notifs[i]['estado'] == '0') {
                                 sinLeer++;
                             }
-
                         }
-                        $('#notifs').append(output);
-                        $('#cantiNotif').html(sinLeer);
+                        $('#notifs').html(output);
+                        $('#cantiNotif').html(sinLeer).fadeIn();
                     }
+                    setTimeout('get_notifications()',60000);
                 });
-            });
+            }
         </script>
         @yield('script')
     </body>

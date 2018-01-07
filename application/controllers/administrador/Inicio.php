@@ -50,7 +50,7 @@ class Inicio extends CI_Controller {
 
 	public function obtener_notificaciones(){
 
-		$notifis = Notificacion_model::all();
+		$notifis = Notificacion_model::orderBy('fecha','DESC')->get();
 
 		$this->output->set_content_type('application/json')
 					 ->set_output(json_encode(['notifs'=>$notifis]));

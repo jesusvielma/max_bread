@@ -12,9 +12,29 @@ class Pedido extends CI_Controller {
 
     public function index() {
 
-        $data['pedidos'] = Pedido_model::all();
+        $data['pedidos'] = Pedido_model::orderBy('fecha','DESC')->get();
 
         $this->slice->view('admin.pedido.index',$data);
+    }
+
+    public function detalle($id_pedido){
+
+        $pedido =  Pedido_model::find($id_pedido);
+
+        $data['pedido'] = $pedido;
+
+        $this->slice->view('admin.pedido.detalle',$data);
+    }
+
+    public function estado($estado,$id_pedido){
+
+        $pedido = Pedido_model::find($id_pedido);
+
+        $pedido->estado = $estado;
+
+        $pedido->save();
+
+        redirect('administrador/pedido','refresh');
     }
 }
 ?>
