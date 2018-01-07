@@ -4826,3 +4826,6 @@ button.close, .close {
     background: none;
     color: #ff9800;
 }
+.testimonials-slider .fecha {
+    font-size: 15px;
+}

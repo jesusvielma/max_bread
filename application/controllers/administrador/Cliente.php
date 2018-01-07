@@ -50,8 +50,20 @@ class Cliente extends CI_Controller {
 			$correo = [
 				'correo' => $usuario->correo,
 				'clave'  => 'secreto',
-				'url'	 => site_url('administrador/login'),
-				'nombre' => $this->input->post('nombre'),
+				'url'	 => site_url(),
+				'destinatario' => (object)[
+					'tipo' => $this->input->post('tipo'),
+					'nombre' => '<i class="fa fa-user"></i> '.$this->input->post('tipo')== 'natural' ? $this->input->post('nombre') : $this->input->post('responsable'),
+					'empresa' => '<i class="fa fa-building"></i> '.$this->input->post('nombre')
+				],
+				'contenido' => (object)[
+					'cuerpo' => 'Usted ha recibido este correo porque el administrador de sitio <a href="'.site_url().'">max-bread.cl</a> ha ingresado sus datos en el mismo. <br /> Se ha creado un <i class="fa fa-user-circle"></i> usuario con su correo electrónico para acceder al sitio visite la página <a href="'.site_url().'">max-bread.cl</a> y presione el link entrar en la parte superior derecha.',
+					'alertas' => [
+						'clave'=>'Una vez que ingresas al sitio recuerda cambiar tu clave por una mas segura.',
+						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comuniquese con el administrador del sitio.'
+					]
+				],
+				'asunto' => 'Bienvenido al sitio de Maxbread'
 			];
 
 			//$this->correo_ingreso($correo);
@@ -65,7 +77,6 @@ class Cliente extends CI_Controller {
 				'correo' => $this->input->post('correo'),
 				'nombre_fantasia' => $this->input->post('fantasia'),
 				'responsable' => $this->input->post('responsable'),
-				'avatar' => NULL,
 				'id_usuario' => $usuario->id_usuario
 			];
 

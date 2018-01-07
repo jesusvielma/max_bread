@@ -96,6 +96,36 @@
 				</div>
 			</div>
 		</footer>
+		<div class="modal fade login-modal" id="comentarioModal" role="dialog" tabindex="-1" >
+		    <div class="modal-dialog">
+		        <div class="modal-content shadow">
+		            <a class="close" data-dismiss="modal"> <span class="ti-close"></span></a>
+		            <div class="modal-body">
+		                <div class="container">
+		                    <div class="row">
+		                        <div class="col-md-4 col-md-push-3">
+		                            <h3 class="section-heading">Dejanos tus comentarios</h3>
+		                        </div>
+		                    </div>
+		                    <div class="row">
+		                        <div class="col-md-4 col-md-push-3">
+	                                {{ form_open('mi_cuenta/comentario',['id'=>'comentarioForm']) }}
+	                                    <div class="form-group">
+	                                        <textarea name="comentario" rows="5" class="form-control" maxlength="255" id="comment"></textarea>
+											<span class="help-block" id>Tu comentario debe tener un maximo de 255 carácteres, <span class="text-primary" id="commentRaminColor">te quedan <span id="commentRemain">255</span> carácteres.</span></span>
+	                                    </div>
+										<input type="hidden" name="_referrer" value="{{ $this->uri->segment(1) }}">
+										<div class="form-group">
+											<button class="btn btn-primary">Enviar</button>
+										</div>
+	                                </form>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
 	</div>
 	<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/78d64697/cloudflare-static/email-decode.min.js"></script>
 	<script src="<?=base_url('assets/frontend/js/vendor/wow.js')?>"></script>
@@ -109,6 +139,21 @@
 	<script src="<?=base_url('assets/frontend/js/shoppingCart.js')?>"></script>
 	<script src="<?=base_url('assets/frontend/js/main.js')?>"></script>
 	<script>
+		$('#comment').keyup(function () {
+			var used = $(this).val(), remain = 255;
+			remain = remain - used.length;
+			if (remain<255/4) {
+				$('#commentRaminColor').removeClass('text-primary').addClass('text-danger');
+			}
+			else if (remain>255/4) {
+				$('#commentRaminColor').removeClass('text-danger').addClass('text-primary');
+			}
+			$('#commentRemain').html(remain);
+		});
+	</script>
+	@if ($this->uri->segment(1) == '')
+
+		<script>
 
 		$(".add-item").click(function(event){
 			event.preventDefault();
@@ -199,9 +244,9 @@
 		});
 
 		$("#entrarBotonCart").click(function() {
-	        $("body").toggleClass("cart-widget-open");
+			$("body").toggleClass("cart-widget-open");
 			$("#items-counter").hide();
-	    });
+		});
 
 		@if ($this->session->flashdata('pedido'))
 			shoppingCart.clearCart();
@@ -209,6 +254,7 @@
 		@endif
 
 	</script>
+	@endif
 	@yield('js')
 </body>
 

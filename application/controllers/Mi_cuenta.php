@@ -9,6 +9,7 @@ class Mi_cuenta extends CI_Controller {
         logueado_front();
         date_default_timezone_set('America/Santiago');
         setlocale(LC_ALL, 'es_ES.UTF-8');
+		\Carbon\Carbon::setlocale('es');
     }
 
 	public function index()
@@ -18,6 +19,7 @@ class Mi_cuenta extends CI_Controller {
 		$data['usuario'] = $usuario;
 
 		$data['pedidos'] = Pedido_model::where('cliente_rut',$usuario->cliente->rut)->get();
+		$data['testimonios'] = Testimonio_model::where('cliente_rut',$usuario->cliente->rut)->orderBy('fecha','DESC')->get();
 		$this->slice->view('front.micuenta',$data);
 	}
 
@@ -88,5 +90,22 @@ class Mi_cuenta extends CI_Controller {
 		$this->session->set_flashdata('actualicacionExitosa',['msg'=>'Hemos actualizado su perfil exitoxamente.']);
 
 		redirect('mi_cuenta','refresh');
+	}
+
+	public function comentario(){
+		$usuario = Usuario::where('correo',$this->session->userdata('front')['correo'])->first();
+
+		$data = [
+			'comentario' => $this->input->post('comentario'),
+			'cliente_rut' => $usuario->cliente->rut,
+			'fecha' => \Carbon\Carbon::now()
+		];
+
+		Testimonio_model::create($data);
+
+		if($this->input->post('_referrer') == 'mi_cuenta')
+			redirect('mi_cuenta','refresh');
+		else
+			redirect('','refresh');
 	}
 }

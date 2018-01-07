@@ -3,8 +3,9 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Actionable emails e.g. reset password</title>
-    <link href="http://beta.max-bread.cl/assets/backend/css/email/styles.css" media="all" rel="stylesheet" type="text/css" />
+    <title>@yield('email_title')</title>
+    <link href="{{ base_url('assets/backend/css/email/styles.css') }}" media="all" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url('assets/backend/font-awesome/css/font-awesome.css')?>" rel="stylesheet">
 </head>
 
 <body>
@@ -20,7 +21,7 @@
                 <div class="footer">
                     <table width="100%">
                         <tr>
-                            <td class="aligncenter content-block">Follow <a href="action.html#">@Company</a> on Twitter.</td>
+                            <td class="aligncenter content-block"><a href="{{ site_url() }}">max-bread.cl</a></td>
                         </tr>
                     </table>
                 </div>

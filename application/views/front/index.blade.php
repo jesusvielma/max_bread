@@ -1,6 +1,6 @@
 @extends('templates.front.default')
 @section('content')
-    @if ($slider->count())
+    @if ($slider->count()>0)
         <section class="home section image-slider" id="home">
             <div class="home-slider text-center">
                 <div class="swiper-wrapper">
@@ -242,42 +242,48 @@
             </div>
         </div>
     </section>
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="section-heading white-color">Testimonials</h3>
-                </div>
-                <div class="testimonials-slider text-center col-md-12">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="testimonials-container shadow"> <img alt="user avatar" class="wow fadeInUp" src="assets/frontend/img/user.png">
-                                <h3 class="wow fadeInUp" data-wow-delay=".4s"> Martin Johe, Co-Founder / CEO <span>Fastcompany ltd.</span> </h3>
-                                <p class="wow fadeInUp" data-wow-delay=".6s"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="testimonials-container shadow"> <img alt="user avatar" class="wow fadeInUp" src="assets/frontend/img/user.png">
-                                <h3 class="wow fadeInUp" data-wow-delay=".4s"> Martin Johe, Co-Founder / CEO <span>Fastcompany ltd.</span> </h3>
-                                <p class="wow fadeInUp" data-wow-delay=".6s"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="testimonials-container shadow"> <img alt="user avatar" class="wow fadeInUp" src="assets/frontend/img/user.png">
-                                <h3 class="wow fadeInUp" data-wow-delay=".4s"> Martin Johe, Co-Founder / CEO <span>Fastcompany ltd.</span> </h3>
-                                <p class="wow fadeInUp" data-wow-delay=".6s"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                            </div>
-                        </div>
+    @if ($testimonios->count()>0)
+        <section class="testimonials" id="testimonials">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="section-heading white-color">Testimonios</h3>
                     </div>
-                    <div class="testimonials-pagination"></div>
-                    <div class="testimonials-slider-next right-arrow-negative"> <span class="ti-arrow-right"></span> </div>
-                    <div class="testimonials-slider-prev left-arrow-negative"> <span class="ti-arrow-left"></span> </div>
+                    <div class="testimonials-slider text-center col-md-12">
+
+                        <div class="swiper-wrapper">
+                            @foreach ($testimonios as $testimonio)
+                                <div class="swiper-slide">
+                                    <div class="testimonials-container shadow"> <img alt="user avatar" class="wow fadeInUp" src="{{ base_url('assets/common/uploads/profile/'.$testimonio->cliente->rut.'/'.$testimonio->cliente->usuario->avatar) }}">
+                                        <h3 class="wow fadeInUp" data-wow-delay=".4s">
+                                            {{ $testimonio->cliente->tipo == 'natural' ? $testimonio->cliente->nombre : $testimonio->cliente->responsable}}
+                                            @if ($testimonio->cliente->tipo == 'empresa')
+                                                <span>{{ $testimonio->cliente->nombre }}</span>
+                                            @endif
+                                        </h3>
+                                        <p class="wow fadeInUp" data-wow-delay=".6s">
+                                            {{ $testimonio->comentario }}
+                                        </p>
+                                        <p class="wow fadeInUp fecha" data-wow-delay=".6s">
+                                            <i class="fa fa-calendar"></i> {{ $testimonio->fecha->diffForHumans() }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="testimonials-pagination"></div>
+                        <div class="testimonials-slider-next right-arrow-negative"> <span class="ti-arrow-right"></span> </div>
+                        <div class="testimonials-slider-prev left-arrow-negative"> <span class="ti-arrow-left"></span> </div>
+                    </div>
+                    @if ($this->session->userdata('front'))
+                        <div class="col-md-12 text-center">
+                            <button type="button" class="btn btn-primary" data-target="#comentarioModal" data-toggle="modal">Agregar otro testomonio/comentario</button>
+                        </div>
+                    @endif
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     <!-- <section class="text-center shadow section section-min">
         <div class="about-counter" id="about-counter">

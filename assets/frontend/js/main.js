@@ -78,7 +78,11 @@ var swiper = new Swiper('.testimonials-slider', {
     slidesPerView: 1,
     spaceBetween: 30,
     nextButton: '.testimonials-slider-next',
-    prevButton: '.testimonials-slider-prev'
+    prevButton: '.testimonials-slider-prev',
+    // autoplay: true,
+    // autoplayDisableOnInteraction: false,
+    // speed: 10000,
+    // loop: true,
 });
 
 // product list
