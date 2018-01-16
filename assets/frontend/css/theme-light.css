@@ -4802,6 +4802,9 @@ button.close, .close {
 .registroClave{
     display: none;
 }
+.olvido, .olvidoClave{
+    display: none;
+}
 .perfil-form {
     width: 100%;
 }

@@ -25,7 +25,40 @@
                                     </div>
                                 </form>
                                 ¿No tiene una cuenta?<a href="#" id="registro">Registrese</a><br>
-                                <a href="">¿Olvido su contraseña?</a>
+                                <a href="#" id="olvido">¿Olvido su contraseña?</a>
+                            </div>
+                            <div class="olvido">
+                                <div id="olvidoCorreo">
+                                    {{ form_open('',['id'=>'formOlvido']) }}
+                                        <h5>Empecemos con la recuperación de su clave</h5>
+                                        <a href="#" id="login"><i class="ti-arrow-left"></i>Inicar sesión</a>
+                                        <div class="form-group">
+                                            <input type="text" name="correo" value="" class="form-control" placeholder="Correo electrónico">
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" id="comenzarOlvido" class="btn btn-primary">Comenzar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div id="olvidoClave">
+                                    {{ form_open('',['id'=>'formOlvidoClave']) }}
+                                        <h5>Adelante todo esta listo para cambiar su clave</h5>
+                                        <ul id="countdownClave" class="countdown-counter wow fadeInUp"></ul>
+                                        <a href="#" id="login"><i class="ti-arrow-left"></i>Inicar sesión</a>
+                                        <div class="form-group">
+                                            <input type="text" name="token" value="" class="form-control" placeholder="Ingrese el Token ">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="clave" value="" class="form-control" placeholder="Nueva clave">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="claveRepetir" value="" class="form-control" placeholder="Repita su ueva clave">
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" id="cambioOlvido" class="btn btn-primary">Cambiar</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                             <div class="registro">
                                 <h5>Registro</h5>
@@ -119,6 +152,12 @@
 				$('.registro').hide('fadeIn');
 				$('.login').show('fadeOut');
 			});
+            $('#olvido').click(function () {
+				$('.registro').hide('fadeOut');
+				$('.login').hide('fadeOut');
+                $('#olvidoClave').hide('fadeOut');
+                $('.olvido').show('fadeIn');
+			});
 			$('#persona').click(function () {
 				$('#nombre').text('Nombres y Apellidos');
                 $('#form_hide').hide();
@@ -207,6 +246,65 @@
 					});
 				}
 			});
+
+            $('button#comenzarOlvido').click(function () {
+                $.post('{{ site_url('recuperar/iniciar_recuperacion') }}',$('#formOlvido').serialize(),function (data) {
+                    if(data.error){
+                        swal({
+                            title: "Parece que los datos no son validos",
+                            text:  '<ul class="styled-list">'+data.error+'</ul>',
+                            type: "error",
+                            confirmButtonText: "Revisar",
+                            html: true
+                        });
+                        var csrfName = data.csrf.name;
+                        var csrfHash = data.csrf.hash;
+                        $('input[name='+csrfName+']').val(csrfHash);
+                    }else{
+                        var csrfName = data.csrf.name;
+                        var csrfHash = data.csrf.hash;
+                        $('input[name='+csrfName+']').val(csrfHash);
+                        // COUNTDOWN
+                        $('#countdownClave').countdown(data.validez, function(event) {
+                          var $this = $(this).html(event.strftime(''
+                        //+ '<li><span>%w</span> weeks</li> '
+                            // + '<li><span>%D</span> dias</li> '
+                            // + '<li><span>%H</span> horas</li> '
+                            + '<li><span>%M</span> minutos</li> '
+                            + '<li><span>%S</span> segundos</li>'));
+                        });
+                        $('#olvidoCorreo').hide('fadeOut');
+                        $('#olvidoClave').show('fadeIn');
+
+                    }
+                });
+            });
+
+            $('button#cambioOlvido').click(function () {
+
+                $.post('{{ site_url('recuperar/recuperar') }}',$('#formOlvidoClave').serialize(), function (data) {
+                    if(data.error){
+                        swal({
+                            title: "Parece que los datos no son validos",
+                            text:  '<ul class="styled-list">'+data.error+'</ul>',
+                            type: "error",
+                            confirmButtonText: "Revisar",
+                            html: true
+                        });
+                        var csrfName = data.csrf.name;
+                        var csrfHash = data.csrf.hash;
+                        $('input[name='+csrfName+']').val(csrfHash);
+                    }else{
+                        var csrfName = data.csrf.name;
+                        var csrfHash = data.csrf.hash;
+                        $('input[name='+csrfName+']').val(csrfHash);
+                        $('#olvidoClave').hide('fadeOut');
+                        $('.olvido').hide('fadeOut');
+                        $('.login').show('fadeIn');
+                    }
+                });
+
+            });
 
 			$('button#entrar').click(function () {
 				if (
