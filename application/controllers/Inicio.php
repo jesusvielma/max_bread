@@ -25,27 +25,54 @@ class Inicio extends CI_Controller {
 	}
 
 
-	// public function email($tipo){
-    //
-	// 	$pedido = Pedido_model::find(18);
-	// 	$correo = [
-	// 		'correo' => 'correo@corre.com',
-	// 		'pedido' => $pedido,
-	// 		'url'	 => site_url(),
-	// 		'destinatario' => (object)[
-	// 			'tipo' => $tipo,
-	// 			'nombre' => '<i class="fa fa-user"></i> Jose Perez',
-	// 			'empresa' => '<i class="fa fa-building"></i> Nombre de la empresa'
-	// 		],
-	// 		'contenido' => (object)[
-	// 			'cuerpo' => 'Usted ha recibido este correo porque el administrador de sitio <a href="'.site_url().'">max-bread.cl</a> ha ingresado sus datos en el mismo. <br /> Se ha creado un <i class="fa fa-user-circle"></i> usuario con su correo electrónico para acceder al sitio visite la página <a href="'.site_url().'">max-bread.cl</a> y presione el link entrar en la parte superior derecha.',
-	// 			'alertas' => [
-	// 				'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comuniquese con el administrador del sitio.'
-	// 			]
-	// 		],
-	// 		'asunto' => 'Hemos recibido tu pedido'
-	// 	];
-    //
-	// 	$this->slice->view('admin.email.pedido_ingresado',$correo);
-	// }
+	public function email($tipo){
+
+		$pedido = Pedido_model::find(18);
+		$correo = [
+			'correo' => 'jesusvielma309@gmail.com',
+			'pedido' => $pedido,
+			'url'	 => site_url(),
+			'destinatario' => (object)[
+				'tipo' => $tipo,
+				'nombre' => '<i class="fa fa-user"></i> Jose Perez',
+				'empresa' => '<i class="fa fa-building"></i> Nombre de la empresa'
+			],
+			'contenido' => (object)[
+				'cuerpo' => 'Usted ha recibido este correo porque el administrador de sitio <a href="'.site_url().'">max-bread.cl</a> ha ingresado sus datos en el mismo. <br /> Se ha creado un <i class="fa fa-user-circle"></i> usuario con su correo electrónico para acceder al sitio visite la página <a href="'.site_url().'">max-bread.cl</a> y presione el link entrar en la parte superior derecha.',
+				'alertas' => [
+					'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comuniquese con el administrador del sitio.'
+				]
+			],
+			'asunto' => 'Hemos recibido tu pedido'
+		];
+
+		/*$this->load->library('email');
+
+			$config = array(
+				'protocol' => 'smtp',
+			    'smtp_host' => 'phx.hn.cl',
+			    'smtp_port' => 465,
+			    'smtp_user' => '_mainaccount@max-bread.cl',
+			    'smtp_pass' => 'jconcha.5283',
+			    'crlf' => "\r\n",
+			    'newline' => "\r\n",
+			    'send_multipart' => false,
+			);
+
+			$this->email->initialize($config);
+
+			$this->email->from('ventas@max-bread.cl', 'Ventas Max bread');
+			$this->email->to($correo['correo']);
+
+			$this->email->subject($correo['asunto']);
+			$msg = $this->slice->view('admin.email.pedido_ingresado',$correo,true);;
+			$this->email->message($msg);
+			$this->email->set_mailtype('html');
+
+			$this->email->send(FALSE);
+
+			$this->email->print_debugger(array('headers'));*/
+			$this->slice->view('admin.email.pedido_ingresado',$correo);
+
+	}
 }

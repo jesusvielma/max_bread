@@ -10,18 +10,19 @@
 
 <body>
 
-<table class="body-wrap">
+<table style="background-color: #f6f6f6; width: 100%;">
     <tr>
         <td></td>
-        <td class="container" width="600">
-            <div class="content">
-                <table class="main" width="100%" cellpadding="0" cellspacing="0">
+        <td style="display: block !important; max-width: 600px !important;margin: 0 auto !important;clear: both !important;" width="600">
+            <div style="max-width: 600px;margin: 0 auto;display: block;padding: 20px;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="background: #fff;border: 1px solid #e9e9e9;
+                border-radius: 3px;">
                     @yield('content')
                 </table>
-                <div class="footer">
+                <div style="width: 100%;clear: both;color: #999;padding: 20px;">
                     <table width="100%">
                         <tr>
-                            <td class="aligncenter content-block"><a href="{{ site_url() }}">max-bread.cl</a></td>
+                            <td style="font-size: 12px;text-align: center;padding: 0 0 20px;vertical-align: top;"><a style="color:#FF9800;" href="{{ site_url() }}">max-bread.cl</a></td>
                         </tr>
                     </table>
                 </div>

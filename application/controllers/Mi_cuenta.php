@@ -57,7 +57,7 @@ class Mi_cuenta extends CI_Controller {
 
 		$cambio = false;
 
-		if($usuario->clave != $claveNueva){
+		if($claveNueva != '' && $usuario->clave != $claveNueva){
 			$usuario->clave = $claveNueva;
 			$cambio = true;
 		}
