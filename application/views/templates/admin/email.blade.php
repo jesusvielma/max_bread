@@ -10,7 +10,7 @@
 
 <body>
 
-<table style="background-color: #f6f6f6; width: 100%;">
+<table style="background-color: #f6f6f6; width: 100%;margin: 0;padding: 0;font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 14px;">
     <tr>
         <td></td>
         <td style="display: block !important; max-width: 600px !important;margin: 0 auto !important;clear: both !important;" width="600">

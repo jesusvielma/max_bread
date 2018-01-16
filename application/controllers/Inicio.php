@@ -46,6 +46,28 @@ class Inicio extends CI_Controller {
 			'asunto' => 'Hemos recibido tu pedido'
 		];
 
+		$this->slice->view('admin.email.pedido_ingresado',$correo);
+
+		// $correo = [
+		// 	'correo' => 'jesus',
+		// 	'clave'  => 'secreto',
+		// 	'url'	 => site_url(),
+		// 	'destinatario' => (object)[
+		// 		'tipo' => $tipo,
+		// 		'nombre' => $tipo== 'natural' ? 'Pedro Peres' : 'Pedro Preex',
+		// 		'empresa' => 'Nombre de la empresa'
+		// 	],
+		// 	'contenido' => (object)[
+		// 		'cuerpo' => 'Usted ha recibido este correo porque el administrador de sitio <a style="color:#FF9800;" href="'.site_url().'">max-bread.cl</a> ha ingresado sus datos en el mismo. <br /> Se ha creado un usuario con su correo electrónico para acceder al sitio visite la página <a style="color:#FF9800;" href="'.site_url().'">max-bread.cl</a> y presione el link entrar en la parte superior derecha.',
+		// 		'alertas' => [
+		// 			'clave'=>'Una vez que ingresas al sitio recuerda cambiar tu clave por una mas segura.',
+		// 			'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comuniquese con el administrador del sitio.'
+		// 		]
+		// 	],
+		// 	'asunto' => 'Bienvenido al sitio de Maxbread'
+		// ];
+		// $this->slice->view('admin.email.crear_usuario',$correo);
+
 		/*$this->load->library('email');
 
 			$config = array(
@@ -72,7 +94,7 @@ class Inicio extends CI_Controller {
 			$this->email->send(FALSE);
 
 			$this->email->print_debugger(array('headers'));*/
-			$this->slice->view('admin.email.pedido_ingresado',$correo);
+
 
 	}
 }
