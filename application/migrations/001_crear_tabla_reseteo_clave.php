@@ -23,7 +23,8 @@ class Migration_Crear_tabla_reseteo_clave extends CI_Migration {
             ]
         ]);
         $this->dbforge->add_key('id_reseteo', TRUE);
-        $this->dbforge->create_table('reseteo_clave');
+        $attributes = array('ENGINE' => 'InnoDB');
+        $this->dbforge->create_table('reseteo_clave',FALSE, $attributes);
     }
 
     public function down(){

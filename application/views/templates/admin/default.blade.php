@@ -16,6 +16,14 @@
 
     @yield('css')
 
+    <style>
+        .sinLeer{
+            background-color: #f3f3f4;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+
     <link href="<?=base_url('assets/backend/css/animate.css')?>" rel="stylesheet">
     <link href="<?=base_url('assets/backend/css/style.css')?>" rel="stylesheet">
 
@@ -154,6 +162,14 @@
                         <div id="notifs" >
 
                         </div>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="#" id="leidas">
+                                    <i class="fa fa-check"></i> <strong>Marcar todas como leidas</strong>
+                                </a>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li id="stepSalir">
@@ -168,10 +184,10 @@
         @yield('content')
         <div class="footer">
             <div class="pull-right">
-                10GB of <strong>250GB</strong> Free.
+                Mayerli Pirela &copy; 2017-2018
             </div>
             <div>
-                <strong>Copyright</strong> Example Company &copy; 2014-2017
+                <strong>Desarrollo</strong> Jesús Vielma &copy; 2017-2018
             </div>
         </div>
 
@@ -199,6 +215,14 @@
                     height: '250px',
                     railOpacity: 0.7,
                 });
+
+                $('#leidas').click(function (){
+                    $.get('{{ base_url('administrador/inicio/marcar') }} ', function (data){
+                        if(data.success == 1){
+                            get_notifications();
+                        }
+                    })
+                });
             });
 
             function get_notifications(){
@@ -210,14 +234,19 @@
                         for (var i in data.notifs){
                             var contenido = data.notifs[i]['contenido'];
                             contenido = JSON.parse(contenido);
-                            output+= "<li>";
+                            if (data.notifs[i]['estado'] == '0') {
+                                sinLeer++;
+                                output+= "<li class='sinLeer'>";
+                            }else{
+                                output+= "<li>";
+                            }
                             output+= "<div class='dropdown-messages-box'>";
                             if (contenido.avatar) {
                                 output+= "<a href='#' class='pull-left'>";
                                 output+= "<img alt='Avatar de cliente' class='img-circle' src='"+ contenido.avatar +"'>";
                                 output+= "</a>";
                             }
-                            output+= "<div class='media-body'>"
+                            output+= "<div class='media-body' >"
                             output+= "<small class='pull-right'>"+ $.timeago(data.notifs[i]['fecha']) +"</small>"
                             output+= contenido.text+"<br>"
                             if (contenido.fecha) {
@@ -230,12 +259,14 @@
                                 output+= "<li class='divider'></li>"
                             }
 
-                            if (data.notifs[i]['estado'] == '0') {
-                                sinLeer++;
-                            }
+                            
                         }
                         $('#notifs').html(output);
-                        $('#cantiNotif').html(sinLeer).fadeIn();
+                        if(sinLeer > 0){
+                            $('#cantiNotif').html(sinLeer).fadeIn();
+                        }else{
+                            $('#cantiNotif').html('0').fadeOut();
+                        }
                     }
                     setTimeout('get_notifications()',60000);
                 });

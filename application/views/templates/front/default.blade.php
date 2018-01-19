@@ -78,21 +78,14 @@
 						</div>
 					</div>
 					<div class="clearfix"></div>
-					<!-- <div class="col-md-4 col-md-offset-4 col-sm-12">
+					<div class="col-md-4 col-md-offset-4 col-sm-12">
 						<div class="footer-newsletter">
 							<div class="center text-center">
-								<h4>stay tuned</h4>
-								<form action="#" method="post">
-									<div class="input-group">
-										<input class="form-control" type="text" placeholder="e-mail">
-										<span class="input-group-btn">
-											<button class="btn btn-default" type="button"><span class="ti-arrow-right"></span></button>
-										</span>
-									</div>
-								</form>
+								<h4>Diseño y Desarrollo por </h4>
+								<a href="http://jesusvielma.github.io" target="_blank">Jesus Vielma</a> y Mayerli Pirela 2017-2018
 							</div>
 						</div>
-					</div> -->
+					</div>
 				</div>
 			</div>
 		</footer>

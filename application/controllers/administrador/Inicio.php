@@ -56,5 +56,18 @@ class Inicio extends CI_Controller {
 					 ->set_output(json_encode(['notifs'=>$notifis]));
 	}
 
+	public function marcar(){
+
+		$notifs = Notificacion_model::where('estado',0)->get();
+
+		foreach($notifs as $notif){
+
+			$notif->estado = 1;
+			$notif->save();
+		}
+		$this->output->set_content_type('application/json')
+			->set_output(json_encode(['success' => 1]));	
+	}
+
 
 }

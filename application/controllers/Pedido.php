@@ -43,7 +43,7 @@ class Pedido extends CI_Controller {
         $contenido = [
             'text' => "El cliente <strong>".$usuario->cliente->nombre."</strong> ha realizado un <strong>pedido</strong> con <strong>".$itemsCant."</strong> articulos.",
             'fecha' => $data['fecha']->toDateTimeString(),
-            'avatar' => base_url('assets/common/uploads/profile/'.$usuario->cliente->rut.'/'.$usuario->avatar),
+            'avatar' => $usuario->avatar != NULL ? base_url('assets/common/uploads/profile/'.$usuario->cliente->rut.'/'.$usuario->avatar) : NULL,
         ];
 
         $notif = [
