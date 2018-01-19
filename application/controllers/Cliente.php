@@ -50,18 +50,19 @@ class Cliente extends CI_Controller {
 			$usuario = new Usuario;
 
 			$usuario->correo = $this->input->post('correo');
-			$usuario->clave = md5('secreto');
+			$clave = random_string('alnum', 8);
+			$timeTarget = 0.05; // 50 milisegundos 
+			$coste = 8;
+			do {
+				$coste++;
+				$inicio = microtime(true);
+				$clave2 = password_hash($clave, PASSWORD_BCRYPT, ["cost" => $coste]);
+				$fin = microtime(true);
+			} while (($fin - $inicio) < $timeTarget);
+
+			$usuario->clave = $clave2;
 
 			$usuario->save();
-
-			$correo = [
-				'correo' => $usuario->correo,
-				'clave'  => 'secreto',
-				'url'	 => site_url('administrador/login'),
-				'nombre' => $this->input->post('nombre'),
-			];
-
-			//$this->correo_ingreso($correo);
 
 			$data = [
 				'rut' => $this->formatoRUTbd($this->input->post('rut')),
@@ -75,19 +76,39 @@ class Cliente extends CI_Controller {
 				'id_usuario' => $usuario->id_usuario
 			];
 
+			$correo = [
+				'correo' => $usuario->correo,
+				'clave'  => $clave,
+				'url'	 => site_url(),
+				'destinatario' => (object)[
+					'tipo' => $data['tipo'],
+					'nombre' => $data['tipo']== 'natural' ? $data['nombre'] : $data['responsable'] ,
+					'empresa' => $data['nombre']
+				],
+				'contenido' => (object)[
+					'cuerpo' => 'Usted ha recibido este correo porque se ha registrado en el sitio <a style="color:#FF9800;" href="'.site_url().'">max-bread.cl</a>. <br /> Se ha creado un usuario con su correo electrónico para acceder al sitio visite la página <a style="color:#FF9800;" href="'.site_url().'">max-bread.cl</a> y presione el link entrar en la parte superior derecha.',
+					'alertas' => [
+						'clave'=>'Una vez que ingresas al sitio recuerda cambiar tu clave por una mas segura.',
+						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comuniquese con el administrador del sitio.'
+					]
+				],
+				'asunto' => 'Registro de usuario exitoso en max-bread.cl'
+			];
 
+			$this->correo_ingreso($correo);
+			
 			Clientes::create($data);
 			$data = [
 				'correo'=>$usuario->correo,
 				'csrf' => [
 					'name' => $this->security->get_csrf_token_name(),
 					'hash' => $this->security->get_csrf_hash()
-				]
-			];
-			//redirect('administrador/cliente','refresh');
-			$this->output->set_content_type('application/json')
-						 ->set_output(json_encode($data));
-		}
+					]
+				];
+				//redirect('administrador/cliente','refresh');
+				$this->output->set_content_type('application/json')
+				->set_output(json_encode($data));
+			}
 
 	}
 
@@ -118,32 +139,33 @@ class Cliente extends CI_Controller {
 		redirect('administrador/cliente','refresh');
 	}
 
-	// public function correo_ingreso($_data)
-	// {
-	// 	$this->load->library('email');
-	//
-	// 	$config = array(
-	// 	  'protocol' => 'smtp',
-	// 	  'smtp_host' => '52.5.224.12',
-	// 	  'smtp_port' => 2525,
-	// 	  'smtp_user' => 'b925f466454dfe',
-	// 	  'smtp_pass' => '2959353274233b',
-	// 	  'crlf' => "\r\n",
-	// 	  'newline' => "\r\n",
-	// 	  'mailtype' => 'html'
-	// 	);
-	//
-	// 	$this->email->initialize($config);
-	//
-	// 	$this->email->from('ventas@max-bread.cl', 'Ventas Max bread');
-	// 	$this->email->to($_data['correo']);
-	//
-	// 	$this->email->subject('Usuario creado');
-	// 	$msg = $this->slice->view('admin.email.crear_usuario',$_data,true);
-	// 	$this->email->message($msg);
-	//
-	// 	$this->email->send();
-	// }
+	public function correo_ingreso($_data)
+	{
+		$this->load->library('email');
+
+		$config = array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'phx.hn.cl',
+			'smtp_port' => 26,
+			'smtp_user' => '_mainaccount@max-bread.cl',
+			'smtp_pass' => 'jconcha.5283',
+			'crlf' => "\r\n",
+			'newline' => "\r\n",
+			'send_multipart' => false,
+		);
+	
+		$this->email->initialize($config);
+	
+		$this->email->from('maxbread@max-bread.cl', 'Max Bread');
+		$this->email->to($_data['correo']);
+	
+		$this->email->subject($_data['asunto']);
+		$msg = $this->slice->view('admin.email.crear_usuario',$_data,true);
+		$this->email->message($msg);
+		$this->email->set_mailtype('html');
+	
+		$this->email->send();
+	}
 
 	private function formatoRUTbd($rut)
 	{
@@ -169,7 +191,7 @@ class Cliente extends CI_Controller {
 
 		$usuario = Usuario::where('correo',$correo)->first();
 
-		$usuario->clave = md5($this->input->post('clave'));
+		$usuario->clave = sha1($this->input->post('clave'));
 
 		$usuario->save();
 

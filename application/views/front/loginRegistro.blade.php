@@ -49,10 +49,10 @@
                                             <input type="text" name="token" value="" class="form-control" placeholder="Ingrese el Token ">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="clave" value="" class="form-control" placeholder="Nueva clave">
+                                            <input type="password" name="claveOlvido" value="" class="form-control" placeholder="Nueva clave">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="claveRepetir" value="" class="form-control" placeholder="Repita su ueva clave">
+                                            <input type="password" name="claveOlvidoRepetir" value="" class="form-control" placeholder="Repita su ueva clave">
                                         </div>
                                         <div class="form-group">
                                             <button type="button" id="cambioOlvido" class="btn btn-primary">Cambiar</button>
@@ -245,8 +245,9 @@
 						}
 					});
 				}
-			});
-
+            });
+            
+            
             $('button#comenzarOlvido').click(function () {
                 $.post('{{ site_url('recuperar/iniciar_recuperacion') }}',$('#formOlvido').serialize(),function (data) {
                     if(data.error){
@@ -281,29 +282,45 @@
             });
 
             $('button#cambioOlvido').click(function () {
-
-                $.post('{{ site_url('recuperar/recuperar') }}',$('#formOlvidoClave').serialize(), function (data) {
-                    if(data.error){
-                        swal({
-                            title: "Parece que los datos no son validos",
-                            text:  '<ul class="styled-list">'+data.error+'</ul>',
-                            type: "error",
-                            confirmButtonText: "Revisar",
-                            html: true
-                        });
-                        var csrfName = data.csrf.name;
-                        var csrfHash = data.csrf.hash;
-                        $('input[name='+csrfName+']').val(csrfHash);
-                    }else{
-                        var csrfName = data.csrf.name;
-                        var csrfHash = data.csrf.hash;
-                        $('input[name='+csrfName+']').val(csrfHash);
-                        $('#olvidoClave').hide('fadeOut');
-                        $('.olvido').hide('fadeOut');
-                        $('.login').show('fadeIn');
-                    }
-                });
-
+                var clave = $('input[name=claveOlvido]').val();
+				var confClave = $('input[name=claveOlvidoRepetir]').val();
+				if(clave != confClave){
+					swal({
+						title: "Las claves no coinciden",
+						text:  'Las claves que has ingresado no coinciden verificalas',
+						type: "error",
+						confirmButtonText: "Verificar",
+					});
+				}
+				else {
+					swal({
+		                title: "¡Perfecto!",
+		                text: "Ahora vamos a realizar el cambio de clave.",
+		                type: "info",
+						timer: 5000
+		            });
+                    $.post('{{ site_url('recuperar/recuperar') }}',$('#formOlvidoClave').serialize(), function (data) {
+                        if(data.error){
+                            swal({
+                                title: "Parece que los datos no son validos",
+                                text:  '<ul class="styled-list">'+data.error+'</ul>',
+                                type: "error",
+                                confirmButtonText: "Revisar",
+                                html: true
+                            });
+                            var csrfName = data.csrf.name;
+                            var csrfHash = data.csrf.hash;
+                            $('input[name='+csrfName+']').val(csrfHash);
+                        }else{
+                            var csrfName = data.csrf.name;
+                            var csrfHash = data.csrf.hash;
+                            $('input[name='+csrfName+']').val(csrfHash);
+                            $('#olvidoClave').hide('fadeOut');
+                            $('.olvido').hide('fadeOut');
+                            $('.login').show('fadeIn');
+                        }
+                    });
+                }
             });
 
 			$('button#entrar').click(function () {

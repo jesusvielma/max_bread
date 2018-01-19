@@ -44,7 +44,8 @@ class Login extends CI_Controller {
 		else {
 
 			$usuario = Usuario::where('correo',$this->input->post('correo'))->first();
-			if ($usuario && $usuario->clave == md5($this->input->post('clave'))) {
+			$passPost = password_verify($this->input->post('clave'), $usuario->clave);
+			if ($usuario && $passPost) {
 				$session = [
 					'correo' => $this->input->post('correo'),
 					'datetime' => \Carbon\Carbon::now(),

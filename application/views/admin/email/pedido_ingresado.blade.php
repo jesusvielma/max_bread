@@ -24,7 +24,7 @@
                                     elseif(date('H')>19 )
                                         $tiempo = 'Buenas noches,';
                                 @endphp
-                                <strong>{{ $tiempo }}</strong> hemos recibido tu  <img src="{{ base_url('assets/backend/email/cart.png') }}" alt="user" width="16px"> pedido, a continuación te mostramos el detalles:
+                                <strong>{{ $tiempo }}</strong> hemos recibido tu  <img src="{{ base_url('assets/backend/email/cart.png') }}" alt="user" width="16px"> pedido, a continuación te mostramos los detalles del mismo:
                             </td>
                         </tr>
                         <tr>

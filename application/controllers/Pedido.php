@@ -55,7 +55,50 @@ class Pedido extends CI_Controller {
         Notificacion_model::create($notif);
         $this->session->set_flashdata('pedido','1');
 
+        $this->correo_pedido($pedido->id_pedido);
+
         redirect('/','refresh');
+    }
+
+    public function correo_pedido($pedido)
+    {
+
+        $pedido = Pedido_model::find($pedido);
+		$correo = [
+			'correo' => $pedido->cliente->correo,
+			'pedido' => $pedido,
+			'url'	 => site_url(),
+			'contenido' => (object)[
+				'alertas' => [
+					'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comuniquese con el administrador del sitio.'
+				]
+			],
+			'asunto' => 'Hemos recibido tu pedido'
+		];
+        $this->load->library('email');
+
+        $config = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'phx.hn.cl',
+            'smtp_port' => 26,
+            'smtp_user' => '_mainaccount@max-bread.cl',
+            'smtp_pass' => 'jconcha.5283',
+            'crlf' => "\r\n",
+            'newline' => "\r\n",
+            'send_multipart' => false,
+        );
+
+        $this->email->initialize($config);
+
+        $this->email->from('ventas@max-bread.cl', 'Ventas Max Bread');
+        $this->email->to($correo['correo']);
+
+        $this->email->subject($correo['asunto']);
+        $msg = $this->slice->view('admin.email.pedido_ingresado', $correo, true);
+        $this->email->message($msg);
+        $this->email->set_mailtype('html');
+
+        $this->email->send();
     }
 }
 ?>
