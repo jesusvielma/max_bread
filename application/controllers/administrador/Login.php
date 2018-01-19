@@ -51,7 +51,7 @@ class Login extends CI_Controller {
 			}
 			else{
 				$data['error'] = 'Incio de sesion incorrecto';
-				$this->load->view('admin.login.login',$data);
+				$this->slice->view('admin.login.login',$data);
 			}
 		}
 

@@ -12,6 +12,8 @@
     <link href="<?=base_url('assets/backend/css/bootstrap.min.css')?>" rel="stylesheet">
     <link href="<?=base_url('assets/backend/font-awesome/css/font-awesome.css')?>" rel="stylesheet">
 
+    <link href="<?=base_url('assets/backend/css/plugins/bootstrapTour/bootstrap-tour.min.css')?>" rel="stylesheet">
+
     @yield('css')
 
     <link href="<?=base_url('assets/backend/css/animate.css')?>" rel="stylesheet">
@@ -26,7 +28,7 @@
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
-                <li class="nav-header">
+                <li class="nav-header" id="profile-view">
                     <div class="dropdown profile-element"> <span>
                             <img alt="image" class="img-circle" src="<?=base_url('assets/backend/img/profile_small.jpg')?>" />
                              </span>
@@ -34,10 +36,6 @@
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ $this->session->userdata('admin')['correo'] }}</strong>
                              </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="mailbox.html">Mailbox</a></li>
-                            <li class="divider"></li>
                             <li><a href="login.html">Logout</a></li>
                         </ul>
                     </div>
@@ -125,9 +123,12 @@
                 <li>
                     <span class="m-r-sm text-muted welcome-message">Bienvenido al administrador de MaxBread</span>
                 </li>
-                <li class="dropdown">
+                <li id="stepQuestion">
+                    <a href="#" class="startTour"><i class="fa fa-question"></i></a>
+                </li>
+                <li class="dropdown" id="stepNotif">
                     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="empty_page.html#">
-                        <i class="fa fa-shopping-cart"></i>  <span class="label label-success" id="cantiNotif"></span>
+                        <i class="fa fa-bell"></i>  <span class="label label-success" id="cantiNotif"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-messages" >
                         <!-- <li>
@@ -155,7 +156,7 @@
                         </div>
                     </ul>
                 </li>
-                <li>
+                <li id="stepSalir">
                     <a href="<?=site_url('administrador/login/salir')?>">
                         <i class="fa fa-sign-out"></i> Salir
                     </a>
@@ -189,6 +190,7 @@
         <script src="<?=base_url('assets/backend/js/plugins/pace/pace.min.js')?>"></script>
         <script src="<?=base_url('assets/common/js/timeago/jquery.timeago.js')?>"></script>
         <script src="<?=base_url('assets/common/js/timeago/jquery.timeago.es.js')?>"></script>
+        <script src="<?=base_url('assets/backend/js/plugins/bootstrapTour/bootstrap-tour.min.js')?>"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {

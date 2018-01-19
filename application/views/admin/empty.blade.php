@@ -24,18 +24,68 @@ function setImage(imagen) {
     $.fancybox.close('all');
 }
 </script>
+
+<script>
+
+    $(document).ready(function (){
+
+        // Instance the tour
+        var tour = new Tour({
+            template: "<div class='popover tour'> <div class='arrow'></div><h3 class='popover-title'></h3> <div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default'data-role='prev'> <i class='fa fa-angle-left'></i> Ant</button><span data-role='separator'>|</span><button class='btn btn-default' data-role='next'>Sig <i class='fa fa-angle-right'></i> </button><button class='btn btn-default' data-role='end'>Fin</button></div></div>",
+            steps: [{
+
+                    element: "#side-menu",
+                    title: "Te damos la bienvenida",
+                    content: "Este es tu menú, aquí tienes todos los link para gestionar tu sitio web, ingresar clientes, ver pedidos, entre otros.",
+                    placement: "right",
+                },
+                {
+                    element: "#profile-view",
+                    title: "Tu perfil",
+                    content: "Aquí estas viendo tu perfil.",
+                    placement: "right",
+                },
+                {
+                    element: "#stepQuestion",
+                    title: "Sobre la pagina y como usarla",
+                    content: "Presionando este botón iniciar un tour para ver como debes usar la pagina en cuestión",
+                    placement: "bottom"
+                },
+                {
+                    element: "#stepNotif",
+                    title: "Notificaciones",
+                    content: "Si haces click  sobre esta campana veras las notificas de tu página",
+                    placement: "bottom"
+                },
+                {
+                    element: "#stepSalir",
+                    title: "Salir",
+                    content: "Presiona este link y saldras del sistema",
+                    placement: "bottom",
+                }
+            ]});
+
+        // Initialize the tour
+        tour.init();
+
+        $('.startTour').click(function(){
+            tour.restart();
+
+            // Start the tour
+            // tour.start();
+        })
+
+    });
+
+</script>
 @endsection
 @section('content')
     <div class="wrapper wrapper-content">
         <div class="middle-box text-center animated fadeInRightBig">
-            <h3 class="font-bold">This is page content</h3>
-            <div class="error-desc">
-                You can create here any grid layout you want. And any variation layout you imagine:) Check out
-                main dashboard and other site. It use many different layout.
-                <br/><a href="index.html" class="btn btn-primary m-t">Dashboard</a>
+            <h3 class="font-bold" id="step1">Bienvenido</h3>
+            <div class="error-desc" id="step2">
+                Hey, que bueno que estes aquí
             </div>
-            <img src="" alt="" id="imagen">
-            <a data-fancybox data-src="{{ site_url('upload/dir') }}" href="javascript:;" class="btn btn-default">Abrir</a>
         </div>
     </div>
 @endsection

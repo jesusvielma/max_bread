@@ -33,6 +33,77 @@
         });
 
     </script>
+    <script>
+
+    $(document).ready(function (){
+
+        // Instance the tour
+        var tour = new Tour({
+            template: "<div class='popover tour'> <div class='arrow'></div><h3 class='popover-title'></h3> <div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default'data-role='prev'> <i class='fa fa-angle-left'></i> Ant</button><span data-role='separator'>|</span><button class='btn btn-default' data-role='next'>Sig <i class='fa fa-angle-right'></i> </button><button class='btn btn-default' data-role='end'>Fin</button></div></div>",
+            steps: [{
+
+                    element: "#IngresarCliente",
+                    title: "Ingresar Cliente",
+                    content: "Presiona este botón para ir al formulario de registro de clientes",
+                    placement: "left",
+                    backdrop: true,
+                    backdropContainer: '#wrapper',
+                    onShown: function (tour){
+                        $('body').addClass('tour-open')
+                    },
+                    onHidden: function (tour){
+                        $('body').removeClass('tour-close')
+                    }
+                },
+                {
+                    element: "#tablaCliente",
+                    title: "Listado de clientes",
+                    content: "Este es un listado de todos tus clientes, se muestran 10 clientes por defecto pero puede modificarlo.",
+                    placement: "top",
+                    backdrop: true,
+                    backdropContainer: '#wrapper',
+                    onShown: function (tour){
+                        $('body').addClass('tour-open')
+                    },
+                    onHidden: function (tour){
+                        $('body').removeClass('tour-close')
+                    }
+                },
+                {
+                    element: "#DataTables_Table_0_length",
+                    title: "Listado de Clientes",
+                    content: "Aquí puede cambiar la cantidad de resultados que ves.",
+                    placement: "top",
+                    backdrop: true,
+                    backdropContainer: '#wrapper',
+                    onShown: function (tour){
+                        $('body').addClass('tour-open')
+                    },
+                    onHidden: function (tour){
+                        $('body').removeClass('tour-close')
+                    }
+                },
+                {
+                    element: "#accionesTabla",
+                    title: "Acciones sobre tus clientes",
+                    content: "Aqui encuentras las acciones como editar la información del cliente.",
+                    placement: "right"
+                },
+            ]});
+
+        // Initialize the tour
+        tour.init();
+
+        $('.startTour').click(function(){
+            tour.restart();
+
+            // Start the tour
+            // tour.start();
+        })
+
+    });
+
+</script>
 @endsection
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -46,7 +117,7 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a href="{{ site_url('administrador/cliente/crear') }}" class="btn btn-primary">Ingresar nuevo</a>
+                <a href="{{ site_url('administrador/cliente/crear') }}" class="btn btn-primary" id="IngresarCliente">Ingresar nuevo</a>
             </div>
         </div>
     </div>
@@ -59,7 +130,7 @@
                         <div class="ibox-title">
                             <h5>Clientes </h5>
                         </div>
-                        <div class="ibox-content">
+                        <div class="ibox-content" id="tablaCliente">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover dataTables-example">
                                     <thead>
@@ -68,7 +139,7 @@
                                             <th>Nombre</th>
                                             <th>Dirección</th>
                                             <th>Tipo</th>
-                                            <th>Acciones</th>
+                                            <th id="accionesTabla">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>

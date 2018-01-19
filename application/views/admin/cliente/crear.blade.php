@@ -8,6 +8,12 @@
     <link href="{{ base_url('assets/backend/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css')}}" rel="stylesheet">
     <!-- Sweet Alert -->
     <link href="{{ base_url('assets/backend/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
+    <style>
+        .tour-step-backdrop{
+            background: #fff;
+            padding: 5px;
+        }
+    </style>
 @endsection
 @section('js')
     <script src="{{ base_url('assets/backend/js/plugins/jquery.rut.js') }}"></script>
@@ -56,6 +62,113 @@
         });
 
     </script>
+    <script>
+
+    $(document).ready(function (){
+
+        // Instance the tour
+        var tour = new Tour({
+            template: "<div class='popover tour'> <div class='arrow'></div><h3 class='popover-title'></h3> <div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default'data-role='prev'> <i class='fa fa-angle-left'></i> Ant</button><span data-role='separator'>|</span><button class='btn btn-default' data-role='next'>Sig <i class='fa fa-angle-right'></i> </button><button class='btn btn-default' data-role='end'>Fin</button></div></div>",
+            steps: [{
+
+                    element: "#formRUT",
+                    title: "Ingresar el RUT",
+                    content: "Cuando esta en este campo escribe el RUT sin signos o guiones, el campo automaticamente va a formatear y validar el RUT que escribas, si este correcto podras avanzar con el formulario, si no lo es una alerta de lo indicará.",
+                    placement: "bottom",
+                    backdrop: true,
+                    backdropContainer: '#wrapper',
+                    onShown: function (tour){
+                        $('body').addClass('tour-open')
+                    },
+                    onHidden: function (tour){
+                        $('body').removeClass('tour-close')
+                    }
+                },
+                {
+                    element: "#formTipo",
+                    title: "Selecciona el tipo de cliente",
+                    content: "Selecciona el tipo de cliente, una vez que los hagas los siguientes campos van a cambiar.",
+                    placement: "bottom",
+                    backdrop: true,
+                    backdropContainer: '#wrapper',
+                    onShown: function (tour){
+                        $('body').addClass('tour-open')
+                    },
+                    onHidden: function (tour){
+                        $('body').removeClass('tour-close')
+                    }
+                },
+                {
+                    element: "#formNombre",
+                    title: "Nombre o Razón Social",
+                    content: "Si seleccionaste en el tipo un cliente Natural, ingresa en este campo el nombre del cliente, si Seleccionaste Empresa ingresa el nombre de la misma",
+                    placement: "bottom",
+                    backdrop: true,
+                    backdropContainer: '#wrapper',
+                    onShown: function (tour){
+                        $('body').addClass('tour-open')
+                    },
+                    onHidden: function (tour){
+                        $('body').removeClass('tour-close')
+                    }
+                },
+                {
+                    element: "#formDireccion",
+                    title: "Dirección",
+                    content: "Ingresa la dirección del cliente",
+                    placement: "bottom",
+                    backdrop: true,
+                    backdropContainer: '#wrapper',
+                    onShown: function (tour){
+                        $('body').addClass('tour-open')
+                    },
+                    onHidden: function (tour){
+                        $('body').removeClass('tour-close')
+                    }
+                },
+                {
+                    element: "#formTelefono",
+                    title: "Teléfono",
+                    content: "Cuando estes ingresando el número telefonico del cliente vez que este ya se esta formateando correctamente",
+                    placement: "bottom",
+                    backdrop: true,
+                    backdropContainer: '#wrapper',
+                    onShown: function (tour){
+                        $('body').addClass('tour-open')
+                    },
+                    onHidden: function (tour){
+                        $('body').removeClass('tour-close')
+                    }
+                },
+                {
+                    element: "#formGuardar",
+                    title: "Guarda la información",
+                    content: "Si ya estas listo presiona este botón para guardar la información",
+                    placement: "top",
+                    backdrop: true,
+                    backdropContainer: '#wrapper',
+                    onShown: function (tour){
+                        $('body').addClass('tour-open')
+                    },
+                    onHidden: function (tour){
+                        $('body').removeClass('tour-close')
+                    }
+                },
+            ]});
+
+        // Initialize the tour
+        tour.init();
+
+        $('.startTour').click(function(){
+            tour.restart();
+
+            // Start the tour
+            // tour.start();
+        })
+
+    });
+
+</script>
 @endsection
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
