@@ -34,4 +34,8 @@ class Producto_model extends Eloquent {
         return $this->belongsToMany('Pedido_model','pedido_tiene_producto','id_producto','id_pedido')->withPivot('cantidad');
     }
 
+    public function ofertas(){
+        return $this->hasMany('Oferta_model','id_producto','id_producto');
+    }
+
 }

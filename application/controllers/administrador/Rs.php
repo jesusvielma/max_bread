@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Empresa extends CI_Controller {
+class Rs extends CI_Controller {
 
 	public function __construct()
    	{
@@ -9,25 +9,12 @@ class Empresa extends CI_Controller {
    	}
 
 	/**
-	 * Index Page for this controller.
-	 *
-	 */
-	public function index()
-	{
-		$data['items'] = Empresa_model::all();
-		$data['telefs'] = Empresa_model::where('tipo','telefono')->get();
-		$data['sobres'] = Empresa_model::where('tipo','sobre')->get();
-		$data['correos'] = Empresa_model::where('tipo','correo')->get();
-		$data['rss'] = Rs_model::all();
-		$this->slice->view('admin.empresa.index',$data);
-	}
-
-	/**
 	 * Muestra el formulario para ingresar nuevos clientes
 	 */
 	public function nuevo()
 	{
-		$this->slice->view('admin.empresa.crear');
+		$data['existentes'] = Rs_model::all();
+		$this->slice->view('admin.empresa.rs.crear',$data);
 	}
 
 	/**
@@ -35,28 +22,24 @@ class Empresa extends CI_Controller {
 	 */
 	public function guardar()
 	{
-		$desc = $this->input->post('descripcion');
-		$telef = $this->input->post('telefono');
-		$correo = $this->input->post('correo');
-
-		$guardar = '';
-		if ($desc) {
-			$guardar = $desc;
+		if ($this->input->post('rs') == 'tw') {
+			$url = 'http://twitter.com/' . str_replace('@', '', $this->input->post('url'));
 		}
-		elseif ($correo) {
-			$guardar = $correo;
+		elseif($this->input->post('rs') == 'in') {
+			$url = 'http://instagram.com/' . str_replace('@','',$this->input->post('url'));
 		}
-		elseif ($telef) {
-			$guardar = ['telefono'=> $telef,'tipo_telef'=>$this->input->post('tipo_telef')];
-			$guardar = json_encode($guardar);
+		else{
+			$url = $this->input->post('url');
 		}
+		$rs = [
+			'nombre' =>  trim($this->input->post('nombre')),
+			'url'    => $url,
+			'tipo'   => $this->input->post('rs')
+		];
 
-		$item = new Empresa_model;
+		print_r($rs);
 
-		$item->tipo = $this->input->post('tipo');
-		$item->descripcion = $guardar;
-
-		$item->save();
+		Rs_model::create($rs);
 
 		redirect('administrador/empresa','refresh');
 	}
@@ -96,7 +79,7 @@ class Empresa extends CI_Controller {
 
 	public function borrar($item)
 	{
-		$item = Empresa_model::find($item);
+		$item = Rs_model::find($item);
 
 		$item->delete();
 

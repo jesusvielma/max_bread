@@ -53,9 +53,7 @@
         <div class="col-sm-8">
             <div class="title-action">
                 <a href="{{ site_url('administrador/empresa/nuevo') }}" class="btn btn-primary">Ingresar información</a>
-                @if ($rss->count() < 5)
-                    <a href="{{ site_url('administrador/rs/nuevo') }}" class="btn btn-success">Ingresar red social </a>
-                @endif
+                <a href="{{ site_url('administrador/rs/nuevo') }}" class="btn btn-success">Ingresar red social </a>
             </div>
         </div>
     </div>
@@ -125,43 +123,6 @@
                                             <span class="pull-right tooltip-demo">
                                                 <a href="{{ site_url('administrador/empresa/editar_item/'.$correo->id_item) }}" title="Editar" data-toggle="tooltip" data-placement="top"><i class="fa fa-pencil"></i> </a>
                                                 <a class="borrar_item text-danger" href="{{ site_url('administrador/empresa/borrar/'.$correo->id_item) }}" title="Borrar" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash"></i></a>
-                                            </span>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @else
-                                <div class="alert alert-info">
-                                    No hay información registrada
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h2>Mis Redes Sociales</h2>
-                        </div>
-                        <div class="ibox-content">
-                            @if ($rss->count())
-                                <ul class="list-unstyled">
-                                    @foreach ($rss as $rs)
-                                        <li>
-                                            <a href="{{ $rs->url }}" target="_blank" class="btn btn-default btn-outline">
-                                                @if ($rs->tipo == 'fb')
-                                                    <i class="fa fa-facebook"></i>
-                                                @elseif($rs->tipo == 'tw')
-                                                    <i class="fa fa-twitter"></i> 
-                                                @elseif($rs->tipo == 'in')
-                                                    <i class="fa fa-instagram"></i> 
-                                                @elseif($rs->tipo == 'ln')
-                                                    <i class="fa fa-linkedin"></i>
-                                                @else
-                                                    <i class="fa fa-youtube-square"></i>
-                                                @endif {{ $rs->tipo == 'tw' || $rs->tipo == 'in' ? '@' : ''}}{{$rs->nombre }}</a>
-                                            <span class="pull-right tooltip-demo">
-                                                <a href="{{ site_url('administrador/rs/editar_item/'.$rs->id_red) }}" title="Editar" data-toggle="tooltip" data-placement="top"><i class="fa fa-pencil"></i> </a>
-                                                <a class="borrar_item text-danger" href="{{ site_url('administrador/rs/borrar/'.$rs->id_red) }}" title="Borrar" data-toggle="tooltip" data-placement="top"><i class="fa fa-trash"></i></a>
                                             </span>
                                         </li>
                                     @endforeach

@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="">Nombre</label>
+    <label for="">Nombre del producto</label>
     <input type="text" name="nombre" class="form-control" id="nombre" value="{{ set_value('nombre')!='' ? set_value('nombre') : (isset($producto) ? $producto->nombre : '') }}" required {{ isset($producto) ? 'readonly' : '' }}>
 </div>
 <div class="form-group">
@@ -12,7 +12,7 @@
             <label for="">Precio por mayor</label>
             <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input type="text" name="mayor" class="form-control" required value="{{ set_value('mayor')!='' ? set_value('mayor') : (isset($producto) ? $producto->precio_por_mayor : '') }}">
+                <input type="text" name="mayor" class="form-control" required value="{{ set_value('mayor')!='' ? set_value('mayor') : (isset($producto) ? $producto->precio_por_mayor : '0') }}">
                 <span class="input-group-addon">CLP</span>
             </div>
         </div>
@@ -20,7 +20,7 @@
             <label for="">Precio por menor</label>
             <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input type="text" name="menor" class="form-control" required value="{{ set_value('menor')!='' ? set_value('menor') : (isset($producto) ? $producto->precio_por_menor : '') }}">
+                <input type="text" name="menor" class="form-control" required value="{{ set_value('menor')!='' ? set_value('menor') : (isset($producto) ? $producto->precio_por_menor : '0') }}">
                 <span class="input-group-addon">CLP</span>
             </div>
         </div>

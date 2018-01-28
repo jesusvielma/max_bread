@@ -1,4 +1,6 @@
 <?php
+
+use Carbon\Carbon;
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Inicio extends CI_Controller {
@@ -21,6 +23,8 @@ class Inicio extends CI_Controller {
 		}])->get();
 		$data['testimonios'] = Testimonio_model::orderBy('fecha','DESC')->limit(5)->get();
 		$data['slider'] = Slider_model::where('estado',1)->orderBy('posicion','ASC')->get();
+		$data['ofertas'] = Oferta_model::where('fin','>=',Carbon::now()->format('Y-m-d H:i:s'))->orderby('fin','ASC')->get();
+		$data['redes'] = Rs_model::all();
 		$this->slice->view('front.index',$data);
 	}
 

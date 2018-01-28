@@ -1,7 +1,7 @@
 @extends('templates.front.default')
 @section('content')
     @if ($slider->count()>0)
-        <section class="home section image-slider" id="home">
+        <section class="home section image-slider" id="inicio">
             <div class="home-slider text-center">
                 <div class="swiper-wrapper">
                     @foreach ($slider as $slide)
@@ -59,7 +59,7 @@
         <div class="cart-widget-close-overlay"></div>
     </div>
     @if ($productos->count()>0)
-        <section class="section-min section product white-bg" id="products">
+        <section class="section-min section product white-bg" id="productos">
             <div class="container overflow-hidden">
                 <div class="row">
                     <div class="col-md-12">
@@ -184,19 +184,19 @@
         </section>
     @endif
 
-    <section class="about white-color" id="about">
+    <section class="about white-color" id="nosotros">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="section-heading">Sobre Nosotros</h3>
                 </div>
-                <div class="col-md-7 overflow-hidden wow fadeInLeft" id="about1">
+                <div class="col-md-11 overflow-hidden wow fadeInLeft" id="about1">
                     <h4>Best furniture ever!</h4>
                     @foreach ($abouts as $about)
                         {{ $about->descripcion }}
                     @endforeach
                 </div>
-                <div class="col-md-4 col-md-push-1 wow fadeInRight">
+                <!--  <div class="col-md-4 col-md-push-1 wow fadeInRight">
                     <h4>Our mission</h4>
                     <ul class="">
                         <li>1. Duis aute irure dolor </li>
@@ -204,24 +204,39 @@
                         <li>3. Deserunt mollit anim</li>
                         <li>4. Nostrud exercitation</li>
                     </ul>
-                </div>
+                </div>  -->
             </div>
         </div>
     </section>
-
-    <section class="countdown" id="special">
+    <section class="countdown" id="ofertas">
+        @if ($ofertas->count() > 0 )
         <div class="container">
+            @foreach ($ofertas as $oferta)
+                
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-heading">special!</h3>
+                    <h3 class="section-heading"> {{ $oferta->nombre }} !</h3>
                 </div>
                 <div class="col-md-5">
                     <ul class="product-list product-list-vertical">
                         <li class="wow fadeInUp" data-wow-delay=".2s">
                             <span class="product-list-left pull-left">
-                                    <a href="#" data-target="#product-01" data-toggle="modal">
-                                        <img alt="product image" class="product-list-primary-img" src="assets/frontend/img/product3.png">
-                                        <img alt="product image" class="product-list-secondary-img" src="assets/frontend/img/product4.png">
+                                    <a href="#" data-target="#product-{{ $oferta->producto->id_producto }}" data-toggle="modal">
+                                        @foreach ($oferta->producto->imagen as $imagen)
+                                            @if ($imagen->puesto == 1)
+                                                @php
+                                                $img_prin = $imagen->url;
+                                                @endphp
+                                            @elseif ($imagen->puesto == 2)
+                                                @php
+                                                $img_seg = $imagen->url;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        <a href="#" data-target="#product-{{ $oferta->producto->id_producto }}" data-toggle="modal">
+                                            <img alt="" class="product-list-primary-img" src="{{ base_url('assets/common/uploads/'.$img_prin) }}">
+                                            <img alt="" class="product-list-secondary-img" src="{{ base_url('assets/common/uploads/'.$img_seg) }}">
+                                        </a>
                                     </a>
                             </span>
                         </li>
@@ -229,25 +244,38 @@
                 </div>
                 <div class="col-md-7 text-center">
                     <div class="countdown-container">
-                        <h3 class="wow fadeInDown">Yellow textile chair</h3>
-                        <p class="wow fadeInDown">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        <h3 class="wow fadeInDown">{{ $oferta->producto->nombre }}</h3>
+                        <p class="wow fadeInDown"> {{ $oferta->descripcion != '' ? $oferta->descripcion : $oferta->producto->descripcion }} </p>
                         <!-- data in countdown ul from js -->
-                        <ul id="countdown" class="countdown-counter wow fadeInUp"></ul>
-                        <!-- data in countdown ul from js --><span class="countdown-price h3 wow fadeInUp">$420.00</span>
-                        <button class="btn btn-default add-item wow swing" type="button" data-image="assets/frontend/img/product.png" data-name="Yellow textile chair [promo]" data-cost="420.00" data-id="9">
-                            <span class="ti-shopping-cart"></span>add to cart
+                        <ul id="countdown-{{ $oferta->id_oferta }}" class="countdown-counter wow fadeInUp"></ul>
+                        <!-- data in countdown ul from js --><span class="countdown-price h3 wow fadeInUp">${{ $oferta->precio }}CLP</span>
+                        <button class="btn btn-default add-item wow swing" type="button" data-image="assets/frontend/img/product.png" data-name="{{ $oferta->producto->nombre }} [{{ $oferta->nombre }}]" data-cost="420.00" data-id="9">
+                            <span class="ti-shopping-cart"></span>Pedir
                         </button>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
-    </section>
-    @if ($testimonios->count()>0)
-        <section class="testimonials" id="testimonials">
+        @else 
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="section-heading white-color">Testimonios</h3>
+                        <h3 class="section-heading">Ofertas!</h3>
+                    </div>
+                    <div class="col-md-6 col-md-push-3">
+                        <p>Lo sentimos no tenemos ofertas disponibles</p>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </section>
+    @if ($testimonios->count()>0)
+        <section class="testimonials" id="comentarios">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="section-heading white-color">Comentarios</h3>
                     </div>
                     <div class="testimonials-slider text-center col-md-12">
 
@@ -321,11 +349,11 @@
 
 
 
-    <section id="contact" class="contact contact-with-map">
+    <section id="contacto" class="contact contact-with-map">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-heading">contact</h3>
+                    <h3 class="section-heading">contacto</h3>
                 </div>
                 <div class="col-md-3">
                     <div class="contact-data">
@@ -334,10 +362,10 @@
                                 @php
                                     $telefb = json_decode($telef->descripcion);
                                 @endphp
-                                <li><span class="ti-mobile icon"></span>{{ $telefb->{'tipo_telef'}.' '.$telefb->{'telefono'} }}</li>
+                                <li><span class="ti-mobile icon"></span>{{ $telefb->{'tipo_telef'} }} <a href="tel:{{ $telefb->{'telefono'} }}  ">{{ $telefb->{'telefono'} }}</a></li>
                             @endforeach
                             @foreach ($mails as $mail)
-                                <li><span class="ti-email icon"></span>{{ $mail->descripcion }}</li>
+                                <li><span class="ti-email icon"></span><a href="mailto:{{ $mail->descripcion }}">{{ $mail->descripcion }}</a></li>
                             @endforeach
                             {{-- <li><span class="ti-skype icon"></span>@interio</li> --}}
                         </ul>
@@ -347,34 +375,50 @@
                     <div class="contact-form">
                         <form>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Nombre o Razón Social" required>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control" id="contact-email" name="contact-email" placeholder="Email" required>
+                                <input type="text" class="form-control" id="contact-email" name="contact-email" placeholder="Correo electronico" required>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile Number" required>
+                                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Teléfono" required>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder="Asunto" required>
                             </div>
 
                             <div class="form-group">
-                                <textarea class="form-control" id="message" placeholder="Message" maxlength="140" rows="7"></textarea>
+                                <textarea class="form-control" id="message" placeholder="Mensaje" maxlength="140" rows="7"></textarea>
                             </div>
 
-                            <button type="button" id="submit" name="submit" class="btn btn-primary btn-lg text-center float-right">Submit your message</button>
+                            <button type="button" id="submit" name="submit" class="btn btn-primary btn-lg text-center float-right">Enviar mensaje</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="google-maps">
+        <!--<div class="google-maps">
             <div id="map-canvas"></div>
-        </div>
+        </div>-->
     </section>
+@endsection
+@section('js')
+@if ($ofertas->count() > 0 )
+    <script>
+        @foreach ($ofertas as $oferta)    
+            $('#countdown-{{ $oferta->id_oferta }}').countdown('{{ $oferta->fin }}', function(event) {
+            var $this = $(this).html(event.strftime(''
+            //+ '<li><span>%w</span> weeks</li> '
+                + '<li><span>%D</span> dias</li> '
+                + '<li><span>%H</span> horas</li> '
+                + '<li><span>%M</span> minutos</li> '
+                + '<li><span>%S</span> segundos</li>'));
+            });
+        @endforeach
+    </script>
+@endif
 @endsection

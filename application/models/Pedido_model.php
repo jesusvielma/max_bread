@@ -22,7 +22,7 @@ class Pedido_model extends Eloquent {
 
     public function productos()
     {
-        return $this->belongsToMany('Producto_model','pedido_tiene_producto','id_pedido','id_producto')->withPivot('cantidad');
+        return $this->belongsToMany('Producto_model','pedido_tiene_producto','id_pedido','id_producto')->withPivot(['cantidad','oferta']);
     }
 
     public function cliente(){

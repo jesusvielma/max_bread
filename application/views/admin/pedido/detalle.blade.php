@@ -92,6 +92,12 @@
                                                 @if ($producto->pivot->cantidad >= $producto->cant_por_mayor)
                                                     ${{ $producto->precio_por_mayor }}CLP
                                                     <s class="small text-muted">${{ $producto->precio_por_menor }}CLP</s>
+                                                @elseif($producto->pivot->oferta != 0)
+                                                    @foreach ($producto->ofertas as $oferta)
+                                                        @if ($oferta->id_oferta == $producto->pivot->oferta)
+                                                            ${{ $oferta->precio }}CLP
+                                                        @endif
+                                                    @endforeach
                                                 @else
                                                     ${{ $producto->precio_por_menor }}CLP
                                                 @endif
@@ -104,6 +110,11 @@
                                                     @php
                                                         if($producto->pivot->cantidad >= $producto->cant_por_mayor)
                                                             $precio = $producto->precio_por_mayor;
+                                                        elseif($producto->pivot->oferta != 0)
+                                                            foreach ($producto->ofertas as $oferta){
+                                                                if ($oferta->id_oferta == $producto->pivot->oferta)
+                                                                    $precio = $oferta->precio ;
+                                                            }
                                                         else
                                                             $precio = $producto->precio_por_menor;
 

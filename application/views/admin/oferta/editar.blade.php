@@ -1,10 +1,12 @@
 @extends('templates/admin/default')
 @section('title')
-    Ingresar nuevo producto
+    Editar producto
 @endsection
 @section('css')
     <link href="{{ base_url('assets/backend/css/plugins/select2/select2.min.css') }}" rel="stylesheet">
     <link href="<?=base_url('assets/common/js/fancybox/dist/jquery.fancybox.css')?>" type="text/css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="{{ base_url('assets/backend/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
 @endsection
 @section('js')
     <!-- Jquery Validate -->
@@ -16,6 +18,8 @@
     <!-- Select2 -->
     <script src="{{ base_url('assets/backend/js/plugins/select2/select2.full.min.js') }}"></script>
     <script src="<?=base_url('assets/common/js/fancybox/dist/jquery.fancybox.js')?>"></script>
+    <!-- Sweet alert -->
+    <script src="{{ base_url('assets/backend/js/plugins/sweetalert/sweetalert.min.js') }}"></script>
 @endsection
 @section('script')
     <script>
@@ -44,9 +48,9 @@
                 menubar: false,
                 relative_urls :false,
                 //allow_script_urls: true,
-                /*external_filemanager_path:"<?=base_url('assets/common/js/filemanager/')?>",
+                external_filemanager_path:"<?=base_url('assets/common/js/filemanager/')?>",
                 filemanager_title:"Manejador de archivos" ,
-                external_plugins: { "filemanager" : "<?=base_url('assets/common/js/filemanager/plugin.min.js')?>"},*/
+                external_plugins: { "filemanager" : "<?=base_url('assets/common/js/filemanager/plugin.min.js')?>"},
                 //extended_valid_elements : "img[usemap|class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],map[id|name],area[shape|alt|coords|href|target]",
             });
             $(".select2").select2({
@@ -57,13 +61,11 @@
                 rules: {
                     mayor: {
                         required: true,
-                        number: true,
-                        lowerThan: 'input[name="menor"]'
+                        number: true
                     },
                     menor: {
                         required: true,
-                        number: true,
-                        greaterThan: 'input[name="mayor"]'
+                        number: true
                     },
                     cantidad: {
                         required: true,
@@ -71,39 +73,25 @@
                     }
                 }
             });
-            $('input[name="mayor"]').focus(function(){
-                if($(this).val() == 0)
-                $(this).val('');
+            var nombre = $('#nombre').val();
+            $.post('{{ site_url('administrador/producto/crearDir/') }}',{nombre:nombre} , function (data) {
+                nombre = data.nombre;
+                $('a').each(function () {
+                    box = $(this).data('src');
+                    if(box)
+                    {
+                        box = box.replace(':PRODUCTO',nombre);
+                        $(this).removeData('src');
+                        $(this).data('src',box);
+                    }
+                });
             });
-            $('input[name="mayor"]').keyup(function(){
-                var monto = $(this).val();
-                monto++;
-                $('input[name="menor"]').val(monto);
-            });
-            $.validator.addMethod("greaterThan",
-            function (value, element, param) {
-                var $otherElement = $(param);
-                return parseInt(value, 10) > parseInt($otherElement.val(), 10);
-            },'El precio por menor debe ser mas alto que el precio por mayor');
-            $.validator.addMethod("lowerThan",
-            function (value, element, param) {
-                var $otherElement = $(param);
-                return parseInt(value, 10) < parseInt($otherElement.val(), 10);
-            },'El precio por mayor debe ser mas alto que el precio por menor');
-            $('#nombre').blur(function () {
-                var nombre = $(this).val();
-                $.post('{{ site_url('administrador/producto/crearDir/') }}',{nombre:nombre} , function (data) {
-                    nombre = data.nombre;
-                    $('a').each(function () {
-                        box = $(this).data('src');
-                        if(box)
-                        {
-                            box = box.replace(':PRODUCTO',nombre);
-                            $(this).removeData('src');
-                            $(this).data('src',box);
-                            $(this).removeClass('disabled');
-                        }
-                    })
+            $('#nombre').click(function () {
+                swal({
+                    title: "Lo sentimos",
+                    text:  "Sentimos infomrarle que por ahora no puede modificar esta campo.",
+                    type: "info",
+                    confirmButtonText: "Ok",
                 });
             });
             $('[data-fancybox]').fancybox({
@@ -123,7 +111,6 @@
             $('#'+campo).val(dir+'/'+imagen);
             $('#foto_'+campo).attr('src','{{base_url('assets/common/uploads/')}}'+dir+'/'+imagen);
         }
-
     </script>
 @endsection
 @section('content')
@@ -144,10 +131,9 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h2>Ingresar nuevo producto</h2>
+                        <h2>Editar la información</h2>
                         <div class="ibox-content">
-                            {{ validation_errors() }}
-                            {{ form_open('administrador/producto/guardar',array('id'=>'form')) }}
+                            {{ form_open('administrador/producto/post_editar/'.$producto->id_producto,array('id'=>'form')) }}
                                 @include('admin.producto.form')
                             {{ form_close() }}
                         </div>

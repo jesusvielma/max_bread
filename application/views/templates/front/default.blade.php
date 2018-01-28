@@ -35,12 +35,12 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					@if ($this->uri->uri_string() == '')
-						<li><a href="#home">inicio</a></li>
-						<li><a href="#products">productos</a></li>
-						<li><a href="#about">Nosotros</a></li>
-						<li><a href="#special">especial</a></li>
-						<li><a href="#testimonials">testimonios</a></li>
-						<li><a href="#contact">contacto</a></li>
+						<li><a href="#inicio">inicio</a></li>
+						<li><a href="#productos">productos</a></li>
+						<li><a href="#nosotros">Nosotros</a></li>
+						<li><a href="#ofertas">ofertas</a></li>
+						<li><a href="#comentarios">comentarios</a></li>
+						<li><a href="#contacto">contacto</a></li>
 						@if ($this->session->userdata('front'))
 							<li><a href="{{ site_url('mi_cuenta') }}">Mi Cuenta</a></li>
 							<li><a href="{{ site_url('login/salir') }}" >Salir</a></li>
@@ -66,17 +66,31 @@
 		<footer class="footer">
 			<div class="container">
 				<div class="row">
+					@if ($redes->count() > 0 )	
 					<div class="col-md-4 col-md-push-4 text-center"> <img class="footer-logo" src="assets/frontend/img/max_bread2.png" alt="footer-logo">
 						<div class="social">
 							<ul>
-								<li><a href="http://facebook.com/" target="_blank"><span class="ti-facebook"></span></a></li>
-								<li><a href="https://twitter.com/" target="_blank"><span class="ti-twitter-alt"></span></a></li>
-								<li><a href="http://linkedin.com/" target="_blank"><span class="ti-linkedin"></span></a></li>
-								<li><a href="https://vimeo.com/" target="_blank"><span class="ti-vimeo-alt"></span></a></li>
-								<li><a href="http://youtube.com/" target="_blank"><span class="ti-youtube"></span></a></li>
+								@foreach ($redes as $red)
+									@if ($red->tipo == 'fb')
+										<li><a href="{{ $red->url }}" target="_blank"><span class="ti-facebook"></span></a></li>
+									@endif
+									@if ($red->tipo == 'tw')
+										<li><a href="{{ $red->url }}" target="_blank"><span class="ti-twitter-alt"></span></a></li>
+									@endif
+									@if ($red->tipo == 'in')
+										<li><a href="{{ $red->url }}" target="_blank"><span class="ti-instagram"></span></a></li>
+									@endif
+									@if ($red->tipo == 'ln')
+										<li><a href="{{ $red->url }}" target="_blank"><span class="ti-linkedin"></span></a></li>
+									@endif
+									@if ($red->tipo == 'yb')
+										<li><a href="{{ $red->url }}" target="_blank"><span class="ti-youtube"></span></a></li>
+									@endif
+								@endforeach
 							</ul>
 						</div>
 					</div>
+					@endif
 					<div class="clearfix"></div>
 					<div class="col-md-4 col-md-offset-4 col-sm-12">
 						<div class="footer-newsletter">

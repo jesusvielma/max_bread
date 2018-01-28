@@ -74,33 +74,8 @@
                 <li class="{{ $this->uri->segment(2) == 'pedido' ? 'active' : '' }}">
                     <a href="{{ site_url('administrador/pedido') }}"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Pedidos</span></a>
                 </li>
-                <li>
-                    <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
-                </li>
-                <li>
-                    <a href="empty_page.html#"><i class="fa fa-sitemap"></i> <span class="nav-label">Menu Levels </span><span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse">
-                        <li>
-                            <a href="empty_page.html#">Third Level <span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li>
-                                    <a href="empty_page.html#">Third Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="empty_page.html#">Third Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="empty_page.html#">Third Level Item</a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li><a href="empty_page.html#">Second Level Item</a></li>
-                        <li>
-                            <a href="empty_page.html#">Second Level Item</a></li>
-                        <li>
-                            <a href="empty_page.html#">Second Level Item</a></li>
-                    </ul>
+                <li class="landing_link">
+                    <a target="_blank" href="{{ site_url() }}"><i class="fa fa-star"></i> Ver mi sitio</a>
                 </li>
                 <!--<li>
                     <a href="css_animation.html"><i class="fa fa-magic"></i> <span class="nav-label">CSS Animations </span><span class="label label-info pull-right">62</span></a>
