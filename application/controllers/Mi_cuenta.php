@@ -53,12 +53,23 @@ class Mi_cuenta extends CI_Controller {
 
 		$usuario = Usuario::find($this->input->post('id_usuario'));
 
-		$claveNueva = md5($this->input->post('clave'));
+		$clave = $this->input->post('clave');
+
+		$claveNueva = password_verify($clave, $usuario->clave);
 
 		$cambio = false;
 
-		if($claveNueva != '' && $usuario->clave != $claveNueva){
-			$usuario->clave = $claveNueva;
+		if($clave != '' && $claveNueva === FALSE ){
+			$timeTarget = 0.05; // 50 milisegundos 
+			$coste = 8;
+			do {
+				$coste++;
+				$inicio = microtime(true);
+				$clave2 = password_hash($clave, PASSWORD_BCRYPT, ["cost" => $coste]);
+				$fin = microtime(true);
+			} while (($fin - $inicio) < $timeTarget);
+
+			$usuario->clave = $clave2;
 			$cambio = true;
 		}
 

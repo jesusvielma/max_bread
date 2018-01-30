@@ -37,14 +37,19 @@
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header" id="profile-view">
-                    <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="<?=base_url('assets/backend/img/profile_small.jpg')?>" />
+                    <div class="dropdown profile-element"> 
+                        <span>
+                            {{--  <img alt="image" class="img-circle" src="<?=base_url('assets/backend/img/profile_small.jpg')?>" />  --}}
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ $this->session->userdata('admin')['correo'] }}</strong>
-                             </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Mi Cuenta</strong>
+                              <b class="caret"></b></span> 
+                             {{--  <span class="text-muted text-xs block">Art Director </span> </span>   --}}
+                            </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="login.html">Logout</a></li>
+                            <li><a href="">Perfil</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ site_url('administrador/login/salir') }}">Salir</a></li>
                         </ul>
                     </div>
                     <div class="logo-element">

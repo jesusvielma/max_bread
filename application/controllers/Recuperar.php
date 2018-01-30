@@ -104,10 +104,18 @@ class Recuperar extends CI_Controller {
 			$diff =  $now->diffInMinutes($data->validez,false);
 			if($diff > 0){
 				$usuario = Usuario::where('correo',$data->correo)->first();
+				$clave = $this->input->post('claveOlvido');
 
-				$clave = $this->input->post('clave');
+				$timeTarget = 0.05; // 50 milisegundos 
+				$coste = 8;
+				do {
+					$coste++;
+					$inicio = microtime(true);
+					$clave2 = password_hash($clave, PASSWORD_BCRYPT, ["cost" => $coste]);
+					$fin = microtime(true);
+				} while (($fin - $inicio) < $timeTarget);
 
-				$usuario->clave = md5($clave);
+				$usuario->clave = $clave2;
 
 				$usuario->save();
 
