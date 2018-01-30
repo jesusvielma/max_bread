@@ -135,7 +135,7 @@
     </div>
 </div>
 
-@section('js')
+@section('jsLogin')
     <script src="{{ base_url('assets/backend/js/plugins/jquery.rut.js') }}"></script>
     <script src="{{ base_url('assets/backend/js/plugins/jasny/jasny-bootstrap.min.js') }}"></script>
 	<!-- Sweet alert -->

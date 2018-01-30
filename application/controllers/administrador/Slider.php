@@ -14,39 +14,37 @@ class Slider extends CI_Controller {
 	 */
 	public function index()
 	{
-		$data['slider1'] = Slider_model::where('posicion','1')->where('estado',1)->first();
-		$data['slider2'] = Slider_model::where('posicion','2')->where('estado',1)->first();
-		$data['slider3'] = Slider_model::where('posicion','3')->where('estado',1)->first();
-		$data['slider4'] = Slider_model::where('posicion','4')->where('estado',1)->first();
+		$data['sliders'] = Slider_model::where('estado',1)->orderby('posicion','ASC')->get();
 		$this->slice->view('admin.slider.index',$data);
 	}
 
 	/**
 	 * Muestra el formulario para ingresar nuevos clientes
 	 */
-	public function crear($posicion)
+	public function crear()
 	{
-		if ($posicion<5) {
-			$this->slice->view('admin.slider.crear');
-		}else{
-			redirect('administrador/slider');
-		}
+		$this->slice->view('admin.slider.crear');	
 	}
 
 	/**
 	 * Almacena los datos en la base de datos
 	 */
-	public function guardar($posicion)
+	public function guardar()
 	{
-		$slider = new Slider_model;
+		$posicion = Slider_model::select('posicion')->orderBy('posicion','DESC')->first();
 
+		$posicion = $posicion->posicion + 1;
+
+		$slider = new Slider_model;
+		
 		$slider->url = $this->input->post('imagen');
 		$slider->posicion = $posicion;
 		$slider->estado = 1;
 		$slider->texto_imagen = $this->input->post('texto_imagen');
 		$slider->texto_boton = $this->input->post('texto_boton');
+		$slider->enlace_boton = $this->input->post('enlace_boton');
 
-		$slider->save();
+		$slider->save(); 
 
 		redirect('administrador/slider','refresh');
 

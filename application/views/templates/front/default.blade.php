@@ -263,6 +263,7 @@
 	</script>
 	@endif
 	@yield('js')
+	@yield('jsLogin')
 </body>
 
 </html>

@@ -116,6 +116,11 @@
         });
         function close_window() {
             $.fancybox.close('all');
+            $.get('{{ site_url('upload/get_csrf_fields') }}',function(data){
+                var csrfName = data.csrf.name;
+                var csrfHash = data.csrf.hash;
+                $('input[name='+csrfName+']').val(csrfHash);
+            });
         }
 
         function setImage(imagen,campo,dir) {

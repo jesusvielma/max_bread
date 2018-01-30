@@ -84,5 +84,16 @@ class Upload extends CI_Controller {
 
         redirect('upload/dir?dir='.$dir.'&campo='.$campo);
     }
+
+    public function get_csrf_fields(){
+        $data = [
+            'csrf' => [
+                'name' => $this->security->get_csrf_token_name(),
+                'hash' => $this->security->get_csrf_hash()
+                ]
+            ];
+        $this->output->set_content_type('application/json')
+            ->set_output(json_encode($data));
+    }
 }
 ?>

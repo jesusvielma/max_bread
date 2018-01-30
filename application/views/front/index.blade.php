@@ -7,9 +7,15 @@
                     @foreach ($slider as $slide)
                         <div class="swiper-slide" style="background: url({{ base_url('assets/common/uploads/'.$slide->url) }});">
                             <!-- <img src="assets/frontend/img/logo-white.png" alt="store logo"> -->
-                            <h2 class="home-slider-title-main">{{ $slide->texto_imagen }}</h2>
-                            <div class="home-buttons text-center"> <a href="#products" class="btn btn-lg  btn-primary">{{ $slide->texto_boton }}</a> </div>
-                            <a class="arrow bounce text-center" href="#about"> <span class="ti-mouse"></span> <span class="ti-angle-double-down"></span> </a>
+                            @if ($slide->texto_imagen != '')
+                                <h2 class="home-slider-title-main">{{ $slide->texto_imagen }}</h2>
+                            @endif
+                            @if ($slide->texto_boton != '' && $slide->enlace_boton != '')    
+                                <div class="home-buttons text-center"> 
+                                    <a href="{{ $slide->enlace_boton }}" class="btn btn-lg  btn-primary">{{ $slide->texto_boton }}</a> 
+                                </div>
+                            @endif
+                            <a class="arrow bounce text-center" href="#nosotros"> <span class="ti-mouse"></span> <span class="ti-angle-double-down"></span> </a>
                         </div>
                     @endforeach
                 </div>
