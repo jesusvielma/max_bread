@@ -31,7 +31,7 @@
                                 <div id="olvidoCorreo">
                                     {{ form_open('',['id'=>'formOlvido']) }}
                                         <h5>Empecemos con la recuperación de su clave</h5>
-                                        <a href="#" id="login"><i class="ti-arrow-left"></i>Inicar sesión</a>
+                                        <a href="#" class="divLogin"><i class="ti-arrow-left"></i>Inicar sesión</a>
                                         <div class="form-group">
                                             <input type="text" name="correo" value="" class="form-control" placeholder="Correo electrónico">
                                         </div>
@@ -44,7 +44,7 @@
                                     {{ form_open('',['id'=>'formOlvidoClave']) }}
                                         <h5>Adelante todo esta listo para cambiar su clave</h5>
                                         <ul id="countdownClave" class="countdown-counter wow fadeInUp"></ul>
-                                        <a href="#" id="login"><i class="ti-arrow-left"></i>Inicar sesión</a>
+                                        <a href="#" class="divLogin"><i class="ti-arrow-left"></i>Inicar sesión</a>
                                         <div class="form-group">
                                             <input type="text" name="token" value="" class="form-control" placeholder="Ingrese el Token ">
                                         </div>
@@ -62,7 +62,7 @@
                             </div>
                             <div class="registro">
                                 <h5>Registro</h5>
-                                <a href="#" id="login"><i class="ti-arrow-left"></i>Inicar sesión</a>
+                                <a href="#" class="divLogin"><i class="ti-arrow-left"></i>Inicar sesión</a>
                                 {{ form_open('',['id'=>'formRegistro']) }}
                                     <div class="form-group">
                                         <label>¿Eres una empresa o una persona?</label>
@@ -148,9 +148,11 @@
 				$('.registro').show('fadeIn');
 				$('#formRegistro .all').prop('disabled',false);
 			});
-			$('#login').click(function () {
+			$('.divLogin').click(function () {
 				$('.registro').hide('fadeIn');
-				$('.login').show('fadeOut');
+                $('.login').show('fadeOut');
+                $('#olvidoClave').hide('fadeOut');
+                $('#olvidoCorreo').hide('fadeOut');
 			});
             $('#olvido').click(function () {
 				$('.registro').hide('fadeOut');
