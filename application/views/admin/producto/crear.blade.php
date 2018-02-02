@@ -5,6 +5,10 @@
 @section('css')
     <link href="{{ base_url('assets/backend/css/plugins/select2/select2.min.css') }}" rel="stylesheet">
     <link href="<?=base_url('assets/common/js/fancybox/dist/jquery.fancybox.css')?>" type="text/css" rel="stylesheet">
+    @if ($this->session->flashdata('NoCats'))        
+    <!-- Sweet Alert -->
+    <link href="{{ base_url('assets/backend/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
+    @endif
 @endsection
 @section('js')
     <!-- Jquery Validate -->
@@ -16,6 +20,10 @@
     <!-- Select2 -->
     <script src="{{ base_url('assets/backend/js/plugins/select2/select2.full.min.js') }}"></script>
     <script src="<?=base_url('assets/common/js/fancybox/dist/jquery.fancybox.js')?>"></script>
+    @if ($this->session->flashdata('NoCats'))        
+    <!-- Sweet alert -->
+    <script src="{{ base_url('assets/backend/js/plugins/sweetalert/sweetalert.min.js') }}"></script>
+    @endif
 @endsection
 @section('script')
     <script>
@@ -112,7 +120,26 @@
     					height: '500px'
     				}
     			}
-    		});
+            });
+            
+            @if ($this->session->flashdata('NoCats'))        
+            swal({
+                title: "Opps, hay un problema",
+                text:  " {{ $this->session->flashdata('NoCats')['msg'] }} ",
+                type: "error",
+                confirmButtonText: "Vamos allá ",
+                confirmButtonColor: "#1ab394",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                html: true,
+                closeOnClickOutside: false
+            },
+            function(isConfirm){
+                if(isConfirm){
+                    location.href="{{ $this->session->flashdata('NoCats')['url'] }}";
+                }
+            });
+            @endif
         });
         function close_window() {
             $.fancybox.close('all');

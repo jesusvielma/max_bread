@@ -128,7 +128,7 @@
                                         <td>
                                             <ul class="styled-list">
                                                 @foreach ($pedido->productos as $producto)
-                                                    <li>{{ $producto->pivot->cantidad }} {{ $producto->nombre }}</li>
+                                                    <li>{{ $producto->pivot->cantidad }} {{ $producto->nombre }} {{ $producto->pivot->oferta > 0 ? '<em class="oferta">Oferta</em>' : ''}}</li>
                                                 @endforeach
                                             </ul>
                                         </td>

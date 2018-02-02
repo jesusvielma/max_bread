@@ -9,6 +9,29 @@
         .ofertasTable {
             display: none;
         }
+        .modal-content > .sk-spinner {
+            display: none;
+        }
+        .modal-content.sk-loading {
+            position: relative;
+        }
+        .modal-content.sk-loading:after {
+            content: '';
+            background-color: rgba(255, 255, 255, 0.7);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .modal-content.sk-loading > .sk-spinner {
+            display: block;
+            position: absolute;
+            top: 40%;
+            left: 0;
+            right: 0;
+            z-index: 2000;
+        }
     </style>
 @endsection
 @section('js')
@@ -24,6 +47,7 @@
             $('.footable').footable();
             $('[data-tooltip="tooltip"]').tooltip();
             $('.ofertaButton').click(function (){
+                $('#Oferta .modal-content').toggleClass('sk-loading');
                 moment.locale('es');
 
                 var prod = $(this).data('id');
@@ -46,6 +70,8 @@
                         }
                         if(ofertasActivas == 1 ){
                             $('#crearOferta').addClass('disabled');
+                        }else{
+                            $('#crearOferta').attr('href','{{ site_url('administrador/oferta/crear/') }}'+prod);
                         }
                         $('#ofertaFilas tr').remove();
                         $(ofertas).appendTo($('#ofertaFilas'));
@@ -59,6 +85,10 @@
                         $('#ofertaMsg').html(data.msg);
                         $('#ofertaMsg').fadeIn();
                     }
+
+                    setTimeout(function (){
+                        $('#Oferta .modal-content').toggleClass('sk-loading');
+                    },3000)
                 });
             });
         });
@@ -155,6 +185,13 @@
                 <div class="modal inmodal fade" id="Oferta" tabindex="-6" role="dialog"  aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
+                            <div class="sk-spinner sk-spinner-wave">
+                                <div class="sk-rect1"></div>
+                                <div class="sk-rect2"></div>
+                                <div class="sk-rect3"></div>
+                                <div class="sk-rect4"></div>
+                                <div class="sk-rect5"></div>
+                            </div>
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                                 <h4 class="modal-title" id="ofertaTitle"></h4>

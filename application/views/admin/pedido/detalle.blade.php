@@ -95,7 +95,7 @@
                                                 @elseif($producto->pivot->oferta != 0)
                                                     @foreach ($producto->ofertas as $oferta)
                                                         @if ($oferta->id_oferta == $producto->pivot->oferta)
-                                                            ${{ $oferta->precio }}CLP
+                                                            ${{ $oferta->precio }}CLP <small><em>[Oferta]</em></small>
                                                         @endif
                                                     @endforeach
                                                 @else

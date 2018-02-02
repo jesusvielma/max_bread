@@ -150,14 +150,15 @@
 			});
 			$('.divLogin').click(function () {
 				$('.registro').hide('fadeIn');
-                $('.login').show('fadeOut');
                 $('#olvidoClave').hide('fadeOut');
                 $('#olvidoCorreo').hide('fadeOut');
+                $('.login').show('fadeOut');
 			});
             $('#olvido').click(function () {
 				$('.registro').hide('fadeOut');
 				$('.login').hide('fadeOut');
                 $('#olvidoClave').hide('fadeOut');
+                $('#olvidoCorreo').fadeIn();
                 $('.olvido').show('fadeIn');
 			});
 			$('#persona').click(function () {

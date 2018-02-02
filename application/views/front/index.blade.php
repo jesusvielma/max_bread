@@ -214,11 +214,10 @@
             </div>
         </div>
     </section>
+    @if ($ofertas->count() > 0 )
     <section class="countdown" id="ofertas">
-        @if ($ofertas->count() > 0 )
         <div class="container">
             @foreach ($ofertas as $oferta)
-                
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="section-heading"> {{ $oferta->nombre }} !</h3>
@@ -255,7 +254,7 @@
                         <!-- data in countdown ul from js -->
                         <ul id="countdown-{{ $oferta->id_oferta }}" class="countdown-counter wow fadeInUp"></ul>
                         <!-- data in countdown ul from js --><span class="countdown-price h3 wow fadeInUp">${{ $oferta->precio }}CLP</span>
-                        <button class="btn btn-default add-item wow swing" type="button" data-image="assets/frontend/img/product.png" data-name="{{ $oferta->producto->nombre }} [{{ $oferta->nombre }}]" data-cost="420.00" data-id="9">
+                        <button class="btn btn-default add-item wow swing" type="button" data-image="{{ base_url('assets/common/uploads/'.$img_prin) }}" data-name="{{ $oferta->producto->nombre }} " data-cost="{{ $oferta->precio }}" data-id="{{ $oferta->producto->id_producto }}" data-oferta="{{ $oferta->id_oferta }}" >
                             <span class="ti-shopping-cart"></span>Pedir
                         </button>
                     </div>
@@ -263,19 +262,8 @@
             </div>
             @endforeach
         </div>
-        @else 
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 class="section-heading">Ofertas!</h3>
-                    </div>
-                    <div class="col-md-6 col-md-push-3">
-                        <p>Lo sentimos no tenemos ofertas disponibles</p>
-                    </div>
-                </div>
-            </div>
-        @endif
     </section>
+    @endif
     @if ($testimonios->count()>0)
         <section class="testimonials" id="comentarios">
             <div class="container">

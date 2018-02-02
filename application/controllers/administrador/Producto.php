@@ -23,7 +23,10 @@ class Producto extends CI_Controller {
 	 */
 	public function crear()
 	{
-		$data['cats'] = Categoria_model::all();
+		$data['cats'] = $cats = Categoria_model::all();
+		if ($cats->count() < 1) {
+			$this->session->set_flashdata('NoCats',['msg'=>'No existen categorias al hacer click en aceptar será redirigido a la pagina de creación de categorias.','url'=>site_url('administrador/categoria/crear')]);
+		}
 		$this->slice->view('admin.producto.crear',$data);
 	}
 

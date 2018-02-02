@@ -13,6 +13,7 @@ class Pedido extends CI_Controller {
     public function ingresar() {
         $items = $this->input->post('itemId');
         $cantItems = $this->input->post('itemCant');
+        $itemOferta = $this->input->post('itemOferta');
 
         $usuario = $this->session->userdata('front')['correo'];
 
@@ -36,7 +37,7 @@ class Pedido extends CI_Controller {
         $itemsCant = 0;
 
         foreach($items as $item ){
-            $pedido->productos()->attach([$item => ['cantidad'=> $cantItems[$item]]]);
+            $pedido->productos()->attach([$item => ['cantidad' => $cantItems[$item], 'oferta' => $itemOferta[$item]]]);
             $itemsCant+= $cantItems[$item];
         }
 

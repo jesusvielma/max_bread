@@ -61,10 +61,10 @@
                                 <table class="table table-striped table-bordered table-hover dataTables-example">
                                     <thead>
                                         <tr>
+                                            <th style="width:20%">Fecha</th>
                                             <th>Código de Pedido</th>
                                             <th style="width:15%">RUT cliente</th>
                                             <th>Nombre</th>
-                                            <th style="width:20%">Fecha</th>
                                             <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -72,10 +72,10 @@
                                     <tbody>
                                         <?php foreach ($pedidos as $pedido): ?>
                                             <tr>
+                                                <td><?=$pedido->fecha->formatLocalized('%d de %B de %Y a las %H:%M:%S')?></td>
                                                 <td>{{ $pedido->codigo_pedido }}</td>
                                                 <td class="rut" data-rut="{{ $pedido->cliente_rut }}">{{ $pedido->cliente_rut }}</td>
                                                 <td><?=$pedido->cliente->nombre?></td>
-                                                <td><?=$pedido->fecha->formatLocalized('%d de %B de %Y a las %H:%M:%S')?></td>
                                                 <td>{{ ucfirst($pedido->estado) }}</td>
                                                 <td>
                                                     <div class="tooltip-demo btn-group">

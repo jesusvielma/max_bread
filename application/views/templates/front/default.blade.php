@@ -15,8 +15,22 @@
 
 	<link href="{{ base_url('assets/backend/css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
     <!-- Sweet Alert -->
-    <link href="{{ base_url('assets/backend/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
+	<link href="{{ base_url('assets/backend/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
+	<style>
+		.cart-item-name .oferta{
+			color: #ff9800;
+    		font-size: 10px;
+		}
+		.pedidos tr:nth-child(odd) .oferta{
+			color: black;
+    		font-size: 13px;
+		}
 
+		.pedidos tr:nth-child(even) .oferta{
+			color: #ff9800;
+    		font-size: 13px;
+		}
+	</style>
 	@yield('css')
 </head>
 
@@ -30,16 +44,26 @@
 					<span class="icon-bar"></span>
 				</button>
 
-				<a class="navbar-brand" href="#"> <img src="<?=base_url('assets/frontend/img/max_bread2.png')?>" alt="logo"> </a>
+				<a class="navbar-brand" href="{{ site_url() }}"> <img src="<?=base_url('assets/frontend/img/max_bread2.png')?>" alt="logo"> </a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					@if ($this->uri->uri_string() == '')
+						@if ($slider->count() > 0)	
 						<li><a href="#inicio">inicio</a></li>
+						@else
+						<li><a href="{{ site_url() }}">inicio</a></li>
+						@endif
+						@if ($productos->count() > 0 )
 						<li><a href="#productos">productos</a></li>
+						@endif
 						<li><a href="#nosotros">Nosotros</a></li>
+						@if ($ofertas->count() > 0 )	
 						<li><a href="#ofertas">ofertas</a></li>
+						@endif
+						@if ($testimonios->count() > 0 )
 						<li><a href="#comentarios">comentarios</a></li>
+						@endif
 						<li><a href="#contacto">contacto</a></li>
 						@if ($this->session->userdata('front'))
 							<li><a href="{{ site_url('mi_cuenta') }}">Mi Cuenta</a></li>
@@ -164,13 +188,27 @@
 
 		$(".add-item").click(function(event){
 			event.preventDefault();
+			alert('hola');
 			var name = $(this).data("name");
 			var price = Number($(this).data("cost"));
 			var itemId = Number($(this).data("id"));
 			var image = $(this).data("image");
+			var oferta = $(this).data('oferta') ? $(this).data('oferta') : 0;
 
-
-			shoppingCart.addItemToCart(name, itemId, price, image, 1);
+			var cartArray = shoppingCart.listCart();
+			if(cartArray.length > 0 ){
+				for(var i in cartArray){
+					if(cartArray[i].itemId == itemId && oferta > 0 ){
+						var cant = cartArray[i].count +1;
+						shoppingCart.removeItemFromCart(cartArray[i].itemId);
+						shoppingCart.addItemToCart(name, itemId, price, image, oferta, cant);		
+					}else{
+						shoppingCart.addItemToCart(name, itemId, price, image, oferta, 1);
+					}
+				}
+			}else{
+				shoppingCart.addItemToCart(name, itemId, price, image, oferta, 1);
+			}
 			displayCart();
 		});
 
@@ -185,12 +223,12 @@
 			var output = "";
 
 			for (var i in cartArray) {
-				output+= "<div class='cart-item ' id='item' data-id=''>";
+				output+= "<div class='cart-item ' id='item' data-id='"+ cartArray[i].itemId +"'>";
 				output+= "<span class='cart-item-image'><img alt='"+ cartArray[i].name +"' src='"+ cartArray[i].image +"'/></span>";
-				output+= "<span class='cart-item-name h4'>"+ cartArray[i].name +"</span>";
+				output+= "<span class='cart-item-name h4'>"+ cartArray[i].name +(cartArray[i].oferta > 0 ? '<em class="oferta">[Oferta]</em>': '')+"</span>";
 				output+= "<span class='cart-item-price'>$<span class='cvalue'>"+ cartArray[i].price +"</span>CLP</span>";
 				output+= "<br /><div style='display:inline-block'>";
-				output+= "<input type='number' data-id='"+ cartArray[i].itemId +"' name='itemCant["+ cartArray[i].itemId +"]' value='"+ cartArray[i].count +"' class='form-control item-count' min='1'/> <input type='hidden' name='itemId["+ cartArray[i].itemId +"]' value='"+ cartArray[i].itemId +"'/>"
+				output+= "<input type='number' data-id='"+ cartArray[i].itemId +"' name='itemCant["+ cartArray[i].itemId +"]' value='"+ cartArray[i].count +"' class='form-control item-count' min='1'/> <input type='hidden' name='itemId["+ cartArray[i].itemId +"]' value='"+ cartArray[i].itemId +"'/> <input type='hidden' name='itemOferta["+ cartArray[i].itemId +"]' value='"+ cartArray[i].oferta +"'>"
 				output+= "<span class='cart-item-remove' data-id='"+ cartArray[i].itemId +"'><span class='ti-close'></span></span>";
 				output+= "<span class='cart-item-plus' data-id='"+ cartArray[i].itemId +"'><span class='ti-plus'></span></span>";
 				if (cartArray[i].count > 1) {
@@ -232,7 +270,7 @@
 
 		$("#items").on("click", ".cart-item-plus", function(event){
 			var itemId = $(this).data("id");
-			shoppingCart.addItemToCart('',itemId, 0, '', 1);
+			shoppingCart.addItemToCart('',itemId, 0, '','', 1);
 			displayCart();
 		});
 

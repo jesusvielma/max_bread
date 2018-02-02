@@ -24,7 +24,7 @@ class Oferta extends CI_Controller {
 			$return = [
 				'vacio' => 0,
 				'ofertas' => $ofertas,
-				'title' => 'Ofertas del prodcuto '.$producto->nombre,
+				'title' => 'Ofertas del producto '.$producto->nombre,
 			];
 		}else{
 			$return = [
