@@ -90,8 +90,8 @@
 		<footer class="footer">
 			<div class="container">
 				<div class="row">
-					@if (isset($redes) && $redes->count() > 0 )	
 					<div class="col-md-4 col-md-push-4 text-center"> <img class="footer-logo" src="assets/frontend/img/max_bread2.png" alt="footer-logo">
+					@if (isset($redes) && $redes->count() > 0 )	
 						<div class="social">
 							<ul>
 								@foreach ($redes as $red)

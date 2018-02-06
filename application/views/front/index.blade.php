@@ -189,31 +189,31 @@
             @endforeach
         </section>
     @endif
-
-    <section class="about white-color" id="nosotros">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="section-heading">Sobre Nosotros</h3>
+    @if ($abouts->count() > 0 )    
+        <section class="about white-color" id="nosotros">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="section-heading">Sobre Nosotros</h3>
+                    </div>
+                    <div class="col-md-11 overflow-hidden wow fadeInLeft" id="about1">
+                        @foreach ($abouts as $about)
+                            {{ $about->descripcion }}
+                        @endforeach
+                    </div>
+                    <!--  <div class="col-md-4 col-md-push-1 wow fadeInRight">
+                        <h4>Our mission</h4>
+                        <ul class="">
+                            <li>1. Duis aute irure dolor </li>
+                            <li>2. Excepteur sint occaecat</li>
+                            <li>3. Deserunt mollit anim</li>
+                            <li>4. Nostrud exercitation</li>
+                        </ul>
+                    </div>  -->
                 </div>
-                <div class="col-md-11 overflow-hidden wow fadeInLeft" id="about1">
-                    <h4>Best furniture ever!</h4>
-                    @foreach ($abouts as $about)
-                        {{ $about->descripcion }}
-                    @endforeach
-                </div>
-                <!--  <div class="col-md-4 col-md-push-1 wow fadeInRight">
-                    <h4>Our mission</h4>
-                    <ul class="">
-                        <li>1. Duis aute irure dolor </li>
-                        <li>2. Excepteur sint occaecat</li>
-                        <li>3. Deserunt mollit anim</li>
-                        <li>4. Nostrud exercitation</li>
-                    </ul>
-                </div>  -->
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
     @if ($ofertas->count() > 0 )
     <section class="countdown" id="ofertas">
         <div class="container">
