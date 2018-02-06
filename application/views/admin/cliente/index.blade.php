@@ -4,10 +4,14 @@
 @endsection
 @section('css')
     <link href="<?=base_url('assets/backend/css/plugins/dataTables/datatables.min.css')?>" rel="stylesheet">
+    <!-- Toastr style -->
+    <link href="{{ base_url('assets/backend/css/plugins/toastr/toastr.min.css')}}" rel="stylesheet">
 @endsection
 @section('js')
     <script src="{{ base_url('assets/backend/js/plugins/dataTables/datatables.min.js') }}"></script>
     <script src="{{ base_url('assets/backend/js/plugins/jquery.rut.js') }}"></script>
+    <!-- Toastr script -->
+    <script src="{{ base_url('assets/backend/js/plugins/toastr/toastr.min.js')}}"></script>
 @endsection
 @section('script')
     <script>
@@ -30,6 +34,13 @@
                     $(this).parent().addClass('danger');
                 }
             });
+            @if ($this->session->flashdata('clave'))
+                toastr.options = {
+                    "preventDuplicates": true,
+                    "positionClass": "toast-top-center",
+                };
+                toastr.success('{{ $this->session->flashdata("clave")["msg"] }}','Operación exitosa')
+            @endif
         });
 
     </script>
@@ -153,7 +164,7 @@
                                                     <div class="tooltip-demo btn-group">
                                                         <a href="{{ site_url('administrador/cliente/editar/'.$cliente->rut) }}" class="btn btn-primary btn-sm"><i class="fa fa-pencil" data-toggle="tooltip" data-placament="top" title="Editar la información de {{ $cliente->nombre }}"></i></a>
                                                         @if ($cliente->id_usuario)
-                                                            <a href="" class="btn btn-success btn-sm" title="{{ $cliente->usuario->correo }}" data-toggle="tooltip" data-placament="top"><i class="fa fa-user"></i></a>
+                                                            <a href="{{ site_url('administrador/perfil/reseteo/'.$cliente->usuario->id_usuario) }}" class="btn btn-success btn-sm" title="Resetear clave {{ $cliente->usuario->correo }}" data-toggle="tooltip" data-placament="top"><i class="fa fa-key"></i></a>
                                                         @endif
                                                     </div>
                                                 </td>
