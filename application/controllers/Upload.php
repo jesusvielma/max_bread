@@ -21,7 +21,7 @@ class Upload extends CI_Controller {
             $campo = $this->input->post('campo');
                 $config['upload_path']          = './assets/common/uploads/'.$dir.'/';
                 $config['allowed_types']        = 'jpg|png|jpeg';
-                $config['max_size']             = '3072';
+                $config['max_size']             = '1024';
 
                 $this->load->library('upload', $config);
 

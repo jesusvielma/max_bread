@@ -117,7 +117,7 @@
                                         <input type="text" class="form-control" readonly value="" placeholder="Correo electrónico" id="email" name="correoCambio">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" name="clave" placeholder="Clave">
+                                        <input type="password" class="form-control" name="claveNue" placeholder="Clave">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control" name="confClave" placeholder="Repite la clave">
@@ -225,7 +225,7 @@
 				});
 			});
 			$('button#cambiar').click(function () {
-				var clave = $('input[name=clave]').val();
+				var clave = $('input[name=claveNue]').val();
 				var confClave = $('input[name=confClave]').val();
 				if(clave != confClave){
 					swal({

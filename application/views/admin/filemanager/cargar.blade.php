@@ -42,7 +42,7 @@
                     <button type="submit" class="btn btn-success fileinput-exists"><i class="fa fa-upload"></i> Subir</button>
                     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Quitar</a>
                 </div>
-                <span class="help-block m-b-none font-bold">La imagen no puede pesar mas de 3Mb </span>
+                <span class="help-block m-b-none font-bold">La imagen no puede pesar mas de 1Mb </span>
             </div>
             {{ form_close() }}
         </div>

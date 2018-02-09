@@ -34,7 +34,7 @@ class Cliente extends CI_Controller {
 		$this->form_validation->set_rules('correo', 'Correo', 'required|valid_email|is_unique[cliente.correo]|is_unique[usuario.correo]');
 		$this->form_validation->set_rules('rut','RUT','required|callback_check_rut');
 
-		if($this->form_validation->run()=== FALSE){
+		if($this->form_validation->run() === FALSE){
 			$error = [
 				'error'=>validation_errors(),
 				'csrf' => [
