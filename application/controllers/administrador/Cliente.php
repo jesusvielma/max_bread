@@ -130,18 +130,18 @@ class Cliente extends CI_Controller {
 	{
 		$this->load->library('email');
 
-		$config = array(
+		/* $config = array(
 			'protocol' => 'smtp',
 			'smtp_host' => 'phx.hn.cl',
 			'smtp_port' => 26,
 			'smtp_user' => '_mainaccount@max-bread.cl',
-			'smtp_pass' => 'jconcha.5283',
+			'smtp_pass' => 'concha.5283',
 			'crlf' => "\r\n",
 			'newline' => "\r\n",
 			'send_multipart' => false,
 		);
 
-		$this->email->initialize($config);
+		$this->email->initialize($config); */
 
 		$this->email->from('maxbread@max-bread.cl', 'Max Bread');
 		$this->email->to($_data['correo']);

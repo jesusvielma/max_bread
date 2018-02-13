@@ -188,7 +188,6 @@
 
 		$(".add-item").click(function(event){
 			event.preventDefault();
-			alert('hola');
 			var name = $(this).data("name");
 			var price = Number($(this).data("cost"));
 			var itemId = Number($(this).data("id"));
