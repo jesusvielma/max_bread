@@ -15,10 +15,11 @@
             $('.dataTables-example').DataTable({
                 pageLength: 10,
                 responsive: true,
+                order: [[0,'desc']],
 				language: {
 					url : '{{ base_url('assets/backend/js/plugins/dataTables/i18n/es.json') }}',
 				},
-				lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
 
             });
             var rut ;

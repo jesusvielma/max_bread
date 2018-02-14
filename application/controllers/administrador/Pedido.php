@@ -12,7 +12,7 @@ class Pedido extends CI_Controller {
 
     public function index() {
 
-        $data['pedidos'] = Pedido_model::orderBy('fecha','DESC')->get();
+        $data['pedidos'] = Pedido_model::orderBy('fecha','ASC')->get();
 
         $this->slice->view('admin.pedido.index',$data);
     }
