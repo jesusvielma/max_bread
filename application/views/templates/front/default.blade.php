@@ -90,31 +90,33 @@
 		<footer class="footer">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-4 col-md-push-4 text-center"> <img class="footer-logo" src="assets/frontend/img/max_bread2.png" alt="footer-logo">
-					@if (isset($redes) && $redes->count() > 0 )	
-						<div class="social">
-							<ul>
-								@foreach ($redes as $red)
-									@if ($red->tipo == 'fb')
-										<li><a href="{{ $red->url }}" target="_blank"><span class="ti-facebook"></span></a></li>
-									@endif
-									@if ($red->tipo == 'tw')
-										<li><a href="{{ $red->url }}" target="_blank"><span class="ti-twitter-alt"></span></a></li>
-									@endif
-									@if ($red->tipo == 'in')
-										<li><a href="{{ $red->url }}" target="_blank"><span class="ti-instagram"></span></a></li>
-									@endif
-									@if ($red->tipo == 'ln')
-										<li><a href="{{ $red->url }}" target="_blank"><span class="ti-linkedin"></span></a></li>
-									@endif
-									@if ($red->tipo == 'yb')
-										<li><a href="{{ $red->url }}" target="_blank"><span class="ti-youtube"></span></a></li>
-									@endif
-								@endforeach
-							</ul>
+					<div class="col-md-4 col-md-push-4 text-center"> 
+						<img class="footer-logo" src="assets/frontend/img/max_bread2.png" alt="footer-logo">
+						@if (isset($redes) && $redes->count() > 0 )	
+							<div class="social">
+								<ul>
+									@foreach ($redes as $red)
+										@if ($red->tipo == 'fb')
+											<li><a href="{{ $red->url }}" target="_blank"><span class="ti-facebook"></span></a></li>
+										@endif
+										@if ($red->tipo == 'tw')
+											<li><a href="{{ $red->url }}" target="_blank"><span class="ti-twitter-alt"></span></a></li>
+										@endif
+										@if ($red->tipo == 'in')
+											<li><a href="{{ $red->url }}" target="_blank"><span class="ti-instagram"></span></a></li>
+										@endif
+										@if ($red->tipo == 'ln')
+											<li><a href="{{ $red->url }}" target="_blank"><span class="ti-linkedin"></span></a></li>
+										@endif
+										@if ($red->tipo == 'yb')
+											<li><a href="{{ $red->url }}" target="_blank"><span class="ti-youtube"></span></a></li>
+										@endif
+									@endforeach
+								</ul>
+							</div>
 						</div>
+						@endif
 					</div>
-					@endif
 					<div class="clearfix"></div>
 					<div class="col-md-4 col-md-offset-4 col-sm-12">
 						<div class="footer-newsletter">

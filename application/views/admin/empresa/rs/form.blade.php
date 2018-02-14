@@ -2,13 +2,15 @@
     <label for="rs">Red Social</label>
     <br>
     <div class="btn-group" data-toggle="buttons" id="buttons">
+        @php
+        $fb = false;
+        $tw = false;
+        $in = false;
+        $ln = false;
+        $yb = false;
+        @endphp
         @if ($existentes->count() > 0)
             @php
-                $fb = false;
-                $tw = false;
-                $in = false;
-                $ln = false;
-                $yb = false;
                 foreach ($existentes as $e){
                     if ($e->tipo == 'fb')
                         $fb = true;
