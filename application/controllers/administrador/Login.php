@@ -42,6 +42,7 @@ class Login extends CI_Controller {
 					'correo' => $this->input->post('correo'),
 					'datetime' => \Carbon\Carbon::now(),
 					'ip' => $this->input->ip_address(),
+					'avatar' => $usuario->id_usuario.'/'.$usuario->avatar,
 				];
 
 				$this->session->set_userdata('admin',$session);

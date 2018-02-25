@@ -39,15 +39,18 @@
                 <li class="nav-header" id="profile-view">
                     <div class="dropdown profile-element"> 
                         <span>
-                            {{--  <img alt="image" class="img-circle" src="<?=base_url('assets/backend/img/profile_small.jpg')?>" />  --}}
-                             </span>
+                            @php
+                                $imagen = $this->session->userdata('admin')['avatar'] == '' ? 'assets/common/img/user.png' : 'assets/common/uploads/profile/'.$this->session->userdata('admin')['avatar'];
+                            @endphp
+                             <img alt="image" class="img-circle img-responsive" width="55px" src="<?=base_url($imagen)?>" /> 
+                        </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Mi Cuenta</strong>
                               <b class="caret"></b></span> 
                              {{--  <span class="text-muted text-xs block">Art Director </span> </span>   --}}
                             </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="">Perfil</a></li>
+                            <li><a href="{{ site_url('administrador/perfil') }}">Perfil</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ site_url('administrador/login/salir') }}">Salir</a></li>
                         </ul>

@@ -29,24 +29,49 @@ class Perfil extends CI_Controller {
 		
 		$usuario->correo = $this->input->post('correo');
 
-		if (password_verify($clave_ant,$usuario->clave)) {
-			$clave = $this->input->post('clave');
-			if ($clave != '') {
-				$timeTarget = 0.05; // 50 milisegundos 
-				$coste = 8;
-				do {
-					$coste++;
-					$inicio = microtime(true);
-					$clave2 = password_hash($clave, PASSWORD_BCRYPT, ["cost" => $coste]);
-					$fin = microtime(true);
-				} while (($fin - $inicio) < $timeTarget);
-				$usuario->clave = $clave2;
+		$clave = $this->input->post('clave');
+		if(isset($clave)){
+			if (password_verify($clave_ant,$usuario->clave)) {
+				if ($clave != '') {
+					$timeTarget = 0.05; // 50 milisegundos 
+					$coste = 8;
+					do {
+						$coste++;
+						$inicio = microtime(true);
+						$clave2 = password_hash($clave, PASSWORD_BCRYPT, ["cost" => $coste]);
+						$fin = microtime(true);
+					} while (($fin - $inicio) < $timeTarget);
+					$usuario->clave = $clave2;
+				}
+			}else{
+				$this->session->set_flashdata('error',['msg'=>'Su clave anterior no coincide con la registrada']);
 			}
-			$usuario->save();
-		}else{
-			$this->session->set_flashdata('error',['msg'=>'Su clave anterior no coincide con la registrada']);
 		}
 
+		$imagen = $_FILES['imagen']['name'];
+		if ($imagen != '' && $usuario->avatar != $imagen) {
+			$date = strftime('%A');
+			$dataF = substr($date, 0, 1);
+			$dataL = substr($date, -1, 1);
+			if (!is_dir('assets/common/uploads/profile/' . $usuario->id_usuario)) {
+				mkdir('assets/common/uploads/profile/' . $usuario->id_usuario, 0777);
+			}
+			$config['upload_path'] = './assets/common/uploads/profile/' . $usuario->id_usuario . '/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			$config['max_size'] = '1024';
+			$config['file_name'] = strtoupper($dataF) . strtoupper($dataL) . date('Y') . strtoupper(random_string('alpha', 2)) . $usuario->id_usuario;
+
+			$this->load->library('upload', $config);
+
+			if (!$this->upload->do_upload('imagen')) {
+				$this->session->set_flashdata('avatar', ['errors' => $this->upload->display_errors()]);
+			} else {
+				$usuario->avatar = $this->upload->data('file_name');
+			}
+		}
+
+		$usuario->save();
+		
 		redirect('administrador/perfil','refresh');
 	}	
 
@@ -68,7 +93,7 @@ class Perfil extends CI_Controller {
 
 		$usuario->save();
 
-		$this->session->set_flashdata('clave',['msg'=>'Se ha cambiado la clave del usuario '.$usuario->cliente->nombre.' y se le ha enviado al correo eléctronico. Clave: '.$clave]);
+		$this->session->set_flashdata('clave',['msg'=>'Se ha cambiado la clave del usuario '.$usuario->cliente->nombre.' y se le ha enviado al correo eléctronico.']);
 
 		$correo = [
 			'correo' => $usuario->correo,

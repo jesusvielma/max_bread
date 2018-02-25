@@ -46,6 +46,12 @@
                     validated = false;
                 return validated;
             },'Insecure password');
+            $('#cc').click(function (){
+                $('input[name=pass_ant]').prop('disabled',false);
+                $('input[name=clave]').prop('disabled',false);
+                $('input[name=claveCheck]').prop('disabled',false);
+                $(this).fadeOut();
+            });
             $('#form').validate({
                 rules: {
                     pass_ant: {
@@ -98,7 +104,7 @@
                                     {{ $this->session->flashdata('error')['msg'] }}
                                 </div>
                             @endif
-                            {{ form_open('administrador/perfil/guardar',array('id'=>'form')) }}
+                            {{ form_open_multipart('administrador/perfil/guardar',array('id'=>'form')) }}
                                 @include('admin/perfil/form')
                             {{ form_close() }}
                         </div>

@@ -41,8 +41,6 @@ class Cliente extends CI_Controller {
 		else
 		{
 			$usuario = new Usuario;
-
-			$usuario->correo = $this->input->post('correo');
 			$usuario->correo = $this->input->post('correo');
 			$clave = random_string('alnum', 8);
 			$timeTarget = 0.05; // 50 milisegundos 
