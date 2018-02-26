@@ -54,7 +54,7 @@
                 //extended_valid_elements : "img[usemap|class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],map[id|name],area[shape|alt|coords|href|target]",
             });
             $(".select2").select2({
-                placeholder: "Selecione una categoria",
+                placeholder: "Selecciona",
                 allowClear: true
             });
             $('#form').validate({

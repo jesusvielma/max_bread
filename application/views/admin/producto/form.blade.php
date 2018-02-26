@@ -31,13 +31,24 @@
     </div>
 </div>
 <div class="form-group">
-    <label>Categoria</label>
-    <select class="form-control select2" name="categoria" required>
-        @foreach ($cats as $cat)
-            <option></option>
-            <option value="{{$cat->id_categoria }}" {{ isset($producto) && $producto->categoria == $cat->id_categoria ? 'selected' : '' }} >{{ $cat->nombre }}</option>
-        @endforeach
-    </select>
+    <div class="col-lg-6">
+        <label>Categoria</label>
+        <select class="form-control select2" name="categoria" required>
+            @foreach ($cats as $cat)
+                <option></option>
+                <option value="{{$cat->id_categoria }}" {{ isset($producto) && $producto->categoria == $cat->id_categoria ? 'selected' : '' }} >{{ $cat->nombre }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="col-lg-6">
+        <label>Marca</label>
+        <select class="form-control select2" name="marca" required>
+            @foreach ($marcas as $marca)
+                <option></option>
+                <option value="{{$marca->id_marca }}" {{ isset($producto) && $producto->id_marca == $marca->id_marca ? 'selected' : '' }} >{{ $marca->nombre }}</option>
+            @endforeach
+        </select>
+    </div>
 </div>
 <div class="form-group">
     <label>Imagenes</label>

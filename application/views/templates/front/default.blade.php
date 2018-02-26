@@ -30,6 +30,10 @@
 			color: #ff9800;
     		font-size: 13px;
 		}
+		.producto-marca {
+			display: none;
+		}
+		
 	</style>
 	@yield('css')
 </head>
@@ -183,6 +187,44 @@
 			}
 			$('#commentRemain').html(remain);
 		});
+		$('.producto-marca-select').click(function(e){
+			e.preventDefault();
+			var marca = $(this).data('marca');
+			console.log(marca);
+			$('.producto-marca').show();
+			$('.producto-marca-li').each(function (){
+				var marcaP = $(this).data('producto-marca');
+				if(marca != marcaP)
+				$(this).hide();
+			});
+			var swiper = new Swiper('.product-list-slider', {
+				slidesPerView: 3,
+				pagination: '.product-list-pagination',
+				paginationClickable: true,
+				nextButton: '.product-list-slider-next',
+				prevButton: '.product-list-slider-prev',
+				spaceBetween: 30,
+				breakpoints: {
+					1024: {
+						slidesPerView: 3,
+						spaceBetween: 30
+					},
+					768: {
+						slidesPerView: 2,
+						spaceBetween: 30
+					},
+					640: {
+						slidesPerView: 2,
+						spaceBetween: 20
+					},
+					420: {
+						slidesPerView: 1,
+						spaceBetween: 10
+					}
+				}
+			});
+
+		})
 	</script>
 	@if ($this->uri->segment(1) == '')
 

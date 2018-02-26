@@ -64,7 +64,7 @@
         </div>
         <div class="cart-widget-close-overlay"></div>
     </div>
-    @if ($productos->count()>0)
+    @if ($productos->count()>0 && $marcas->count() > 0)
         <section class="section-min section product white-bg" id="productos">
             <div class="container overflow-hidden">
                 <div class="row">
@@ -72,17 +72,47 @@
                         <h3 class="section-heading">Productos</h3>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="section-heading">Marcas</h4>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="marca-list-slider">
+                        <ul class="swiper-wrapper product-list product-list-vertical">
+                        @foreach ($marcas as $marca)
+                            <li class="swiper-slide wow fadeInUp text-center" data-wow-delay=".2s">
+                                <span class="product-list-left pull-left">
+                                    <a href="#" class="producto-marca-select" data-marca="{{ $marca->id_marca }}">
+                                        <img alt="" class="product-list-primary-img" src="{{ base_url('assets/common/uploads/marca/'.$marca->logo) }}">
+                                        <img alt="" class="product-list-secondary-img" src="{{ base_url('assets/common/uploads/marca/'.$marca->logo) }}">
+                                    </a>
+                                </span>
+                                <a href="#" >
+                                    <span class="product-list-right pull-left">
+                                        <span class="product-list-name h4 black-color">{{ $marca->nombre }}</span>
+                                    </span>
+                                </a>
+                            </li>
+                        @endforeach
+                        </ul>
+                        <!-- Add Pagination -->
+                        <div class="marca-list-pagination text-center"> </div>
+                        <div class="marca-list-slider-next right-arrow-negative"> <span class="ti-arrow-right"></span> </div>
+                        <div class="marca-list-slider-prev left-arrow-negative"> <span class="ti-arrow-left"></span> </div>
+                    </div>
+                </div>
                 @foreach ($productos as $cat)
-                    <div class="row">
+                    <div class="row producto-marca">
                         <div class="col-md-12">
                             <h4 class="section-heading">{{ $cat->nombre }}</h4>
                         </div>
                         @if ($cat->productos->count() > 0 )
-                            <div class="col-md-12">
+                            <div class="col-md-12 producto-marca">
                                 <div class="product-list-slider">
                                     <ul class="swiper-wrapper product-list product-list-vertical">
                                         @foreach ($cat->productos as $producto)
-                                            <li class="swiper-slide wow fadeInUp text-center" data-wow-delay=".2s">
+                                            <li class="swiper-slide wow fadeInUp text-center producto-marca producto-marca-li" data-wow-delay=".2s" data-producto-marca="{{ $producto->id_marca }}">
                                                 <span class="product-list-left pull-left">
                                                     @foreach ($producto->imagen as $imagen)
                                                         @if ($imagen->puesto == 1)

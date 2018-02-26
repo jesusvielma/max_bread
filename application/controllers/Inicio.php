@@ -19,8 +19,9 @@ class Inicio extends CI_Controller {
 		$data['telefs'] = Empresa_model::where('tipo','telefono')->get();
 		$data['mails'] = Empresa_model::where('tipo','correo')->get();
 		$data['productos'] = Categoria_model::with(['productos' => function($query){
-			$query->where('disponibilidad','1');
+			$query->where('disponibilidad','1')->orderby('id_marca','ASC');
 		}])->get();
+		$data['marcas'] = Marca_model::all();
 		$data['testimonios'] = Testimonio_model::orderBy('fecha','DESC')->limit(5)->get();
 		$data['slider'] = Slider_model::where('estado',1)->orderBy('posicion','ASC')->get();
 		$data['ofertas'] = Oferta_model::where('fin','>=',Carbon::now()->format('Y-m-d H:i:s'))->orderby('fin','ASC')->get();

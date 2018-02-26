@@ -24,8 +24,12 @@ class Producto extends CI_Controller {
 	public function crear()
 	{
 		$data['cats'] = $cats = Categoria_model::all();
+		$data['marcas'] = $marcas = Marca_model::all();
 		if ($cats->count() < 1) {
 			$this->session->set_flashdata('NoCats',['msg'=>'No existen categorias al hacer click en aceptar será redirigido a la pagina de creación de categorias.','url'=>site_url('administrador/categoria/crear')]);
+		}
+		if ($marcas->count() < 1) {
+			$this->session->set_flashdata('NoMarcas', ['msg' => 'No existen marcas al hacer click en aceptar será redirigido a la pagina de creación de categorias.', 'url' => site_url('administrador/marca/crear')]);
 		}
 		$this->slice->view('admin.producto.crear',$data);
 	}
@@ -43,6 +47,7 @@ class Producto extends CI_Controller {
 		$producto->cant_por_mayor = $this->input->post('cantidad');
 		$producto->disponibilidad = 1;
 		$producto->categoria = $this->input->post('categoria');
+		$producto->id_marca = $this->input->post('marca');
 		$producto->descripcion = $this->input->post('descripcion');
 
 		$producto->save();
@@ -74,6 +79,7 @@ class Producto extends CI_Controller {
 	{
 		$data['producto'] = Producto_model::find($producto);
 		$data['cats'] = Categoria_model::all();
+		$data['marcas'] = $marcas = Marca_model::all();
 		$this->slice->view('admin.producto.editar',$data);
 	}
 
@@ -96,6 +102,7 @@ class Producto extends CI_Controller {
 		$producto->precio_por_menor = $this->input->post('menor');
 		$producto->cant_por_mayor = $this->input->post('cantidad');
 		$producto->categoria = $this->input->post('categoria');
+		$producto->id_marca = $this->input->post('marca');
 		$producto->descripcion = $this->input->post('descripcion');
 
 		$producto->save();

@@ -58,7 +58,7 @@
                 //extended_valid_elements : "img[usemap|class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],map[id|name],area[shape|alt|coords|href|target]",
             });
             $(".select2").select2({
-                placeholder: "Selecione una categoria",
+                placeholder: "Selecciona",
                 allowClear: true
             });
             $('#form').validate({
@@ -126,6 +126,24 @@
             swal({
                 title: "Opps, hay un problema",
                 text:  " {{ $this->session->flashdata('NoCats')['msg'] }} ",
+                type: "error",
+                confirmButtonText: "Vamos allá ",
+                confirmButtonColor: "#1ab394",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                html: true,
+                closeOnClickOutside: false
+            },
+            function(isConfirm){
+                if(isConfirm){
+                    location.href="{{ $this->session->flashdata('NoCats')['url'] }}";
+                }
+            });
+            @endif
+            @if ($this->session->flashdata('NoMarcas'))        
+            swal({
+                title: "Opps, hay un problema",
+                text:  " {{ $this->session->flashdata('NoMarcas')['msg'] }} ",
                 type: "error",
                 confirmButtonText: "Vamos allá ",
                 confirmButtonColor: "#1ab394",

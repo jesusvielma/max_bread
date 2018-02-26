@@ -86,12 +86,12 @@ var swiper = new Swiper('.testimonials-slider', {
 });
 
 // product list
-var swiper = new Swiper('.product-list-slider', {
+var swiper = new Swiper('.marca-list-slider', {
     slidesPerView: 3,
-    pagination: '.product-list-pagination',
+    pagination: '.marca-list-pagination',
     paginationClickable: true,
-    nextButton: '.product-list-slider-next',
-    prevButton: '.product-list-slider-prev',
+    nextButton: '.marca-list-slider-next',
+    prevButton: '.marca-list-slider-prev',
     spaceBetween: 30,
     breakpoints: {
         1024: {
