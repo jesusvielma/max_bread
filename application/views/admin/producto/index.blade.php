@@ -125,13 +125,14 @@
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
-                                        <th>Precio por menor</th>
-                                        <th>Dispnibilidad</th>
+                                        <th style="width: 10%">Precio por menor</th>
+                                        <th>Marca</th>
+                                        <th style="width: 15%">Dispnibilidad</th>
                                         <th data-hide="all">Precio por mayor</th>
                                         <th data-hide="all">Cantidad Por mayor</th>
                                         <th data-hide="all">Cartegoria</th>
                                         <th data-hide="all">Descripción</th>
-                                        <th>Acciones</th>
+                                        <th style="width: 19%">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -139,6 +140,7 @@
                                         <tr id="fila-{{$key}}">
                                             <td>{{ $producto->nombre }}</td>
                                             <td>${{ $producto->precio_por_menor}} CLP</td>
+                                            <td>{{ $producto->marca->nombre }}</td>
                                             <td >
                                                 @if ($producto->disponibilidad == 1)
                                                     <span class="label label-primary">Disponible</span>

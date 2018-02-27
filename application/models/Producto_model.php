@@ -24,6 +24,11 @@ class Producto_model extends Eloquent {
         return $this->belongsTo('Categoria_model','categoria','id_categoria');
     }
 
+    public function marca()
+    {
+        return $this->belongsTo('Marca_model', 'id_marca', 'id_marca');
+    }
+
     public function imagen()
     {
         return $this->hasMany('Imagen_Producto_model','id_producto','id_producto');

@@ -83,12 +83,12 @@
                         @foreach ($marcas as $marca)
                             <li class="swiper-slide wow fadeInUp text-center" data-wow-delay=".2s">
                                 <span class="product-list-left pull-left">
-                                    <a href="#" class="producto-marca-select" data-marca="{{ $marca->id_marca }}">
+                                    <a href="#" class="producto-marca-select" data-marca="{{ $marca->id_marca }}" data-marca-nombre="{{ $marca->nombre }}">
                                         <img alt="" class="product-list-primary-img" src="{{ base_url('assets/common/uploads/marca/'.$marca->logo) }}">
                                         <img alt="" class="product-list-secondary-img" src="{{ base_url('assets/common/uploads/marca/'.$marca->logo) }}">
                                     </a>
                                 </span>
-                                <a href="#" >
+                                <a href="#" class="producto-marca-select" data-marca="{{ $marca->id_marca }}" data-marca-nombre="{{ $marca->nombre }}">
                                     <span class="product-list-right pull-left">
                                         <span class="product-list-name h4 black-color">{{ $marca->nombre }}</span>
                                     </span>
@@ -108,7 +108,7 @@
                             <h4 class="section-heading">{{ $cat->nombre }}</h4>
                         </div>
                         @if ($cat->productos->count() > 0 )
-                            <div class="col-md-12 producto-marca">
+                            <div class="col-md-12 producto-marca cat" data-catn="{{ $cat->nombre }}">
                                 <div class="product-list-slider">
                                     <ul class="swiper-wrapper product-list product-list-vertical">
                                         @foreach ($cat->productos as $producto)
@@ -146,6 +146,19 @@
                                             </li>
 
                                             @endforeach
+                                            <li class="swiper-slide wow fadeInUp text-center NoProductosXMarca" data-wow-delay=".2s" data-producto-marca="0">
+                                                <span class="product-list-left pull-left">
+                                                    <a href="#">
+                                                        <img alt="" class="product-list-primary-img" src="{{ base_url('assets/common/img/sad.png') }}">
+                                                        <img alt="" class="product-list-secondary-img" src="{{ base_url('assets/common/img/sad.png') }}">
+                                                    </a>
+                                                </span>
+                                                <a href="#" >
+                                                    <span class="product-list-right pull-left">
+                                                        <span class="product-list-name h4 black-color">Esta categoria no tiene productos marca <span class="NPMmarca"></span></span>
+                                                    </span>
+                                                </a>
+                                            </li>
                                         </ul>
                                         <!-- Add Pagination -->
                                         <div class="product-list-pagination text-center"> </div>

@@ -30,7 +30,7 @@
 			color: #ff9800;
     		font-size: 13px;
 		}
-		.producto-marca {
+		.producto-marca, .NoProductosXMarca {
 			display: none;
 		}
 		
@@ -189,6 +189,8 @@
 		});
 		$('.producto-marca-select').click(function(e){
 			e.preventDefault();
+			$('.NoProductosXMarca').hide();
+			var marcaN = $(this).data('marca-nombre');
 			var marca = $(this).data('marca');
 			console.log(marca);
 			$('.producto-marca').show();
@@ -196,6 +198,13 @@
 				var marcaP = $(this).data('producto-marca');
 				if(marca != marcaP)
 				$(this).hide();
+			});
+			$('.cat').each(function(){
+				var catVisibleElements = $('li:visible',this).length;
+				if(catVisibleElements == 0){
+					$(this).find('.NPMmarca').html(marcaN);
+					$(this).find('.NoProductosXMarca').show();
+				}
 			});
 			var swiper = new Swiper('.product-list-slider', {
 				slidesPerView: 3,
