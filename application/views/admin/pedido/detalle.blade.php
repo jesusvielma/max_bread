@@ -1,6 +1,6 @@
 @extends('templates/admin/default')
 @section('title')
-    Ingresar nuevo cliente
+    Detalle del pedido
 @endsection
 @section('css')
     <link href="{{ base_url('assets/backend/css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">

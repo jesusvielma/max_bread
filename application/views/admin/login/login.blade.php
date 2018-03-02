@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ base_url('assets/common/img/favicon.ico') }}">
 
-    <title>MaxBread Administrador | Login</title>
+    <title>{{ site_name() }} Administrador | Login</title>
 
     <link href="<?=base_url('assets/backend/css/bootstrap.min.css')?>" rel="stylesheet">
     <link href="<?=base_url('assets/backend/font-awesome/css/font-awesome.css')?>" rel="stylesheet">
@@ -46,7 +46,7 @@
             <?php if (isset($error)): ?>
                 <div class="alert alert-warning">
                     <h3>Error de usuario o clave</h3>
-                    <p>Parece que haz introducido los datos mal o los datos no estan registrados, Verificalos y vuelve a intentar</p>
+                    <p>Parece que haz introducido los datos mal o los datos no están registrados, Verificalos y vuelve a intentar</p>
                 </div>
             <?php endif; ?>
             <?=validation_errors()?>

@@ -89,10 +89,10 @@ class Cliente extends CI_Controller {
 					'cuerpo' => 'Usted ha recibido este correo porque se ha registrado en el sitio <a style="color:#FF9800;" href="'.site_url().'">max-bread.cl</a>. <br /> Se ha creado un usuario con su correo electrónico para acceder al sitio visite la página <a style="color:#FF9800;" href="'.site_url().'">max-bread.cl</a> y presione el link entrar en la parte superior derecha.',
 					'alertas' => [
 						'clave'=>'Una vez que ingresas al sitio recuerda cambiar tu clave por una mas segura.',
-						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comuniquese con el administrador del sitio.'
+						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador del sitio.'
 					]
 				],
-				'asunto' => 'Registro de usuario exitoso en max-bread.cl'
+				'asunto' => $data['tipo'] == 'natural' ? $data['nombre'] : $data['responsable'].' - Registro de usuario exitoso en max-bread.cl'
 			];
 
 			$this->correo_ingreso($correo);

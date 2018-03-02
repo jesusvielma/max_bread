@@ -42,13 +42,13 @@ class Recuperar extends CI_Controller {
 					'empresa' => $usuario->cliente->nombre
 				],
 				'contenido' => (object)[
-					'cuerpo' => 'Hemos ricibidio tu solicutud de restauración de clave de acceso al sitio, al final este correo encontrar el token que deberas ingresar para poder realizar el cambio de la clave. <br> El token es valido desde las ' . $ahora->toTimeString() . ' hasta las ' . $data1['validez']->toTimeString() . ', si en este tiempo no puedes realizar el cambio de tu clave deberas comenzar el proceso de nuevo.',
+					'cuerpo' => 'Hemos recibido tu solicitud de restauración de clave de acceso al sitio, al final este correo encontraras el token que deberás ingresar para poder realizar el cambio de la clave. <br> El token es valido desde las ' . $ahora->toTimeString() . ' hasta las ' . $data1['validez']->toTimeString() . ', si en este tiempo no puedes realizar el cambio de tu clave deberás comenzar el proceso de nuevo.',
 					'alertas' => [
-						'msg' => 'Nota, por favor no cierres la página donde iniciaste el proceso si lo haces no podras completar y proceso y tendras que volver a comenzar',
-						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comuniquese con el administrador del sitio.'
+						'msg' => 'Nota, por favor no cierres la página donde iniciaste el proceso si lo haces no podrás completar y proceso y tendrás que volver a comenzar',
+						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador del sitio.'
 					]
 				],
-				'asunto' => 'Solicutud de cambio recuperación de clave'
+				'asunto' => 'Solicitud de cambio recuperación de clave ['.$data1['correo'].']'
 			];
 			$this->load->library('email');
 

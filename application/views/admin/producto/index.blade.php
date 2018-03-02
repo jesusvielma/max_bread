@@ -1,6 +1,6 @@
 @extends('templates.admin.default')
 @section('title')
-    Pedidos
+    Productos
 @endsection
 @section('css')
     <!-- FooTable -->
@@ -97,7 +97,7 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2>Prodcutos</h2>
+            <h2>Productos</h2>
             <ol class="breadcrumb">
                 <li class="active">
                     <strong>Productos</strong>
@@ -127,10 +127,10 @@
                                         <th>Nombre</th>
                                         <th style="width: 10%">Precio por menor</th>
                                         <th>Marca</th>
-                                        <th style="width: 15%">Dispnibilidad</th>
+                                        <th style="width: 15%">Disponibilidad</th>
                                         <th data-hide="all">Precio por mayor</th>
                                         <th data-hide="all">Cantidad Por mayor</th>
-                                        <th data-hide="all">Cartegoria</th>
+                                        <th data-hide="all">Categorías</th>
                                         <th data-hide="all">Descripción</th>
                                         <th style="width: 19%">Acciones</th>
                                     </tr>
@@ -166,7 +166,7 @@
 
                                                 <button  data-id="{{ $producto->id_producto }}" class="btn btn-warning btn-sm ofertaButton" title="Ofertas de {{ $producto->nombre }}" data-toggle="modal" data-target="#Oferta" data-tooltip="tooltip" data-placement="top"> <i class="fa fa-tag"></i></button>
 
-                                                <button type="button" class="btn btn-sm btn-primary" data-placement="top" data-tooltip="tooltip" title="Ver imagenes del producto" data-toggle="modal" data-target="#{{ $producto->id_producto }}"><i class="fa fa-picture-o"></i></button>
+                                                <button type="button" class="btn btn-sm btn-primary" data-placement="top" data-tooltip="tooltip" title="Ver imágenes del producto" data-toggle="modal" data-target="#{{ $producto->id_producto }}"><i class="fa fa-picture-o"></i></button>
 
                                                 <a href="{{ site_url('administrador/producto/editar/'.$producto->id_producto) }}" class="btn btn-sm btn-success" title="Editar" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-pencil"></i></a>
                                             </td>
@@ -285,7 +285,7 @@
                 <div class="col-lg-6 col-lg-offset-3">
                     <div class="alert alert-info">
                         <h3>No hay productos registrados</h3>
-                        <p>No se han registrado produdctos, use el boton de la parte superior para agregar uno nuevo</p>
+                        <p>No se han registrado productos, use el botón de la parte superior para agregar uno nuevo</p>
                     </div>
                 </div>
             </div>

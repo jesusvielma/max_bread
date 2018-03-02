@@ -84,7 +84,7 @@
                                     {{-- <button type="submit" class="btn btn-success fileinput-exists"><i class="fa fa-upload"></i> Subir</button> --}}
                                     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Quitar</a>
                                 </div>
-                                <span style="color:#fff" class="help-block m-b-none font-bold">La imagen no puede pesar mas de 1Mb. Consejo, tu imagen de perfil deberia de ser cuadrada.</span>
+                                <span style="color:#fff" class="help-block m-b-none font-bold">La imagen no puede pesar mas de 1Mb. Consejo, tu imagen de perfil debería de ser cuadrada.</span>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary" id="cambiar">Actualizar </button>
@@ -183,7 +183,7 @@
                     <div class="testimonials-slider-prev left-arrow-negative"> <span class="ti-arrow-left"></span> </div>
                 </div>
                 <div class="col-md-12 text-center">
-                    <button type="button" class="btn btn-primary" data-target="#comentarioModal" data-toggle="modal">Agregar otro testomonio/comentario</button>
+                    <button type="button" class="btn btn-primary" data-target="#comentarioModal" data-toggle="modal">Agregar otro testimonio/comentario</button>
                 </div>
             </div>
         </div>

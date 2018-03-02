@@ -3,7 +3,7 @@
     <input type="text" name="nombre" class="form-control" id="nombre" value="{{ set_value('nombre')!='' ? set_value('nombre') : (isset($producto) ? $producto->nombre : '') }}" required {{ isset($producto) ? 'readonly' : '' }}>
 </div>
 <div class="form-group">
-    <label>Descripcion</label>
+    <label>Descripción</label>
     <textarea name="descripcion" class="form-control" required> {{ isset($producto) && $producto->descripcion !=''  ? $producto->descripcion : ''}}</textarea>
 </div>
 <div class="form-group">
@@ -32,7 +32,7 @@
 </div>
 <div class="form-group">
     <div class="col-lg-6">
-        <label>Categoria</label>
+        <label>Categoría</label>
         <select class="form-control select2" name="categoria" required>
             @foreach ($cats as $cat)
                 <option></option>
@@ -51,7 +51,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label>Imagenes</label>
+    <label>Imágenes</label>
     <br>
         @php
             $p='';

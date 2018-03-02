@@ -34,7 +34,7 @@
             </a>
             <img class="cart-logo" src="{{ base_url('assets/frontend/img/max_bread2.png') }}" width="200" alt="store logo">
             <h3 class="section-heading">Su pedido</h3>
-            <div id="cart-empty" class="cart-empty"><h4>esta vacio. <span class="ti-face-sad icon"></span> </h4></div>
+            <div id="cart-empty" class="cart-empty"><h4>esta vacío. <span class="ti-face-sad icon"></span> </h4></div>
             {{ form_open('pedido/ingresar',['id'=>'pedido']) }}
                 <!-- container for js inject cart items content -->
                 <div class="items-container" id="items"></div>
@@ -53,18 +53,18 @@
             @if (!$this->session->userdata('front'))
                 <div>
                     <h4 class="section-heading">No haz iniciado sesion</h4>
-                    <p>Aun no haz inicado tu sesión, ingresa con tu correo y contraseña para que puedas realizar tu pedido</p>
+                    <p>Aun no haz iniciado tu sesión, ingresa con tu correo y contraseña para que puedas realizar tu pedido</p>
             		<button class="btn btn-primary" id="entrarBotonCart" data-target="#entrar" data-toggle="modal" type="button">Entrar</button>
             	</div>
             @else
                 <div>
-                    <button class="btn btn-primary" id="pedir" type="button">Relizar pedido</button>
+                    <button class="btn btn-primary" id="pedir" type="button">Realizar pedido</button>
                 </div>
             @endif
         </div>
         <div class="cart-widget-close-overlay"></div>
     </div>
-    @if ($productos->count()>0 && $marcas->count() > 0)
+    @if ($productos->count()> 0 && $marcas->count() > 0)
         <section class="section-min section product white-bg" id="productos">
             <div class="container overflow-hidden">
                 <div class="row">
@@ -77,29 +77,31 @@
                         <h4 class="section-heading">Marcas</h4>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="marca-list-slider">
-                        <ul class="swiper-wrapper product-list product-list-vertical">
-                        @foreach ($marcas as $marca)
-                            <li class="swiper-slide wow fadeInUp text-center" data-wow-delay=".2s">
-                                <span class="product-list-left pull-left">
-                                    <a href="#" class="producto-marca-select" data-marca="{{ $marca->id_marca }}" data-marca-nombre="{{ $marca->nombre }}">
-                                        <img alt="" class="product-list-primary-img" src="{{ base_url('assets/common/uploads/marca/'.$marca->logo) }}">
-                                        <img alt="" class="product-list-secondary-img" src="{{ base_url('assets/common/uploads/marca/'.$marca->logo) }}">
-                                    </a>
-                                </span>
-                                <a href="#" class="producto-marca-select" data-marca="{{ $marca->id_marca }}" data-marca-nombre="{{ $marca->nombre }}">
-                                    <span class="product-list-right pull-left">
-                                        <span class="product-list-name h4 black-color">{{ $marca->nombre }}</span>
+                <div class="row"> 
+                    <div class="col-md-12">
+                        <div class="marca-list-slider">
+                            <ul class="swiper-wrapper product-list product-list-vertical">
+                            @foreach ($marcas as $marca)
+                                <li class="swiper-slide wow fadeInUp text-center" data-wow-delay=".2s">
+                                    <span class="product-list-left pull-left">
+                                        <a href="#" class="producto-marca-select" data-marca="{{ $marca->id_marca }}" data-marca-nombre="{{ $marca->nombre }}">
+                                            <img alt="" class="product-list-primary-img" src="{{ base_url('assets/common/uploads/marca/'.$marca->logo) }}">
+                                            <img alt="" class="product-list-secondary-img" src="{{ base_url('assets/common/uploads/marca/'.$marca->logo) }}">
+                                        </a>
                                     </span>
-                                </a>
-                            </li>
-                        @endforeach
-                        </ul>
-                        <!-- Add Pagination -->
-                        <div class="marca-list-pagination text-center"> </div>
-                        <div class="marca-list-slider-next right-arrow-negative"> <span class="ti-arrow-right"></span> </div>
-                        <div class="marca-list-slider-prev left-arrow-negative"> <span class="ti-arrow-left"></span> </div>
+                                    <a href="#" class="producto-marca-select" data-marca="{{ $marca->id_marca }}" data-marca-nombre="{{ $marca->nombre }}">
+                                        <span class="product-list-right pull-left">
+                                            <span class="product-list-name h4 black-color">{{ $marca->nombre }}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            @endforeach
+                            </ul>
+                            <!-- Add Pagination -->
+                            <div class="marca-list-pagination text-center"> </div>
+                            <div class="marca-list-slider-next right-arrow-negative"> <span class="ti-arrow-right"></span> </div>
+                            <div class="marca-list-slider-prev left-arrow-negative"> <span class="ti-arrow-left"></span> </div>
+                        </div>
                     </div>
                 </div>
                 @foreach ($productos as $cat)
@@ -155,7 +157,7 @@
                                                 </span>
                                                 <a href="#" >
                                                     <span class="product-list-right pull-left">
-                                                        <span class="product-list-name h4 black-color">Esta categoria no tiene productos marca <span class="NPMmarca"></span></span>
+                                                        <span class="product-list-name h4 black-color">Esta categoría no tiene productos marca <span class="NPMmarca"></span></span>
                                                     </span>
                                                 </a>
                                             </li>
@@ -168,7 +170,7 @@
                                 </div>
                             @else
                                 <div class="col-md-12">
-                                    <h6>Lo sentimos pero aún no hay productos en esta categoria</h6>
+                                    <h6>Lo sentimos pero aún no hay productos en esta categoría</h6>
                                 </div>
                             @endif
                         </div>
@@ -342,7 +344,7 @@
                     </div>
                     @if ($this->session->userdata('front'))
                         <div class="col-md-12 text-center">
-                            <button type="button" class="btn btn-primary" data-target="#comentarioModal" data-toggle="modal">Agregar otro testomonio/comentario</button>
+                            <button type="button" class="btn btn-primary" data-target="#comentarioModal" data-toggle="modal">Agregar otro testimonio/comentario</button>
                         </div>
                     @endif
                 </div>
@@ -416,7 +418,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control" id="contact-email" name="contact-email" placeholder="Correo electronico" required>
+                                <input type="text" class="form-control" id="contact-email" name="contact-email" placeholder="Correo electrónico" required>
                             </div>
 
                             <div class="form-group">

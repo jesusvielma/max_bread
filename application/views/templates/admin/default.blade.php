@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ base_url('assets/common/img/favicon.ico') }}">
 
-    <title>MaxBread Administrador | @yield('title') </title>
+    <title>{{ site_name() }} Administrador | @yield('title') </title>
 
     <link href="<?=base_url('assets/backend/css/bootstrap.min.css')?>" rel="stylesheet">
     <link href="<?=base_url('assets/backend/font-awesome/css/font-awesome.css')?>" rel="stylesheet">
@@ -56,7 +56,7 @@
                         </ul>
                     </div>
                     <div class="logo-element">
-                        MB A
+                        ADMIN
                     </div>
                 </li>
                 <li class="{{ $this->uri->segment(2) == 'cliente' ? 'active' : ''}}">
@@ -73,7 +73,7 @@
                     <a ><i class="fa fa-shopping-cart"></i> <span class="nav-label">Productos</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="{{ site_url('administrador/marca') }}">Marcas</a></li>
-                        <li><a href="{{ site_url('administrador/categoria') }}">Categorias</a></li>
+                        <li><a href="{{ site_url('administrador/categoria') }}">Categorías</a></li>
                         <li><a href="{{ site_url('administrador/producto') }}">Productos</a></li>
                     </ul>
                 </li>
@@ -82,6 +82,9 @@
                 </li>
                 <li class="{{ $this->uri->segment(2) == 'pedido' ? 'active' : '' }}">
                     <a href="{{ site_url('administrador/pedido') }}"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Pedidos</span></a>
+                </li>
+                <li class="{{ $this->uri->segment(2) == 'config' ? 'active' : '' }}">
+                    <a href="{{ site_url('administrador/config') }}"><i class="fa fa-gear"></i> <span class="nav-label">Configuración</span></a>
                 </li>
                 <li class="landing_link">
                     <a target="_blank" href="{{ site_url() }}"><i class="fa fa-star"></i> Ver mi sitio</a>
@@ -150,7 +153,7 @@
                         <li>
                             <div class="text-center link-block">
                                 <a href="#" id="leidas">
-                                    <i class="fa fa-check"></i> <strong>Marcar todas como leidas</strong>
+                                    <i class="fa fa-check"></i> <strong>Marcar todas como leídas</strong>
                                 </a>
                             </div>
                         </li>
@@ -234,7 +237,7 @@
                             output+= "<small class='pull-right'>"+ $.timeago(data.notifs[i]['fecha']) +"</small>"
                             output+= contenido.text+"<br>"
                             if (contenido.fecha) {
-                                output+= "<small class='text-muted'> Relizado "+ $.timeago(contenido.fecha) +"</small>"
+                                output+= "<small class='text-muted'> Realizado "+ $.timeago(contenido.fecha) +"</small>"
                             }
                             output+= "</div>"
                             output+= "</div>"

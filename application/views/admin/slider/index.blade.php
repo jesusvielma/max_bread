@@ -1,6 +1,6 @@
 @extends('templates.admin.default')
 @section('title')
-    Clientes
+    Destacados
 @endsection
 @section('css')
 <style >
@@ -58,7 +58,7 @@
                     <div class="col-lg-6 col-lg-offset-3">
                         <div class="ibox collapsed">
                             <div class="ibox-title">
-                                <h5>Descatado {{ $slider->posicion }} <small>{{ $slider->texto_imagen }}</small></h5>
+                                <h5>Destacado {{ $slider->posicion }} <small>{{ $slider->texto_imagen }}</small></h5>
                                 <div class="ibox-tools">
                                     <a class="collapse-link">
                                         <i class="fa fa-chevron-up"></i>

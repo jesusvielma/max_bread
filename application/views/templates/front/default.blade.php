@@ -2,17 +2,16 @@
 <html lang="es">
 <head>
 	<meta charset="utf-8">
-	<title>MaxBread</title>
-	<meta content="" name="description">
+	<title>{{ site_name() }}</title>
+	<meta content="{{ site_description() }}" name="description">
 	<meta content="width=device-width, initial-scale=1" name="viewport">
-	<meta content="width=device-width" name="viewport">
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<link rel="shortcut icon" href="{{ base_url('assets/common/img/favicon.ico') }}">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 	<link href="<?=base_url('assets/frontend/css/bootstrap-light.css')?>" rel="stylesheet">
 	<link href="<?=base_url('assets/backend/font-awesome/css/font-awesome.css')?>" rel="stylesheet">
 	<link id="pagestyle" href="<?=base_url('assets/frontend/css/theme-light.css')?>" rel="stylesheet">
-
+	
 	<link href="{{ base_url('assets/backend/css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
     <!-- Sweet Alert -->
 	<link href="{{ base_url('assets/backend/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
@@ -149,7 +148,7 @@
 	                                {{ form_open('mi_cuenta/comentario',['id'=>'comentarioForm']) }}
 	                                    <div class="form-group">
 	                                        <textarea name="comentario" rows="5" class="form-control" maxlength="255" id="comment"></textarea>
-											<span class="help-block" id>Tu comentario debe tener un maximo de 255 carácteres, <span class="text-primary" id="commentRaminColor">te quedan <span id="commentRemain">255</span> carácteres.</span></span>
+											<span class="help-block" id>Tu comentario debe tener un máximo de 255 caracteres, <span class="text-primary" id="commentRaminColor">te quedan <span id="commentRemain">255</span> caracteres.</span></span>
 	                                    </div>
 										<input type="hidden" name="_referrer" value="{{ $this->uri->segment(1) }}">
 										<div class="form-group">
@@ -164,7 +163,6 @@
 		    </div>
 		</div>
 	</div>
-	<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/78d64697/cloudflare-static/email-decode.min.js"></script>
 	<script src="<?=base_url('assets/frontend/js/vendor/wow.js')?>"></script>
 	<script src="<?=base_url('assets/frontend/js/vendor/jquery-1.11.2.min.js')?>"></script>
 	<script src="<?=base_url('assets/frontend/js/vendor/swiper.min.js')?>"></script>
@@ -172,7 +170,6 @@
 	<script src="<?=base_url('assets/frontend/js/vendor/jquery.countTo.js')?>"></script>
 	<script src="<?=base_url('assets/frontend/js/vendor/jquery.inview.js')?>"></script>
 	<script src="<?=base_url('assets/frontend/js/vendor/jquery.countdown.js')?>"></script>
-	{{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_6m6Glf1-P7jvVdHZ00e3Ue_EoUNe39g"></script> --}}
 	<script src="<?=base_url('assets/frontend/js/shoppingCart.js')?>"></script>
 	<script src="<?=base_url('assets/frontend/js/main.js')?>"></script>
 	<script>

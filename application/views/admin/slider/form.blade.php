@@ -1,5 +1,5 @@
 <div class="form-group">
-    <a data-src="{{ site_url('upload/dir?campo=imagen&dir=slider') }}" class="btn btn-primary btn-outline" data-fancybox href="javascript:;"><i class="fa fa-upload"></i> Selecionar o subir imagen</a>
+    <a data-src="{{ site_url('upload/dir?campo=imagen&dir=slider') }}" class="btn btn-primary btn-outline" data-fancybox href="javascript:;"><i class="fa fa-upload"></i> Seleccionar o subir imagen</a>
     <input type="hidden" name="imagen" id="imagen" value="{{ isset($slider) ? $slider->url : '' }}">
 </div>
 <div class="form-group">

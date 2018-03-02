@@ -1,6 +1,6 @@
 @extends('templates/admin/default')
 @section('title')
-    Creación del slider {{ $this->uri->segment(4) }}
+    Creación del slider
 @endsection
 @section('css')
     <link href="<?=base_url('assets/common/js/fancybox/dist/jquery.fancybox.css')?>" type="text/css" rel="stylesheet">
@@ -82,7 +82,8 @@
                 iframe: {
                     css: {
                         height: '500px'
-                    }
+                    },
+                    scrolling : 'yes'
                 }
             });
 

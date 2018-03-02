@@ -105,13 +105,13 @@ class Perfil extends CI_Controller {
 				'empresa' => $usuario->cliente->nombre
 			],
 			'contenido' => (object)[
-				'cuerpo' => 'Usted ha recibido este correo porque el administrador de sitio <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> ha realizado una restauración de su clave. <br /> Recuerde que una vez que acceda a su cuenta por seguridad debe cambiar su esta clave.',
+				'cuerpo' => 'Usted ha recibido este correo porque el administrador de sitio <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> ha realizado una restauración de su clave. <br /> Recuerde que una vez que acceda a su cuenta por seguridad debe cambiar esta clave.',
 				'alertas' => [
 					'clave' => 'Una vez que ingresas al sitio recuerda cambiar tu clave por una mas segura.',
-					'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comuniquese con el administrador del sitio.'
+					'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador del sitio.'
 				]
 			],
-			'asunto' => 'Se ha reestablecido si clave.'
+			'asunto' => $usuario->cliente->nombre.' se ha reestablecido su clave.'
 		];
 
 		$this->correo_ingreso($correo);

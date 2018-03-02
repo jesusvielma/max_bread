@@ -118,7 +118,8 @@
     			iframe: {
     				css: {
     					height: '500px'
-    				}
+    				},
+                    scrolling : 'yes'
     			}
             });
             

@@ -18,7 +18,7 @@
                 var url = $(this).attr('href');
                 swal({
                     title: "¡Atención!",
-                    text:  "Estas a punto de eliminar infomración de la empresa, esta dejara de ser mostrada en la pagina principal del sitio web.",
+                    text:  "Estas a punto de eliminar información de la empresa, esta dejara de ser mostrada en la pagina principal del sitio web.",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonText: "Borrar",

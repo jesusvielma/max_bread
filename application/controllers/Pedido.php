@@ -42,7 +42,7 @@ class Pedido extends CI_Controller {
         }
 
         $contenido = [
-            'text' => "El cliente <strong>".$usuario->cliente->nombre."</strong> ha realizado un <strong>pedido</strong> con <strong>".$itemsCant."</strong> articulos.",
+            'text' => "El cliente <strong>".$usuario->cliente->nombre."</strong> ha realizado un <strong>pedido</strong> con <strong>".$itemsCant."</strong> artículos.",
             'fecha' => $data['fecha']->toDateTimeString(),
             'avatar' => $usuario->avatar != NULL ? base_url('assets/common/uploads/profile/'.$usuario->cliente->rut.'/'.$usuario->avatar) : NULL,
         ];
@@ -71,10 +71,10 @@ class Pedido extends CI_Controller {
 			'url'	 => site_url(),
 			'contenido' => (object)[
 				'alertas' => [
-					'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comuniquese con el administrador del sitio.'
+					'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador del sitio.'
 				]
 			],
-			'asunto' => 'Hemos recibido tu pedido'
+			'asunto' => $pedido->cliente->nombre.' hemos recibido tu pedido'
 		];
         $this->load->library('email');
 

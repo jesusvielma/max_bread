@@ -89,7 +89,7 @@
             $('#nombre').click(function () {
                 swal({
                     title: "Lo sentimos",
-                    text:  "Sentimos infomrarle que por ahora no puede modificar esta campo.",
+                    text:  "Sentimos informarle que por ahora no puede modificar esta campo.",
                     type: "info",
                     confirmButtonText: "Ok",
                 });
@@ -98,7 +98,9 @@
     			iframe: {
     				css: {
     					height: '500px'
-    				}
+    				},
+                    scrolling : 'yes'
+
     			}
     		});
         });

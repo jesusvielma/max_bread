@@ -30,7 +30,7 @@
 </div>
 <div id="form_hide" style="display:none">
     <div class="form-group">
-        <label for="">Nombre fantasia</label>
+        <label for="">Nombre fantasía</label>
         <input type="text" name="fantasia" class="form-control" id="fantasia" disabled value="{{ set_value('fantasia')!='' ? set_value('fantasia') : (isset($cliente) && $cliente->tipo == 'empresa' ? $cliente->nombre_fantasia : '') }}">
     </div>
     <div class="form-group">

@@ -1,6 +1,6 @@
 @extends('templates/admin/default')
 @section('title')
-    Editar Slide {{ $this->uri->segment(4) }}
+    Editar Slide 
 @endsection
 @section('css')
     <link href="<?=base_url('assets/common/js/fancybox/dist/jquery.fancybox.css')?>" type="text/css" rel="stylesheet">
@@ -50,7 +50,8 @@
                 iframe: {
                     css: {
                         height: '500px'
-                    }
+                    },
+                    scrolling : 'yes'
                 }
             });
 

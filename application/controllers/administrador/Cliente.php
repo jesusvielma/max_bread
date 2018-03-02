@@ -78,13 +78,13 @@ class Cliente extends CI_Controller {
 					'empresa' => $data['nombre']
 				],
 				'contenido' => (object)[
-					'cuerpo' => 'Usted ha recibido este correo porque el administrador de sitio <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> ha ingresado sus datos en el mismo. <br /> Se ha creado un usuario con su correo electrónico para acceder al sitio visite la página <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> y presione el link entrar en la parte superior derecha.',
+					'cuerpo' => 'Usted ha recibido este correo porque el administrador del sitio <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> ha ingresado sus datos en el mismo. <br /> Se ha creado un usuario con su correo electrónico para acceder al sitio visite la página <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> o copie el link '.site_url().' directamente en su barra de navegación y presione el link entrar en la parte superior derecha.',
 					'alertas' => [
 						'clave' => 'Una vez que ingresas al sitio recuerda cambiar tu clave por una mas segura.',
-						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comuniquese con el administrador del sitio.'
+						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador del sitio.'
 					]
 				],
-				'asunto' => 'Bienvenido al sitio de Maxbread'
+				'asunto' => 'Bienvenido al sitio de Maxbread, '. $data['tipo'] == 'natural' ? $data['nombre'] : $data['responsable']
 			];
 
 			$this->correo_ingreso($correo);
@@ -127,19 +127,6 @@ class Cliente extends CI_Controller {
 	public function correo_ingreso($_data)
 	{
 		$this->load->library('email');
-
-		/* $config = array(
-			'protocol' => 'smtp',
-			'smtp_host' => 'phx.hn.cl',
-			'smtp_port' => 26,
-			'smtp_user' => '_mainaccount@max-bread.cl',
-			'smtp_pass' => 'concha.5283',
-			'crlf' => "\r\n",
-			'newline' => "\r\n",
-			'send_multipart' => false,
-		);
-
-		$this->email->initialize($config); */
 
 		$this->email->from('maxbread@max-bread.cl', 'Max Bread');
 		$this->email->to($_data['correo']);

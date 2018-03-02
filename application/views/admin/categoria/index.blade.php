@@ -26,10 +26,10 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2>Categorias</h2>
+            <h2>Categorías</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <strong>Categorias</strong>
+                    <strong>Categorías</strong>
                 </li>
             </ol>
         </div>
@@ -46,7 +46,7 @@
                 <div class="col-lg-6 col-lg-offset-3">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Categorias </h5>
+                            <h5>Categorías </h5>
                         </div>
                         <div class="ibox-content">
                             <div class="table-responsive">
@@ -81,7 +81,7 @@
             <div class="row">
                 <div class="col-lg-6 col-lg-offset-3">
                     <div class="alert alert-info">
-                        <h3>No hay categorias registradas</h3>
+                        <h3>No hay categorías registradas</h3>
                         <p></p>
                     </div>
                 </div>

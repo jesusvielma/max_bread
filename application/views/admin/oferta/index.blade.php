@@ -49,10 +49,10 @@
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Precio por menor</th>
-                                        <th>Dispnibilidad</th>
+                                        <th>Disponibilidad</th>
                                         <th data-hide="all">Precio por mayor</th>
                                         <th data-hide="all">Cantidad Por mayor</th>
-                                        <th data-hide="all">Cartegoria</th>
+                                        <th data-hide="all">Categoría</th>
                                         <th data-hide="all">Descripción</th>
                                         <th>Acciones</th>
                                     </tr>

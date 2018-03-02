@@ -102,7 +102,6 @@
                 <div class="col-lg-6 col-lg-offset-3">
                     <div class="alert alert-info">
                         <h3>No hay información de pedidos</h3>
-                        <p>No se encuentran datos o información de clientes por favor utilice el boton Nuevo Cliente para ingresar uno nuevo.</p>
                     </div>
                 </div>
             </div>

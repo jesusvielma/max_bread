@@ -31,7 +31,7 @@
                                 <div id="olvidoCorreo">
                                     {{ form_open('',['id'=>'formOlvido']) }}
                                         <h5>Empecemos con la recuperación de su clave</h5>
-                                        <a href="#" class="divLogin"><i class="ti-arrow-left"></i>Inicar sesión</a>
+                                        <a href="#" class="divLogin"><i class="ti-arrow-left"></i>Iniciar sesión</a>
                                         <div class="form-group">
                                             <input type="text" name="correo" value="" class="form-control" placeholder="Correo electrónico">
                                         </div>
@@ -44,7 +44,7 @@
                                     {{ form_open('',['id'=>'formOlvidoClave']) }}
                                         <h5>Adelante todo esta listo para cambiar su clave</h5>
                                         <ul id="countdownClave" class="countdown-counter wow fadeInUp"></ul>
-                                        <a href="#" class="divLogin"><i class="ti-arrow-left"></i>Inicar sesión</a>
+                                        <a href="#" class="divLogin"><i class="ti-arrow-left"></i>Iniciar sesión</a>
                                         <div class="form-group">
                                             <input type="text" name="token" value="" class="form-control" placeholder="Ingrese el Token ">
                                         </div>
@@ -52,7 +52,7 @@
                                             <input type="password" name="claveOlvido" value="" class="form-control" placeholder="Nueva clave">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" name="claveOlvidoRepetir" value="" class="form-control" placeholder="Repita su ueva clave">
+                                            <input type="password" name="claveOlvidoRepetir" value="" class="form-control" placeholder="Repita su nueva clave">
                                         </div>
                                         <div class="form-group">
                                             <button type="button" id="cambioOlvido" class="btn btn-primary">Cambiar</button>
@@ -62,7 +62,7 @@
                             </div>
                             <div class="registro">
                                 <h5>Registro</h5>
-                                <a href="#" class="divLogin"><i class="ti-arrow-left"></i>Inicar sesión</a>
+                                <a href="#" class="divLogin"><i class="ti-arrow-left"></i>Iniciar sesión</a>
                                 {{ form_open('',['id'=>'formRegistro']) }}
                                     <div class="form-group">
                                         <label>¿Eres una empresa o una persona?</label>
@@ -190,7 +190,7 @@
 				$.post('{{ site_url('cliente/guardar') }}',$('#formRegistro').serialize(), function (data) {
 					if (data.error) {
 						swal({
-		                    title: "Los datos paracen tener errores",
+		                    title: "Los datos parecen tener errores",
 		                    text:  data.error,
 		                    type: "error",
 		                    confirmButtonText: "Revisar",
@@ -202,7 +202,7 @@
 					}else{
 						swal({
 		                    title: "Felicidades ya te has registrado.",
-		                    text:  'Ya estas registrado en nuestra página, te hemos enviado un correo con una clave que podras usar si no puedes completar el siguiente paso. Si deseas continuar haz click en Continuar de lo contrario haz click en Cancelar.',
+		                    text:  'Ya estas registrado en nuestra página, te hemos enviado un correo con una clave que podrás usar si no puedes completar el siguiente paso. Si deseas continuar haz click en Continuar de lo contrario haz click en Cancelar.',
 		                    type: "success",
 							showCancelButton: true,
 		                    confirmButtonText: "Continuar",
@@ -238,7 +238,7 @@
 				else {
 					swal({
 		                title: "¡Perfecto!",
-		                text: "Ahora vamos a realizar el cambio de clave y luego recargaremos la pagina cy ya habras iniciado sesión.",
+		                text: "Ahora vamos a realizar el cambio de clave y luego recargaremos la pagina y ya habrás iniciado sesión.",
 		                type: "info",
 						timer: 5000
 		            });

@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://'.$_SERVER['SERVER_NAME'].'/max_bread/';
+$http = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$config['base_url'] = $http.$_SERVER['SERVER_NAME'].'/max_bread/';
 
 /*
 |--------------------------------------------------------------------------
@@ -453,7 +454,7 @@ $config['csrf_token_name'] = 'csrf_maxbread';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array('administrador/producto/crearDir');
+$config['csrf_exclude_uris'] = array('administrador/producto/crearDir','administrador/config/editar_requerido');
 
 /*
 |--------------------------------------------------------------------------
