@@ -84,7 +84,7 @@
                                         @endphp
                                             <li>{{ $section[1] }} 
                                             <span class="pull-right tooltip-demo" >
-                                                <a class="btn btn-primary" title="Editar" data-toggle="tooltip" data-placement="top"  href="{{ site_url('administrador/config/editar_item/'.$conf->id_config) }}" ><i class="fa fa-pencil"></i></a>
+                                                <a class="" title="Editar" data-toggle="tooltip" data-placement="top"  href="{{ site_url('administrador/config/editar_section/'.$conf->id_config) }}" ><i class="fa fa-pencil"></i></a>
                                             </span></li>
                                     @endforeach
                                 </ul>

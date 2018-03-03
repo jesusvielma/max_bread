@@ -235,7 +235,10 @@
         </section>
     @endif
     @if ($abouts->count() > 0 )    
-        <section class="about white-color" id="nosotros">
+    @php
+        $section_sobre = json_decode(get_section('sobre_nosotros'));
+    @endphp
+        <section class="about white-color" id="nosotros" {{ $section_sobre->estado != 'porconfigurar' ? 'style="background: url('.base_url('assets/common/uploads/'.$section_sobre->backgroundImage).') no-repeat scroll center center/cover '.$section_sobre->backgroundColor.'; color:'.$section_sobre->textColor.'"' : ''}}>
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -309,12 +312,15 @@
         </div>
     </section>
     @endif
+    @php
+        $section_testi = json_decode(get_section('testimonios'));
+    @endphp
     @if ($testimonios->count()>0)
-        <section class="testimonials" id="comentarios">
+        <section class="testimonials" id="comentarios" {{ $section_testi->estado != 'porconfigurar'  ? 'style="background: url('.base_url('assets/common/uploads/'.$section_testi->backgroundImage).') no-repeat scroll center center/cover '.$section_testi->backgroundColor.'; color:'.$section_testi->textColor.'"' : ''}}>
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="section-heading white-color">Comentarios</h3>
+                        <h3 class="section-heading ">Comentarios</h3>
                     </div>
                     <div class="testimonials-slider text-center col-md-12">
 

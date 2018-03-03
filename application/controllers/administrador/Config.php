@@ -42,22 +42,33 @@ class Config extends CI_Controller {
 
 	}
 
-	public function editar($cat)
+	public function editar_section($sec)
 	{
-		$data['cat'] = Categoria_model::find($cat);
-		$this->slice->view('admin.categoria.editar',$data);
+		$sec = Config_model::find($sec);
+
+		$sec_val = json_decode($sec->valor);
+
+		$data['sec_val'] = $sec_val;
+		$data['sec'] = $sec;
+		$this->slice->view('admin.config.editar_section',$data);
 	}
 
-	public function post_editar()
+	public function post_editar($config_id)
 	{
-		$config_id = $this->input->post('pk');
 	
 		$conf = Config_model::find($config_id);
 
-		$conf->nombre = $this->input->post('nombre');
+		$data = [
+			'backgroundImage' => $this->input->post('imagen'),
+			'backgroundColor' => $this->input->post('backgroundColor'),
+			'textColor' => $this->input->post('textColor'),
+			'estado' => 'configurado'
+		];
+
+		$conf->valor = json_encode($data);
 		$conf->save();
 
-		//redirect('administrador/config','refresh');
+		redirect('administrador/config','refresh');
 	}
 
 	public function editar_requerido()

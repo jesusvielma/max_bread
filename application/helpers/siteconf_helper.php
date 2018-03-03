@@ -51,8 +51,8 @@ if (!function_exists('get_site_config_val')) {
     }
 }
 
-if (!function_exists('get_site_config_section')) {
-    function get_site_config_section($val)
+if (!function_exists('get_section')) {
+    function get_section($val)
     {
         $CI = &get_instance();
         $CI->load->database();
