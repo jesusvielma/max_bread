@@ -83,5 +83,23 @@ class Config extends CI_Controller {
 		//redirect('administrador/config','refresh');
 	}
 
+	public function editar_correo($config_id)
+	{
 
+		$conf = Config_model::find($config_id);
+
+		$data = [
+			'correo' => $this->input->post('correo'),
+			'protocol' => $this->input->post('protocol'),
+			'smtp_user' => $this->input->post('stmp_user') != '' ? $this->input->post('stmp_user') : 0,
+			'smtp_pass' => $this->input->post('stmp_pass') != '' ? $this->input->post('stmp_pass') : 0,
+			'smtp_port' => $this->input->post('stmp_port') != '' ? $this->input->post('stmp_port') : 0,
+			'smtp_host' => $this->input->post('stmp_host') != '' ? $this->input->post('stmp_host') : 0
+		];
+
+		$conf->valor = json_encode($data);
+		$conf->save();
+
+		redirect('administrador/config', 'refresh');
+	}
 }

@@ -5,6 +5,7 @@
 @section('css')
     <link href="<?=base_url('assets/backend/css/plugins/dataTables/datatables.min.css')?>" rel="stylesheet">
     <link href="<?=base_url('assets/backend/js/plugins/x-editable/css/bootstrap-editable.css')?>" rel="stylesheet">
+    <link href="{{ base_url('assets/backend/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
 @endsection
 @section('js')
     <script src="{{ base_url('assets/backend/js/plugins/dataTables/datatables.min.js') }}"></script>
@@ -24,6 +25,16 @@
             });
             $.fn.editable.defaults.mode = 'inline';
             $('.xeditable').editable();
+            $('input[name=protocol]').change(function (){  
+                console.log($(this).val())
+                if($(this).val() == 'smtp'){
+                    $('#smtpForm input').prop('disabled',false);
+                    $('#smtpForm').show();
+                }else{
+                    $('#smtpForm input').prop('disabled',true);
+                    $('#smtpForm').hide();
+                }
+            });
         });
 
     </script>
@@ -35,7 +46,7 @@
         </div>
     </div>
 
-    <div class="wrapper wrapper-content animated fadeInRightBig">
+    <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-6">
                 <div class="ibox float-e-margins">
@@ -57,8 +68,68 @@
                                         @if ($req->required == 1)
                                             <tr>
                                                 <td >{{ ucfirst(str_replace('_',' ',$req->nombre)) }}</td>
-                                                <td> 
-                                                    <a class="xeditable" href="#" id="{{ $req->nombre }}" data-type="{{ $req->nombre == 'descripcion' ? 'textarea' : 'text' }}" data-pk="{{ $req->id_config }}" data-url="{{ base_url('administrador/config/editar_requerido') }}" data-title="{{ ucfirst(str_replace('_',' ',$req->nombre)) }}">{{ $req->valor }}</a>
+                                                <td>
+                                                    @if ($req->nombre != 'correo')
+                                                        <a class="xeditable" href="#" id="{{ $req->nombre }}" data-type="{{ $req->nombre == 'descripcion' ? 'textarea' : 'text' }}" data-pk="{{ $req->id_config }}" data-url="{{ base_url('administrador/config/editar_requerido') }}" data-title="{{ ucfirst(str_replace('_',' ',$req->nombre)) }}">{{ $req->valor }}</a>
+                                                    @elseif($req->nombre == 'correo')
+                                                        @php
+                                                            $correo = json_decode($req->valor);
+                                                        @endphp                              
+                                                        <a style="border-bottom: dashed 1px #0088cc" href="#" id="correoConf" data-toggle="modal" data-target="#correoModal" >El correo se enviá usando {{ $correo->protocol == 'smtp' ? ' el servidor de correos externo' : ' el servidor de correos interno'}}</a>
+                                                        
+                                                        <div class="modal inmodal fade" id="correoModal" tabindex="-1" role="dialog"  aria-hidden="true">
+                                                            <div class="modal-dialog modal-sm">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                        <h4 class="modal-title">Configuración de envío de correos</h4>
+                                                                    </div>
+                                                                    {{ form_open('administrador/config/editar_correo/'.$req->id_config) }}
+                                                                    <div class="modal-body">
+                                                                        <div class="form-group">
+                                                                            <label for="correo">Correo del sitio</label>
+                                                                            <input class="form-control input-sm" type="email" name="correo" id="correo" value="{{ $correo->correo }}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>Servidor</label>
+                                                                            <br>
+                                                                            <div class="radio radio-warning">
+                                                                                <input type="radio" name="protocol" id="smtp" value="smtp" {{ $correo->protocol == 'smtp' ? 'checked' : ''}} >
+                                                                                <label for="smtp"> Servidor externo </label>
+                                                                            </div>
+                                                                            <div class="radio radio-warning">
+                                                                                <input type="radio" name="protocol" id="mail" value="mail" {{ $correo->protocol == 'mail' ? 'checked' : ''}}>
+                                                                                <label for="mail"> Servidor interno </label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div id="smtpForm" style="display:{{ $correo->protocol == 'stmp' ? 'block' : 'none' }}">
+                                                                            <div class="form-group">
+                                                                                <label for="smtp_user">Usuario STMP</label>
+                                                                                <input class="form-control input-sm" type="text" name="smtp_user" value="{{ $correo->protocol == 'smtp' ? $correo->smtp_user : ''}}" {{ $correo->protocol != 'smtp' ? 'disabled' : ''}} >
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="smtp_pass">Clave STMP</label>
+                                                                                <input class="form-control input-sm" type="text" name="smtp_pass" value="{{ $correo->protocol == 'smtp' ? $correo->smtp_pass : ''}}" {{ $correo->protocol != 'smtp' ? 'disabled' : ''}} >
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="smtp_port">Puerto STMP</label>
+                                                                                <input class="form-control input-sm" type="text" name="smtp_port" value="{{ $correo->protocol == 'smtp' ? $correo->smtp_port : ''}}" {{ $correo->protocol != 'smtp' ? 'disabled' : ''}} >
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="smtp_host">Servidor STMP</label>
+                                                                                <input class="form-control input-sm" type="text" name="smtp_host" value="{{ $correo->protocol == 'smtp' ? $correo->smtp_host : ''}}" {{ $correo->protocol != 'smtp' ? 'disabled' : ''}} >
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                                                                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                                                    </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif 
                                                 </td>
                                             </tr>
                                         @endif

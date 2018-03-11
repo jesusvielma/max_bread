@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $conf = json_decode(get_site_config_val('correo'));
-if ($conf->smtp_host != '') {
+if ($conf->protocol == 'smtp') {
     $config = array(
         'protocol' => 'smtp',
         'smtp_host' => $conf->smtp_host,
@@ -12,7 +12,7 @@ if ($conf->smtp_host != '') {
         'newline' => "\r\n",
         'send_multipart' => false,
         'smtp_crypto' => 'tls',
-        'useragent' => site_name().' - Email'
+        'useragent' => site_name().' | Email'
     );
 }else{
     $config = array(
@@ -20,6 +20,6 @@ if ($conf->smtp_host != '') {
         'crlf' => "\r\n",
         'newline' => "\r\n",
         'send_multipart' => false,
-        'useragent' => site_name() . ' - Email'
+        'useragent' => site_name() . ' | Email'
     );
 }
