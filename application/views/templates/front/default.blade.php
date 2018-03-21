@@ -51,7 +51,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					@if ($this->uri->uri_string() == '')
+					@if ($this->uri->uri_string() == '' )
 						@if ($slider->count() > 0)	
 						<li><a href="#inicio">inicio</a></li>
 						@else
@@ -74,6 +74,8 @@
 						@else
 							<li><a href="" data-target="#entrar" data-toggle="modal">Entrar</a></li>
 						@endif
+					@elseif($this->uri->uri_string() == 'recuperar' || $this->uri->segment(1) == 'recuperar' )
+						<li><a href="{{ site_url() }}">inicio</a></li>
 					@else
 						<li><a href="{{ site_url() }}">inicio</a></li>
 						<li><a href="#perfil">Perfil</a></li>
@@ -94,7 +96,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 col-md-push-4 text-center"> 
-						<img class="footer-logo" src="assets/frontend/img/max_bread2.png" alt="footer-logo">
+						<img class="footer-logo" src="{{ base_url('assets/frontend/img/max_bread2.png')}}" alt="footer-logo">
 						@if (isset($redes) && $redes->count() > 0 )	
 							<div class="social">
 								<ul>

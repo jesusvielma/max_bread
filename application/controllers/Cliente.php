@@ -5,28 +5,11 @@ class Cliente extends CI_Controller {
 	public function __construct()
    	{
     	parent::__construct();
-   	}
+   	}	
 
 	/**
-	 * Index Page for this controller.
-	 *
-	 */
-	public function index()
-	{
-		$data['clientes'] = Clientes::all();
-		$this->slice->view('admin.cliente.index',$data);
-	}
-
-	/**
-	 * Muestra el formulario para ingresar nuevos clientes
-	 */
-	public function crear()
-	{
-		$this->slice->view('admin/cliente/crear');
-	}
-
-	/**
-	 * Almacena los datos en la base de datos
+	 * Store client info in database and create and array with 
+	 * all de information to display on welcome email.
 	 */
 	public function guardar()
 	{
@@ -75,6 +58,9 @@ class Cliente extends CI_Controller {
 				'responsable' => $this->input->post('responsable'),
 				'id_usuario' => $usuario->id_usuario
 			];
+			$nombreCorreo = $data['tipo'] == 'natural' ? $data['nombre'] : $data['responsable'];
+			$correo = json_decode(get_site_config_val('correo'));
+			$correoAdmin = $correo->correo;
 
 			$correo = [
 				'correo' => $usuario->correo,
@@ -82,17 +68,17 @@ class Cliente extends CI_Controller {
 				'url'	 => site_url(),
 				'destinatario' => (object)[
 					'tipo' => $data['tipo'],
-					'nombre' => $data['tipo']== 'natural' ? $data['nombre'] : $data['responsable'] ,
+					'nombre' => $nombreCorreo ,
 					'empresa' => $data['nombre']
 				],
 				'contenido' => (object)[
-					'cuerpo' => 'Usted ha recibido este correo porque se ha registrado en el sitio <a style="color:#FF9800;" href="'.site_url().'">max-bread.cl</a>. <br /> Se ha creado un usuario con su correo electrónico para acceder al sitio visite la página <a style="color:#FF9800;" href="'.site_url().'">max-bread.cl</a> y presione el link entrar en la parte superior derecha.',
+					'cuerpo' => 'Felicidades '.$nombreCorreo.' te haz registrado correctamente en el sitio <a style="color:#FF9800;" href="'.site_url().'">max-bread.cl</a>. <br /> Recuerda que para acceder al mismo deberás ingresar el tu correo electrónico y la clave que haz cread, entra <a style="color:#FF9800;" href="'.site_url(). '">max-bread.cl</a> y presiona el link <b>Entrar</b> en la parte superior derecha de la pantalla .',
 					'alertas' => [
 						'clave'=>'Una vez que ingresas al sitio recuerda cambiar tu clave por una mas segura.',
-						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador del sitio.'
+						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador <a href="mailto:' . $correoAdmin . '">' . $correoAdmin . '</a>.'
 					]
 				],
-				'asunto' => $data['tipo'] == 'natural' ? $data['nombre'] : $data['responsable'].' - Registro de usuario exitoso en max-bread.cl'
+				'asunto' => $nombreCorreo.' - Registro de usuario exitoso en max-bread.cl'
 			];
 
 			$this->correo_ingreso($correo);
@@ -112,49 +98,15 @@ class Cliente extends CI_Controller {
 
 	}
 
-	public function editar($cliente)
-	{
-		$data['cliente'] = Clientes::find($cliente);
-		$this->slice->view('admin.cliente.editar',$data);
-	}
-
-	public function post_editar($cliente)
-	{
-		$cliente = Clientes::find($cliente);
-
-		$data = [
-			'rut' => $this->input->post('rut'),
-			'nombre' => $this->input->post('nombre'),
-			'tipo' => $this->input->post('tipo'),
-			'direccion' => $this->input->post('direccion'),
-			'telefono' => $this->input->post('telefono'),
-			'correo' => $this->input->post('correo'),
-			'nombre_fantasia' => $this->input->post('nombre_fantasia'),
-			'responsable' => $this->input->post('responsable')
-		];
-
-		$cliente->fill($data);
-		$cliente->save();
-
-		redirect('administrador/cliente','refresh');
-	}
-
+	/**
+	 * Loads Codeigniter Email Library and compose 
+	 * email to new client registration.
+	 * 
+	 * @param $_data array Data to display in email
+	 */
 	public function correo_ingreso($_data)
 	{
 		$this->load->library('email');
-
-		/* $config = array(
-			'protocol' => 'smtp',
-			'smtp_host' => 'phx.hn.cl',
-			'smtp_port' => 26,
-			'smtp_user' => '_mainaccount@max-bread.cl',
-			'smtp_pass' => 'concha.5283',
-			'crlf' => "\r\n",
-			'newline' => "\r\n",
-			'send_multipart' => false,
-		);
-	
-		$this->email->initialize($config); */
 	
 		$this->email->from('maxbread@max-bread.cl', 'Max Bread');
 		$this->email->to($_data['correo']);
@@ -167,11 +119,19 @@ class Cliente extends CI_Controller {
 		$this->email->send();
 	}
 
+	/**
+	 * Make format to the client RUT.
+	 */
 	private function formatoRUTbd($rut)
 	{
 		return strtoupper(str_replace(['.','-'],'',$rut));
 	}
 
+	/**
+	 * Validate if client RUT is in DB 
+	 * 
+	 * @return bool 
+	 */
 	public function check_rut($rut)
 	{
 		$rut = $this->formatoRUTbd($rut);
@@ -185,6 +145,9 @@ class Cliente extends CI_Controller {
 		}
 	}
 
+	/**
+	 * Change de user client password and log in user
+	 */
 	public function cambiar_clave()
 	{
 		$correo = $this->input->post('correoCambio');

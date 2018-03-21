@@ -10,7 +10,7 @@ class Inicio extends CI_Controller {
    }
 
 	/**
-	 * Index Page for this controller.
+	 * Shows index page for backend
 	 *
 	 */
 	public function index()
@@ -20,6 +20,9 @@ class Inicio extends CI_Controller {
 		$this->slice->view('admin.empty',$data);
 	}	
 
+	/**
+	 * Get all the notification on backend
+	 */
 	public function obtener_notificaciones(){
 
 		$notifis = Notificacion_model::orderBy('fecha','DESC')->get();
@@ -28,6 +31,9 @@ class Inicio extends CI_Controller {
 					 ->set_output(json_encode(['notifs'=>$notifis]));
 	}
 
+	/**
+	 * Change the state to a notification
+	 */
 	public function marcar(){
 
 		$notifs = Notificacion_model::where('estado',0)->get();
@@ -40,6 +46,5 @@ class Inicio extends CI_Controller {
 		$this->output->set_content_type('application/json')
 			->set_output(json_encode(['success' => 1]));	
 	}
-
-
+	
 }

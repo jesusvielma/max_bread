@@ -10,6 +10,9 @@ class Pedido extends CI_Controller {
         setlocale(LC_ALL, 'es_ES.UTF-8');
     }
 
+    /**
+     * Store user cart 
+     */
     public function ingresar() {
         $items = $this->input->post('itemId');
         $cantItems = $this->input->post('itemCant');
@@ -63,6 +66,8 @@ class Pedido extends CI_Controller {
 
     public function correo_pedido($pedido)
     {
+        $correo = json_decode(get_site_config_val('correo'));
+        $correoAdmin = $correo->correo;
 
         $pedido = Pedido_model::find($pedido);
 		$correo = [
@@ -71,25 +76,12 @@ class Pedido extends CI_Controller {
 			'url'	 => site_url(),
 			'contenido' => (object)[
 				'alertas' => [
-					'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador del sitio.'
+					'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador <a href="mailto:' . $correoAdmin . '">' . $correoAdmin . '</a>.'
 				]
 			],
 			'asunto' => $pedido->cliente->nombre.' hemos recibido tu pedido'
 		];
         $this->load->library('email');
-
-        /* $config = array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'phx.hn.cl',
-            'smtp_port' => 26,
-            'smtp_user' => '_mainaccount@max-bread.cl',
-            'smtp_pass' => 'concha.5283',
-            'crlf' => "\r\n",
-            'newline' => "\r\n",
-            'send_multipart' => false,
-        );
-
-        $this->email->initialize($config); */
 
         $this->email->from('ventas@max-bread.cl', 'Ventas Max Bread');
         $this->email->to($correo['correo']);
@@ -102,4 +94,3 @@ class Pedido extends CI_Controller {
         $this->email->send();
     }
 }
-?>

@@ -142,7 +142,7 @@
     <script src="{{ base_url('assets/backend/js/plugins/sweetalert/sweetalert.min.js') }}"></script>
 	<script>
 		$(document).ready(function () {
-			$('#about').find('ul').addClass('styled-list');
+			$('#nosotros').find('ul').addClass('styled-list');
 			$('#registro').click(function () {
 				$('.login').hide('fadeOut');
 				$('.registro').show('fadeIn');
@@ -268,62 +268,18 @@
                         var csrfName = data.csrf.name;
                         var csrfHash = data.csrf.hash;
                         $('input[name='+csrfName+']').val(csrfHash);
-                        // COUNTDOWN
-                        $('#countdownClave').countdown(data.validez, function(event) {
-                          var $this = $(this).html(event.strftime(''
-                        //+ '<li><span>%w</span> weeks</li> '
-                            // + '<li><span>%D</span> dias</li> '
-                            // + '<li><span>%H</span> horas</li> '
-                            + '<li><span>%M</span> minutos</li> '
-                            + '<li><span>%S</span> segundos</li>'));
+                        swal({
+                            title: "Se ha enviado un correo",
+                            text:  'Hemos enviado al correo indicado la información para recuperación de la clave revisa tu correo y continua con la operación.',
+                            type: "success",
+                            confirmButtonText: "Ok",
+                        }, function (isConfirm){
+                            if(isConfirm){
+                                location.reload();
+                            }
                         });
-                        $('#olvidoCorreo').hide('fadeOut');
-                        $('#olvidoClave').show('fadeIn');
-
                     }
                 });
-            });
-
-            $('button#cambioOlvido').click(function () {
-                var clave = $('input[name=claveOlvido]').val();
-				var confClave = $('input[name=claveOlvidoRepetir]').val();
-				if(clave != confClave){
-					swal({
-						title: "Las claves no coinciden",
-						text:  'Las claves que has ingresado no coinciden verificalas',
-						type: "error",
-						confirmButtonText: "Verificar",
-					});
-				}
-				else {
-					swal({
-		                title: "¡Perfecto!",
-		                text: "Ahora vamos a realizar el cambio de clave.",
-		                type: "info",
-						timer: 5000
-		            });
-                    $.post('{{ site_url('recuperar/recuperar') }}',$('#formOlvidoClave').serialize(), function (data) {
-                        if(data.error){
-                            swal({
-                                title: "Parece que los datos no son validos",
-                                text:  '<ul class="styled-list">'+data.error+'</ul>',
-                                type: "error",
-                                confirmButtonText: "Revisar",
-                                html: true
-                            });
-                            var csrfName = data.csrf.name;
-                            var csrfHash = data.csrf.hash;
-                            $('input[name='+csrfName+']').val(csrfHash);
-                        }else{
-                            var csrfName = data.csrf.name;
-                            var csrfHash = data.csrf.hash;
-                            $('input[name='+csrfName+']').val(csrfHash);
-                            $('#olvidoClave').hide('fadeOut');
-                            $('.olvido').hide('fadeOut');
-                            $('.login').show('fadeIn');
-                        }
-                    });
-                }
             });
 
 			$('button#entrar').click(function () {

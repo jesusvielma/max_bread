@@ -53,7 +53,6 @@
                     <div class="ibox-title">
                         <h5>Configuraciones </h5>
                     </div>
-                    
                     <div class="ibox-content">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover dataTables-example">
@@ -102,21 +101,21 @@
                                                                                 <label for="mail"> Servidor interno </label>
                                                                             </div>
                                                                         </div>
-                                                                        <div id="smtpForm" style="display:{{ $correo->protocol == 'stmp' ? 'block' : 'none' }}">
+                                                                        <div id="smtpForm" style="display:{{ $correo->protocol == 'smtp' ? 'block' : 'none' }}">
                                                                             <div class="form-group">
-                                                                                <label for="smtp_user">Usuario STMP</label>
+                                                                                <label for="smtp_user">Usuario SMTP</label>
                                                                                 <input class="form-control input-sm" type="text" name="smtp_user" value="{{ $correo->protocol == 'smtp' ? $correo->smtp_user : ''}}" {{ $correo->protocol != 'smtp' ? 'disabled' : ''}} >
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label for="smtp_pass">Clave STMP</label>
+                                                                                <label for="smtp_pass">Clave SMTP</label>
                                                                                 <input class="form-control input-sm" type="text" name="smtp_pass" value="{{ $correo->protocol == 'smtp' ? $correo->smtp_pass : ''}}" {{ $correo->protocol != 'smtp' ? 'disabled' : ''}} >
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label for="smtp_port">Puerto STMP</label>
+                                                                                <label for="smtp_port">Puerto SMTP</label>
                                                                                 <input class="form-control input-sm" type="text" name="smtp_port" value="{{ $correo->protocol == 'smtp' ? $correo->smtp_port : ''}}" {{ $correo->protocol != 'smtp' ? 'disabled' : ''}} >
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label for="smtp_host">Servidor STMP</label>
+                                                                                <label for="smtp_host">Servidor SMTP</label>
                                                                                 <input class="form-control input-sm" type="text" name="smtp_host" value="{{ $correo->protocol == 'smtp' ? $correo->smtp_host : ''}}" {{ $correo->protocol != 'smtp' ? 'disabled' : ''}} >
                                                                             </div>
                                                                         </div>

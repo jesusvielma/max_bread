@@ -19,7 +19,7 @@ class Cliente extends CI_Controller {
 	}
 
 	/**
-	 * Muestra el formulario para ingresar nuevos clientes
+	 * Shows form to create new client from backend
 	 */
 	public function crear()
 	{
@@ -27,7 +27,8 @@ class Cliente extends CI_Controller {
 	}
 
 	/**
-	 * Almacena los datos en la base de datos
+	 * Store data in DB and create an array with data to display in email 
+	 * registration
 	 */
 	public function guardar()
 	{
@@ -67,24 +68,26 @@ class Cliente extends CI_Controller {
 				'responsable' => $this->input->post('responsable'),
 				'id_usuario' => $usuario->id_usuario
 			];
-
+			$nombreCorreo = $data['tipo'] == 'natural' ? $data['nombre'] : $data['responsable'];
+			$correo = json_decode(get_site_config_val('correo'));
+			$correoAdmin = $correo->correo;
 			$correo = [
 				'correo' => $usuario->correo,
 				'clave'  => $clave,
 				'url'	 => site_url(),
 				'destinatario' => (object)[
 					'tipo' => $data['tipo'],
-					'nombre' => $data['tipo'] == 'natural' ? $data['nombre'] : $data['responsable'],
+					'nombre' => $nombreCorreo,
 					'empresa' => $data['nombre']
 				],
 				'contenido' => (object)[
-					'cuerpo' => 'Usted ha recibido este correo porque el administrador del sitio <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> ha ingresado sus datos en el mismo. <br /> Se ha creado un usuario con su correo electrónico para acceder al sitio visite la página <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> o copie el link '.site_url().' directamente en su barra de navegación y presione el link entrar en la parte superior derecha.',
+					'cuerpo' => 'Es un gusto saludarte '.$nombreCorreo.', te informamos que haz recibido este correo porque el administrador del sitio <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> ha ingresado tus datos en el mismo como parte del proceso de modernización y mejora del servicio de pedidos. <br /> Se ha creado un usuario con su correo electrónico para acceder al sitio visite la página <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> o copie el link '.site_url().' directamente en su barra de navegación y presione el link entrar en la parte superior derecha.',
 					'alertas' => [
 						'clave' => 'Una vez que ingresas al sitio recuerda cambiar tu clave por una mas segura.',
-						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador del sitio.'
+						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador <a href="mailto:'.$correoAdmin.'">'.$correoAdmin.'</a>.'
 					]
 				],
-				'asunto' => 'Bienvenido al sitio de Maxbread, '. $data['tipo'] == 'natural' ? $data['nombre'] : $data['responsable']
+				'asunto' => 'Bienvenido al sitio de Maxbread, '. $nombreCorreo
 			];
 
 			$this->correo_ingreso($correo);
@@ -97,12 +100,18 @@ class Cliente extends CI_Controller {
 
 	}
 
+	/**
+	 * Show form to edit client data
+	 */
 	public function editar($cliente)
 	{
 		$data['cliente'] = Clientes::find($cliente);
 		$this->slice->view('admin.cliente.editar',$data);
 	}
 
+	/**
+	 * Update client data
+	 */
 	public function post_editar($cliente)
 	{
 		$cliente = Clientes::find($cliente);
@@ -124,6 +133,10 @@ class Cliente extends CI_Controller {
 		redirect('administrador/cliente','refresh');
 	}
 
+	/**
+	 * Loads Codeigniter Email Library to send
+	 * email registration to client
+	 */
 	public function correo_ingreso($_data)
 	{
 		$this->load->library('email');
@@ -139,11 +152,19 @@ class Cliente extends CI_Controller {
 		$this->email->send();
 	}
 
+	/**
+	 * Make format to the client RUT.
+	 */
 	private function formatoRUTbd($rut)
 	{
 		return strtoupper(str_replace(['.','-'],'',$rut));
 	}
 
+	/**
+	 * Validate if client RUT is in DB 
+	 * 
+	 * @return bool 
+	 */
 	public function check_rut($rut)
 	{
 		$rut = $this->formatoRUTbd($rut);

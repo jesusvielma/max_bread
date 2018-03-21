@@ -9,7 +9,7 @@ class Perfil extends CI_Controller {
    	}
 
 	/**
-	 * Index Page for this controller.
+	 * Shows form to update current user backend 
 	 *
 	 */
 	public function index()
@@ -19,7 +19,7 @@ class Perfil extends CI_Controller {
 	}
 
 	/**
-	 * Almacena los datos en la base de datos
+	 * Update user information
 	 */
 	public function guardar()
 	{
@@ -75,7 +75,7 @@ class Perfil extends CI_Controller {
 		redirect('administrador/perfil','refresh');
 	}	
 
-	public function reseteo($usuario){
+	/* public function reseteo($usuario){
 
 		$usuario = Usuario::find($usuario);
 
@@ -93,7 +93,7 @@ class Perfil extends CI_Controller {
 
 		$usuario->save();
 
-		$this->session->set_flashdata('clave',['msg'=>'Se ha cambiado la clave del usuario '.$usuario->cliente->nombre.' y se le ha enviado al correo eléctronico.']);
+		$this->session->set_flashdata('clave',['msg'=>'Se ha cambiado la clave del usuario '.$usuario->cliente->nombre.' y se le ha enviado al correo electrónico.']);
 
 		$correo = [
 			'correo' => $usuario->correo,
@@ -111,7 +111,7 @@ class Perfil extends CI_Controller {
 					'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador del sitio.'
 				]
 			],
-			'asunto' => $usuario->cliente->nombre.' se ha reestablecido su clave.'
+			'asunto' => $usuario->cliente->nombre.' se ha restablecido su clave.'
 		];
 
 		$this->correo_ingreso($correo);
@@ -132,6 +132,6 @@ class Perfil extends CI_Controller {
 		$this->email->set_mailtype('html');
 
 		$this->email->send();
-	}
+	} */
 
 }

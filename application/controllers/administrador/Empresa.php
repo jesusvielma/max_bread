@@ -9,7 +9,8 @@ class Empresa extends CI_Controller {
    	}
 
 	/**
-	 * Index Page for this controller.
+	 * Shows all information about the page, like about us, phones, 
+	 * social networks and contact emails
 	 *
 	 */
 	public function index()
@@ -23,7 +24,7 @@ class Empresa extends CI_Controller {
 	}
 
 	/**
-	 * Muestra el formulario para ingresar nuevos clientes
+	 * Shows form to create new page info
 	 */
 	public function nuevo()
 	{
@@ -31,7 +32,7 @@ class Empresa extends CI_Controller {
 	}
 
 	/**
-	 * Almacena los datos en la base de datos
+	 * Store data
 	 */
 	public function guardar()
 	{
@@ -61,12 +62,18 @@ class Empresa extends CI_Controller {
 		redirect('administrador/empresa','refresh');
 	}
 
+	/**
+	 * Shows form to update page info
+	 */
 	public function editar_item($item)
 	{
 		$data['empresa'] = Empresa_model::find($item);
 		$this->slice->view('admin.empresa.editar',$data);
 	}
 
+	/**
+	 * Update data
+	 */
 	public function post_editar($item)
 	{
 		$desc = $this->input->post('descripcion');
@@ -94,6 +101,11 @@ class Empresa extends CI_Controller {
 		redirect('administrador/empresa','refresh');
 	}
 
+	/**
+	 * Delete selected data
+	 * 
+	 * @param $item int Data id to be deleted
+	 */
 	public function borrar($item)
 	{
 		$item = Empresa_model::find($item);

@@ -31,11 +31,8 @@
                         <tr>
                             <td style="padding: 0 0 20px;vertical-align: top;">
                                 {{ $contenido->cuerpo }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 0 0 20px;vertical-align: top;">
-                                <img src="{{ base_url('assets/backend/email/key.png') }}" alt="user" width="16px"> {{ $token }} <br>
+                                <br><br>
+                                {{ $contenido->botonURL }}
                             </td>
                         </tr>
                         @if ($contenido->alertas)

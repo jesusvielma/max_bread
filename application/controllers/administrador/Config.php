@@ -91,10 +91,10 @@ class Config extends CI_Controller {
 		$data = [
 			'correo' => $this->input->post('correo'),
 			'protocol' => $this->input->post('protocol'),
-			'smtp_user' => $this->input->post('stmp_user') != '' ? $this->input->post('stmp_user') : 0,
-			'smtp_pass' => $this->input->post('stmp_pass') != '' ? $this->input->post('stmp_pass') : 0,
-			'smtp_port' => $this->input->post('stmp_port') != '' ? $this->input->post('stmp_port') : 0,
-			'smtp_host' => $this->input->post('stmp_host') != '' ? $this->input->post('stmp_host') : 0
+			'smtp_user' => $this->input->post('smtp_user') != '' ? $this->input->post('smtp_user') : 0,
+			'smtp_pass' => $this->input->post('smtp_pass') != '' ? $this->input->post('smtp_pass') : 0,
+			'smtp_port' => $this->input->post('smtp_port') != '' ? $this->input->post('smtp_port') : 0,
+			'smtp_host' => $this->input->post('smtp_host') != '' ? $this->input->post('smtp_host') : 0
 		];
 
 		$conf->valor = json_encode($data);

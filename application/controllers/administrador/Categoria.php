@@ -9,7 +9,7 @@ class Categoria extends CI_Controller {
    	}
 
 	/**
-	 * Index Page for this controller.
+	 * Show a table with all categories.
 	 *
 	 */
 	public function index()
@@ -19,7 +19,7 @@ class Categoria extends CI_Controller {
 	}
 
 	/**
-	 * Muestra el formulario para ingresar nuevos clientes
+	 * Shows form to create a new category
 	 */
 	public function crear()
 	{
@@ -27,7 +27,7 @@ class Categoria extends CI_Controller {
 	}
 
 	/**
-	 * Almacena los datos en la base de datos
+	 * Store category
 	 */
 	public function guardar()
 	{
@@ -41,12 +41,18 @@ class Categoria extends CI_Controller {
 
 	}
 
+	/**
+	 * Shows form to update category
+	 */
 	public function editar($cat)
 	{
 		$data['cat'] = Categoria_model::find($cat);
 		$this->slice->view('admin.categoria.editar',$data);
 	}
 
+	/**
+	 * Update category
+	 */
 	public function post_editar($cat)
 	{
 		$cat = Categoria_model::find($cat);

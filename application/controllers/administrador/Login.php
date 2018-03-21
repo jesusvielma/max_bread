@@ -60,7 +60,6 @@ class Login extends CI_Controller {
 
 	/**
 	 * Desloguar al usuario
-	 * @return [type] [description]
 	 */
     public function salir()
     {
