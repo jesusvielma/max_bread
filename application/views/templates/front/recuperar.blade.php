@@ -73,9 +73,9 @@
 
 <script>
 @if ($token != '' && $tokenInvalido == 0)
-    $('#countdownPassword').countdown('{{ $res->validez }}', function(event) {
-    var $this = $(this).html(event.strftime(''
-     //+ '<li><span>%w</span> weeks</li> '
+    $('#countdownPassword').countdown('{{ $res->validez->toW3cString() }}', function(event) {
+        var $this = $(this).html(event.strftime(''
+        //+ '<li><span>%w</span> weeks</li> '
         // + '<li><span>%D</span> dias</li> '
         // + '<li><span>%H</span> horas</li> '
         + '<li><span>%M</span> minuto%!M</li> '

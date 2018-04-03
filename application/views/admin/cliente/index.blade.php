@@ -122,7 +122,7 @@
             <h2>Clientes</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <strong>Clientes</strong>
+                    <strong>Clientes </strong>
                 </li>
             </ol>
         </div>

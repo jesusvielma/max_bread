@@ -68,3 +68,22 @@ if (!function_exists('get_section')) {
         return $return;
     }
 }
+
+if (!function_exists('get_site_email')) {
+    function get_site_email()
+    {
+        $CI = &get_instance();
+        $CI->load->database();
+
+        $sql = "SELECT valor FROM config WHERE nombre = 'correo'";
+        $query = $CI->db->query($sql);
+        $row = $query->row();
+        if (count($row) > 0) {
+            $val = json_decode($row->valor);
+            $return = $val->correo;
+        } else {
+            $return = '';
+        }
+        return $return;
+    }
+}

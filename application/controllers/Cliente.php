@@ -43,6 +43,9 @@ class Cliente extends CI_Controller {
 				$fin = microtime(true);
 			} while (($fin - $inicio) < $timeTarget);
 
+			$verifyCode = random_string('alnum', 20);
+			$usuario->codigo_verificacion = $verifyCode;
+
 			$usuario->clave = $clave2;
 
 			$usuario->save();
@@ -59,8 +62,6 @@ class Cliente extends CI_Controller {
 				'id_usuario' => $usuario->id_usuario
 			];
 			$nombreCorreo = $data['tipo'] == 'natural' ? $data['nombre'] : $data['responsable'];
-			$correo = json_decode(get_site_config_val('correo'));
-			$correoAdmin = $correo->correo;
 
 			$correo = [
 				'correo' => $usuario->correo,
@@ -72,10 +73,9 @@ class Cliente extends CI_Controller {
 					'empresa' => $data['nombre']
 				],
 				'contenido' => (object)[
-					'cuerpo' => 'Felicidades '.$nombreCorreo.' te haz registrado correctamente en el sitio <a style="color:#FF9800;" href="'.site_url().'">max-bread.cl</a>. <br /> Recuerda que para acceder al mismo deberás ingresar el tu correo electrónico y la clave que haz cread, entra <a style="color:#FF9800;" href="'.site_url(). '">max-bread.cl</a> y presiona el link <b>Entrar</b> en la parte superior derecha de la pantalla .',
+					'cuerpo' => 'Felicidades '.$nombreCorreo.' te haz registrado correctamente en el sitio <a style="color:#FF9800;" href="'.site_url().'">max-bread.cl</a>. <br /> Recuerda que para acceder al mismo deberás ingresar tu correo electrónico y la clave que haz creado, entra <a style="color:#FF9800;" href="'.site_url(). '">max-bread.cl</a> y presiona el link <b>Entrar</b> en la parte superior derecha de la pantalla .',
 					'alertas' => [
-						'clave'=>'Una vez que ingresas al sitio recuerda cambiar tu clave por una mas segura.',
-						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador <a href="mailto:' . $correoAdmin . '">' . $correoAdmin . '</a>.'
+						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador <a href="mailto:' . get_site_email() . '">' . get_site_email() . '</a>.'
 					]
 				],
 				'asunto' => $nombreCorreo.' - Registro de usuario exitoso en max-bread.cl'
@@ -108,7 +108,7 @@ class Cliente extends CI_Controller {
 	{
 		$this->load->library('email');
 	
-		$this->email->from('maxbread@max-bread.cl', 'Max Bread');
+		$this->email->from(get_site_email(), 'Max Bread');
 		$this->email->to($_data['correo']);
 	
 		$this->email->subject($_data['asunto']);
@@ -154,7 +154,17 @@ class Cliente extends CI_Controller {
 
 		$usuario = Usuario::where('correo',$correo)->first();
 
-		$usuario->clave = sha1($this->input->post('clave'));
+		$clave = $this->input->post('clave');
+		$timeTarget = 0.05; // 50 milisegundos 
+		$coste = 8;
+		do {
+			$coste++;
+			$inicio = microtime(true);
+			$clave2 = password_hash($clave, PASSWORD_BCRYPT, ["cost" => $coste]);
+			$fin = microtime(true);
+		} while (($fin - $inicio) < $timeTarget);
+
+		$usuario->clave = $clave2;
 
 		$usuario->save();
 
@@ -168,6 +178,89 @@ class Cliente extends CI_Controller {
 
 		$this->output->set_content_type('application/json')
 					 ->set_output(json_encode(['success'=>true]));
+	}
+
+	public function validar($token, $step = 1)
+	{
+		$data['tokenOrg'] = $token;
+		$token = $this->base64urldecode($token);
+
+		$token = explode('|',$token);
+		
+		$usuario = Usuario::find($token[1]);
+
+		$data['usuario'] = $usuario;
+
+		if($usuario->estado == 0){
+			$data['validado'] = 'false';
+			if($step == 1){
+				$this->slice->view('front.validar',$data);
+			}else{
+				$clave = $this->input->post('clave');
+				$timeTarget = 0.05; // 50 milisegundos 
+				$coste = 8;
+				do {
+					$coste++;
+					$inicio = microtime(true);
+					$clave2 = password_hash($clave, PASSWORD_BCRYPT, ["cost" => $coste]);
+					$fin = microtime(true);
+				} while (($fin - $inicio) < $timeTarget);
+	
+				$usuario->estado = 1;
+	
+				$imagen = $_FILES['imagen']['name'];
+				if ($imagen != '' ) {
+					$date = strftime('%A');
+					$dataF = substr($date, 0, 1);
+					$dataL = substr($date, -1, 1);
+					if (!is_dir('assets/common/uploads/profile/' . $usuario->cliente->rut)) {
+						mkdir('assets/common/uploads/profile/' . $usuario->cliente->rut, 0777);
+					}
+					$config['upload_path'] = './assets/common/uploads/profile/' . $usuario->cliente->rut . '/';
+					$config['allowed_types'] = 'jpg|png|jpeg';
+					$config['max_size'] = '1024';
+					$config['file_name'] = strtoupper($dataF) . strtoupper($dataL) . date('Y') . strtoupper(random_string('alpha', 2)) . $usuario->cliente->rut;
+	
+					$this->load->library('upload', $config);
+	
+					if (!$this->upload->do_upload('imagen')) {
+						$this->session->set_flashdata('avatar', ['errors' => $this->upload->display_errors()]);
+					} else {
+						$usuario->avatar = $this->upload->data('file_name');
+						$cambio = true;
+					}
+				}
+	
+				$usuario->clave = $clave2;
+	
+				$usuario->save();
+	
+				$session = [
+					'correo' => $usuario->correo,
+					'datetime' => \Carbon\Carbon::now(),
+					'ip' => $this->input->ip_address(),
+				];
+	
+				$this->session->set_userdata('front', $session);
+	
+				redirect('/','refresh');
+			}
+		}else{
+			$data['validado'] = 'true';
+			$this->slice->view('front.validar', $data);
+		}
+	}
+
+	/**
+	 * Decode a token in the format of base64 without 
+	 * restricted characters.
+	 * 
+	 * @param string $data 
+	 * @return string
+	 */
+	private function base64urldecode($data)
+	{
+		return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
 	}
 
 }

@@ -74,7 +74,7 @@
 						@else
 							<li><a href="" data-target="#entrar" data-toggle="modal">Entrar</a></li>
 						@endif
-					@elseif($this->uri->uri_string() == 'recuperar' || $this->uri->segment(1) == 'recuperar' )
+					@elseif($this->uri->uri_string() == 'recuperar' || $this->uri->segment(1) == 'recuperar' || $this->uri->segment(1) == 'validar' )
 						<li><a href="{{ site_url() }}">inicio</a></li>
 					@else
 						<li><a href="{{ site_url() }}">inicio</a></li>

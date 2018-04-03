@@ -54,8 +54,13 @@ class Cliente extends CI_Controller {
 			} while (($fin - $inicio) < $timeTarget);
 
 			$usuario->clave = $clave2;
+			$verifyCode = random_string('alnum', 20);
+			$usuario->codigo_verificacion = $verifyCode;
 
+			
 			$usuario->save();
+			
+			$verifyURL = $this->base64urlenconde($verifyCode . '|' . $usuario->id_usuario);
 
 			$data = [
 				'rut' => $this->formatoRUTbd($this->input->post('rut')),
@@ -69,8 +74,6 @@ class Cliente extends CI_Controller {
 				'id_usuario' => $usuario->id_usuario
 			];
 			$nombreCorreo = $data['tipo'] == 'natural' ? $data['nombre'] : $data['responsable'];
-			$correo = json_decode(get_site_config_val('correo'));
-			$correoAdmin = $correo->correo;
 			$correo = [
 				'correo' => $usuario->correo,
 				'clave'  => $clave,
@@ -81,10 +84,11 @@ class Cliente extends CI_Controller {
 					'empresa' => $data['nombre']
 				],
 				'contenido' => (object)[
-					'cuerpo' => 'Es un gusto saludarte '.$nombreCorreo.', te informamos que haz recibido este correo porque el administrador del sitio <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> ha ingresado tus datos en el mismo como parte del proceso de modernización y mejora del servicio de pedidos. <br /> Se ha creado un usuario con su correo electrónico para acceder al sitio visite la página <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> o copie el link '.site_url().' directamente en su barra de navegación y presione el link entrar en la parte superior derecha.',
+					'cuerpo' => '<p>Es un gusto saludarte '.$nombreCorreo.', te informamos que haz recibido este correo porque el administrador del sitio <a style="color:#FF9800;" href="' . site_url() . '">max-bread.cl</a> ha ingresado tus datos en el mismo como parte del proceso de modernización y mejora del servicio de pedidos.</p>
+					<p>Se ha creado un usuario con tu correo electrónico para acceder al sitio visita la página <a style="color:#FF9800;" href="' . site_url('validar/'.$verifyURL) . '">max-bread.cl</a> o copia el link '.site_url('validar/' . $verifyURL).' directamente en la barra de navegación, una vez ingreses se te pedirá que completes tu perfil. </p>
+					<p>Una vez completes este paso tu perfil estará configurado y listo para ser usado.</p>',
 					'alertas' => [
-						'clave' => 'Una vez que ingresas al sitio recuerda cambiar tu clave por una mas segura.',
-						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador <a href="mailto:'.$correoAdmin.'">'.$correoAdmin.'</a>.'
+						'noResponder' => 'Este correo es parte del sistema de notificaciones del sitio, le agradecemos no responderlo. Para cualquier duda por favor comunicate con el administrador <a href="mailto:'.get_site_email().'">'.get_site_email().'</a>.'
 					]
 				],
 				'asunto' => 'Bienvenido al sitio de Maxbread, '. $nombreCorreo
@@ -141,7 +145,7 @@ class Cliente extends CI_Controller {
 	{
 		$this->load->library('email');
 
-		$this->email->from('maxbread@max-bread.cl', 'Max Bread');
+		$this->email->from(get_site_email(), 'Max Bread');
 		$this->email->to($_data['correo']);
 
 		$this->email->subject($_data['asunto']);
@@ -176,6 +180,11 @@ class Cliente extends CI_Controller {
 		else{
 			return true;
 		}
+	}
+
+	private function base64urlenconde($data)
+	{
+		return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
 	}
 
 }

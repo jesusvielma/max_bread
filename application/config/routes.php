@@ -55,3 +55,6 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['recuperar/([a-z0-9]{40})'] = 'recuperar/inicio/$1';
 $route['recuperar'] = 'recuperar/inicio/';
+
+$route['validar/([a-zA-Z0-9]{30,35})'] = 'cliente/validar/$1';
+$route['validar/([a-zA-Z0-9]{30,35})/(:num)'] = 'cliente/validar/$1/$2';

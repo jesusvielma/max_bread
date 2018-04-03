@@ -458,10 +458,10 @@
             $('#countdown-{{ $oferta->id_oferta }}').countdown('{{ $oferta->fin }}', function(event) {
             var $this = $(this).html(event.strftime(''
             //+ '<li><span>%w</span> weeks</li> '
-                + '<li><span>%D</span> dias</li> '
-                + '<li><span>%H</span> horas</li> '
-                + '<li><span>%M</span> minutos</li> '
-                + '<li><span>%S</span> segundos</li>'));
+                + '<li><span>%D</span> dia%!D</li> '
+                + '<li><span>%H</span> hora%!H</li> '
+                + '<li><span>%M</span> minuto%!M</li> '
+                + '<li><span>%S</span> segundo%!S</li>'));
             });
         @endforeach
     </script>
