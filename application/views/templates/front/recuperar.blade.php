@@ -70,10 +70,13 @@
 </section>
 @endsection
 @section('js')
+<script src="{{ base_url('assets/backend/js/plugins/fullcalendar/moment.min.js') }}"></script>
+<script src="{{ base_url('assets/backend/js/plugins/fullcalendar/moment-timezone-with-data.js') }}"></script>
 
 <script>
 @if ($token != '' && $tokenInvalido == 0)
-    $('#countdownPassword').countdown('{{ $res->validez->toW3cString() }}', function(event) {
+var tiempo = moment.tz('{{ $res->validez->toDateTimeString() }}','America/Santiago');
+    $('#countdownPassword').countdown(tiempo.toDate(), function(event) {
         var $this = $(this).html(event.strftime(''
         //+ '<li><span>%w</span> weeks</li> '
         // + '<li><span>%D</span> dias</li> '
